@@ -1,5 +1,10 @@
 # react-code-view
 
+`react-code-view` 是一个代码展示的 react 组件。
+把用 markdown 写的文档， 能够方便的转换成可以执行的代码，同时不影响整个文档的阅读。 还可以在线编辑示例代码。
+
+在线预览: https://simonguo.github.io/react-code-view/
+
 
 ## 安装
 
@@ -67,10 +72,10 @@ import { Button } from 'rsuite';
 />
 ```
 
-- [test.md](https://raw.githubusercontent.com/simonguo/react-code-view/master/docs/test.md)
+源代码都统一写在 markdown 中，参考:
+[test.md](https://raw.githubusercontent.com/simonguo/react-code-view/master/docs/test.md)
 
-
-> 把需要运行的代码放到 ```js 里面。
+> 这里需要注意的是把需要运行的代码一定要放在 `<!--start-code-->` 与  `<!--end-code-->` 之间。
 
 
 

@@ -4,7 +4,7 @@ import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/runmode/runmode';
 
 import CodeEditor from './CodeEditor';
-import splitDocs from './splitDocs';
+import parseHTML from './parseHTML';
 
 
 const React = require('react');
@@ -16,7 +16,6 @@ const { Markdown } = require('react-markdown-reader');
 
 const propTypes = {
   showCode: PropTypes.bool,
-  renderCode: PropTypes.bool,
   source: PropTypes.string,
   dependencies: PropTypes.object
 };
@@ -24,9 +23,10 @@ const propTypes = {
 class CodeView extends React.Component {
   constructor(props) {
     super(props);
-    const { code, text } = splitDocs(props.source);
+    const { code, beforeHTML, afterHTML } = parseHTML(props.source);
     this.state = {
-      text,
+      beforeHTML,
+      afterHTML,
       code,
       showCode: props.showCode
     };
@@ -88,11 +88,11 @@ class CodeView extends React.Component {
 
     this.executeCode();
     const { className, style } = this.props;
-    const { showCode } = this.state;
+    const { showCode, beforeHTML, afterHTML, } = this.state;
 
     return (
       <div className={className} style={style}>
-        <Markdown>{this.state.text}</Markdown>
+        <Markdown>{beforeHTML}</Markdown>
         <div className="code-view-wrapper">
           {this.renderExample()}
           <div className="code-view-toolbar">
@@ -115,6 +115,7 @@ class CodeView extends React.Component {
             code={this.state.code}
           />
         </div>
+        <Markdown>{afterHTML}</Markdown>
       </div>
     );
   }

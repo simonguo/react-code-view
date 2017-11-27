@@ -1,4 +1,6 @@
 ### React Code View
+
+<!--start-code-->
 ```js
 const instance = (
   <Button >
@@ -7,5 +9,7 @@ const instance = (
 );
 ReactDOM.render(instance);
 ```
+<!--end-code-->
 
 
+> 可以试着手动修改代码

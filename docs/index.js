@@ -17,8 +17,6 @@ class App extends React.Component {
             Button
           }}
         />
-        <p>可以试着手动修改代码</p>
-
       </div>
     );
   }
