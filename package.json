@@ -1,19 +1,23 @@
 {
   "name": "react-code-view",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Code view for React",
   "main": "lib/index.js",
   "scripts": {
     "dev": "NODE_ENV=development webpack-dev-server  --inline --progress --colors --port 3100 --host 0.0.0.0 ",
     "docs": "rm -rf assets &&  NODE_ENV=production webpack ",
     "publish-docs": "node docs/gh-pages.js",
-    "build": "rm -rf lib && babel src --out-dir lib ",
+    "build": "rm -rf lib && babel src --out-dir lib && cp -R src/less ./lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/simonguo/react-code-view.git"
   },
+  "files": [
+    "CHANGELOG.md",
+    "lib"
+  ],
   "keywords": [
     "code-view",
     "editor"

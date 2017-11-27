@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'rsuite';
-import { Markdown } from 'react-markdown-reader';
 import CodeView from '../src';
 
 import './less/index.less';
+import '../src/less/index.less';
 
 class App extends React.Component {
   render() {
@@ -18,6 +18,7 @@ class App extends React.Component {
           }}
         />
         <p>可以试着手动修改代码</p>
+
       </div>
     );
   }

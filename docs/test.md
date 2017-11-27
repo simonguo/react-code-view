@@ -5,7 +5,7 @@ const instance = (
     Test
   </Button>
 );
-ReactDOM.render(instance, mountNode);
+ReactDOM.render(instance);
 ```
 
 

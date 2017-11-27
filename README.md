@@ -54,6 +54,9 @@ const markdownRenderer = require('react-markdown-reader').renderer;
 
 ```js
 
+import CodeView from 'react-code-view';
+import '~react-code-view/lib/less/index.less';
+
 import { Button } from 'rsuite';
 
 <CodeView

@@ -1,24 +1,24 @@
 
-const classNames = require('classnames');
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/jsx/jsx';
+import 'codemirror/addon/runmode/runmode';
+
+import CodeEditor from './CodeEditor';
+import splitDocs from './splitDocs';
+
+
 const React = require('react');
 const PropTypes = require('prop-types');
 const ReactDOM = require('react-dom');
 const { Button, IconFont } = require('rsuite');
 const { Markdown } = require('react-markdown-reader');
 
-import CodeEditor from './CodeEditor';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/mode/jsx/jsx';
-import 'codemirror/addon/runmode/runmode';
-
-import splitDocs from './splitDocs';
 
 const propTypes = {
   showCode: PropTypes.bool,
   renderCode: PropTypes.bool,
   source: PropTypes.string,
-  dependencies: PropTypes.object,
-  isBanner: PropTypes.bool
+  dependencies: PropTypes.object
 };
 
 class CodeView extends React.Component {
@@ -38,10 +38,8 @@ class CodeView extends React.Component {
     }
   }
   executeCode() {
-
-    const mountNode = this.refs.example;
     const originalRender = ReactDOM.render;
-    ReactDOM.render = (element) => this._initialExample = element;
+    ReactDOM.render = (element) => this.initialExample = element;
 
     try {
 
@@ -49,14 +47,10 @@ class CodeView extends React.Component {
         presets: ['stage-0', 'react', 'es2015']
       }).code;
 
-      if (this.props.renderCode) {
-        ReactDOM.render(<CodeEditor code={code} readOnly={true} />, mountNode);
-      } else {
+      /* eslint-disable */
+      eval(code);
+      /* eslint-enable */
 
-        /* eslint-disable */
-        eval(code);
-        /* eslint-enable */
-      }
     } catch (err) {
       console.log(err);
     } finally {
@@ -78,12 +72,12 @@ class CodeView extends React.Component {
 
   renderExample() {
 
-    let example = (
-      <div>{this._initialExample}</div>
+    const example = (
+      <div>{this.initialExample}</div>
     );
     return (
       <div
-        className={classNames('code-view', this.props.exampleClassName)}
+        className="code-view"
       >
         {example}
       </div>
@@ -92,29 +86,12 @@ class CodeView extends React.Component {
 
   render() {
 
-    const { isBanner } = this.props;
     this.executeCode();
-
-    if (isBanner) {
-      return (
-        <div className="container">
-          <CodeEditor
-            key="jsx"
-            lineNumbers
-            onChange={this.handleCodeChange}
-            className="doc-code"
-            theme="base16-dark"
-            code={this.state.code}
-          />
-        </div>
-      );
-    }
-
+    const { className, style } = this.props;
     const { showCode } = this.state;
 
-
     return (
-      <div>
+      <div className={className} style={style}>
         <Markdown>{this.state.text}</Markdown>
         <div className="code-view-wrapper">
           {this.renderExample()}
