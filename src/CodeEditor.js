@@ -48,7 +48,7 @@ class CodeEditor extends React.Component {
   }
 
   componentDidUpdate() {
-    const { readOnly, onChange } = this.props;
+    const { readOnly } = this.props;
     if (readOnly) {
       this.editor.setValue();
     }
