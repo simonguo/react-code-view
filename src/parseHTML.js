@@ -1,17 +1,31 @@
-import $ from 'jquery';
+import parseDom from './parseDom';
+
+function text(element) {
+  return element.textContent || element.innerText;
+}
 
 export default function parseHTML(source) {
 
-  const $dom = $(`<div>${source}</div>`);
-  const html = $dom.html();
+  if (!source) {
+    return null;
+  }
 
-  const $code = $(`<div>${html.match(/<!--start-code-->([\s\S]+)<!--end-code-->/ig)}</div>`);
+  const findCode = source.match(/<!--start-code-->([\s\S]+)<!--end-code-->/ig);
+  let code = null;
 
-  const beforeHTML = html.match(/([\s\S]+)<!--start-code-->/ig);
-  const afterHTML = html.match(/<!--end-code-->([\s\S]+)/ig);
+  if (!findCode) {
+    return {
+      beforeHTML: source
+    };
+  }
+
+  code = text(parseDom(findCode.join('')));
+
+  const beforeHTML = source.match(/([\s\S]+)<!--start-code-->/ig);
+  const afterHTML = source.match(/<!--end-code-->([\s\S]+)/ig);
 
   return {
-    code: $code.text(),
+    code,
     beforeHTML,
     afterHTML
   };

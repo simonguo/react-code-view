@@ -49,6 +49,7 @@ const common = {
   entry: path.resolve(__dirname, 'src/'),
   devServer: {
     hot: true,
+    disableHostCheck: true,
     contentBase: path.resolve(__dirname, ''),
     publicPath: '/'
   },
