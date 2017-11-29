@@ -10,8 +10,6 @@ export default function parseHTML(source) {
     return null;
   }
 
-  console.log(source);
-
   const findCode = source.match(/<!-+\ ?start-code\ ?-+>([\s\S]+)<!-+\ ?end-code\ ?-+>/ig);
   let code = null;
 
