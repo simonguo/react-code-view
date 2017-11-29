@@ -51,8 +51,6 @@ class CodeView extends React.Component {
     const originalRender = ReactDOM.render;
     ReactDOM.render = (element) => this.initialExample = element;
 
-    console.log(babelTransformOptions);
-
     try {
 
       let code = Babel.transform(this.state.code, babelTransformOptions).code;
