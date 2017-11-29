@@ -12,6 +12,9 @@ class App extends React.Component {
       <div className="container">
         <CodeView
           source={require('./test.md')}
+          babelTransformOptions={{
+            presets: ['stage-0', 'react', 'es2015']
+          }}
           showCode
           dependencies={{
             Button

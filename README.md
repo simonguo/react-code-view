@@ -64,6 +64,7 @@ import '~react-code-view/lib/less/index.less';
 
 import { Button } from 'rsuite';
 
+
 <CodeView
   source={require('./test.md')}
   dependencies={{
@@ -78,12 +79,16 @@ import { Button } from 'rsuite';
 > 这里需要注意的是把需要运行的代码一定要放在 `<!--start-code-->` 与  `<!--end-code-->` 之间。
 
 
-
 ## API
 
 
-| Prop name    | Type   | Description |
-|--------------|--------|-------------|
-| source       | string | code        |
-| dependencies | object | 依赖的组件       |
-| showCode     | bool   | 是否默认显示代码    |
+| Prop name             | Type   | Description                   |
+|-----------------------|--------|-------------------------------|
+| source                | string | code                          |
+| dependencies          | object | 依赖的组件                         |
+| showCode              | bool   | 是否默认显示代码                      |
+| babelTransformOptions | object | babel 配置参数 [options][babeljs] |
+
+
+
+[babeljs]: https://babeljs.io/docs/usage/api/#options

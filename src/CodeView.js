@@ -17,8 +17,16 @@ const { Markdown } = require('react-markdown-reader');
 const propTypes = {
   showCode: PropTypes.bool,
   source: PropTypes.string,
-  dependencies: PropTypes.object
+  dependencies: PropTypes.object,
+  babelTransformOptions: PropTypes.object
 };
+
+const defaultProps = {
+  babelTransformOptions: {
+    presets: ['stage-0', 'react', 'es2015']
+  }
+};
+
 
 class CodeView extends React.Component {
   constructor(props) {
@@ -30,6 +38,7 @@ class CodeView extends React.Component {
       code,
       showCode: props.showCode
     };
+    this.executeCode = this.executeCode.bind(this);
     const { dependencies } = props;
     if (dependencies) {
       for (var key in dependencies) {
@@ -38,14 +47,15 @@ class CodeView extends React.Component {
     }
   }
   executeCode() {
+    const { babelTransformOptions } = this.props;
     const originalRender = ReactDOM.render;
     ReactDOM.render = (element) => this.initialExample = element;
 
+    console.log(babelTransformOptions);
+
     try {
 
-      let code = Babel.transform(this.state.code, {
-        presets: ['stage-0', 'react', 'es2015']
-      }).code;
+      let code = Babel.transform(this.state.code, babelTransformOptions).code;
 
       /* eslint-disable */
       eval(code);
@@ -122,5 +132,6 @@ class CodeView extends React.Component {
 }
 
 CodeView.propTypes = propTypes;
+CodeView.defaultProps = defaultProps;
 
 export default CodeView;
