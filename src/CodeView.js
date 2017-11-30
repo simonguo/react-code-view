@@ -46,6 +46,11 @@ class CodeView extends React.Component {
       }
     }
   }
+
+  componentWillMount() {
+    this.executeCode();
+  }
+
   executeCode() {
     const { babelTransformOptions } = this.props;
     const originalRender = ReactDOM.render;
@@ -79,7 +84,6 @@ class CodeView extends React.Component {
   }
 
   renderExample() {
-
     const example = (
       <div>{this.initialExample}</div>
     );
@@ -92,9 +96,11 @@ class CodeView extends React.Component {
     );
   }
 
+
+
   render() {
 
-    this.executeCode();
+
     const { className, style } = this.props;
     const { showCode, beforeHTML, afterHTML, } = this.state;
 
