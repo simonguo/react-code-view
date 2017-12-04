@@ -17,6 +17,7 @@ const { Markdown } = require('react-markdown-reader');
 const propTypes = {
   showCode: PropTypes.bool,
   source: PropTypes.string,
+  children: PropTypes.string,
   dependencies: PropTypes.object,
   babelTransformOptions: PropTypes.object
 };
@@ -27,11 +28,11 @@ const defaultProps = {
   }
 };
 
-
 class CodeView extends React.Component {
   constructor(props) {
     super(props);
-    const { code, beforeHTML, afterHTML } = parseHTML(props.source);
+
+    const { code, beforeHTML, afterHTML } = parseHTML(props.children || props.source);
     this.state = {
       beforeHTML,
       afterHTML,
