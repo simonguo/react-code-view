@@ -65,12 +65,10 @@ import '~react-code-view/lib/less/index.less';
 import { Button } from 'rsuite';
 
 
-<CodeView
-  source={require('./test.md')}
-  dependencies={{
-    Button
-  }}
-/>
+<CodeView dependencies={{ Button}} >
+  {require('./test.md')}
+</CodeView>
+
 ```
 
 源代码都统一写在 markdown 中，参考:
@@ -84,7 +82,6 @@ import { Button } from 'rsuite';
 
 | Prop name             | Type   | Description                   |
 |-----------------------|--------|-------------------------------|
-| source                | string | code                          |
 | dependencies          | object | 依赖的组件                         |
 | showCode              | bool   | 是否默认显示代码                      |
 | babelTransformOptions | object | babel 配置参数 [options][babeljs] |
