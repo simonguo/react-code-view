@@ -15,6 +15,7 @@ const { Markdown } = require('react-markdown-reader');
 
 
 const propTypes = {
+  delay: PropTypes.number,
   showCode: PropTypes.bool,
   source: PropTypes.string,
   children: PropTypes.string,
@@ -23,6 +24,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  delay: 0,
   babelTransformOptions: {
     presets: ['stage-0', 'react', 'es2015']
   }
@@ -36,6 +38,7 @@ class CodeView extends React.Component {
     this.state = {
       beforeHTML,
       afterHTML,
+      startLoad: false,
       code,
       showCode: props.showCode
     };
@@ -49,10 +52,16 @@ class CodeView extends React.Component {
   }
 
   componentWillMount() {
-    this.executeCode();
+    const { delay } = this.props;
+    setTimeout(() => {
+      this.executeCode();
+      this.setState({ startLoad: true });
+    }, delay);
   }
 
   executeCode() {
+
+
     const { babelTransformOptions } = this.props;
     const originalRender = ReactDOM.render;
     ReactDOM.render = (element) => this.initialExample = element;
@@ -86,7 +95,13 @@ class CodeView extends React.Component {
 
   renderExample() {
     const example = (
-      <div>{this.initialExample}</div>
+      <div>
+        {
+          this.initialExample ? this.initialExample : (
+            <div>Loading...</div>
+          )
+        }
+      </div>
     );
     return (
       <div
@@ -96,8 +111,6 @@ class CodeView extends React.Component {
       </div>
     );
   }
-
-
 
   render() {
 
