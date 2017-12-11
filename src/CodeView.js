@@ -10,7 +10,6 @@ import parseHTML from './parseHTML';
 const React = require('react');
 const PropTypes = require('prop-types');
 const ReactDOM = require('react-dom');
-const { Button, IconFont } = require('rsuite');
 const { Markdown } = require('react-markdown-reader');
 
 
@@ -26,7 +25,7 @@ const propTypes = {
 const defaultProps = {
   delay: 0,
   babelTransformOptions: {
-    presets: ['stage-0', 'react', 'es2015']
+    presets: ['stage-0', 'react', 'es2015'],
   }
 };
 
@@ -43,12 +42,6 @@ class CodeView extends React.Component {
       showCode: props.showCode
     };
     this.executeCode = this.executeCode.bind(this);
-    const { dependencies } = props;
-    if (dependencies) {
-      for (var key in dependencies) {
-        window[key] = dependencies[key];
-      }
-    }
   }
 
   componentWillMount() {
@@ -62,16 +55,23 @@ class CodeView extends React.Component {
   executeCode() {
 
 
-    const { babelTransformOptions } = this.props;
+    const { babelTransformOptions, dependencies } = this.props;
     const originalRender = ReactDOM.render;
     ReactDOM.render = (element) => this.initialExample = element;
 
     try {
-
+      //console.log(Button);
       let code = Babel.transform(this.state.code, babelTransformOptions).code;
+      let statement = '';
+
+      if (dependencies) {
+        for (let key in dependencies) {
+          statement += `var ${key}= dependencies.${key};\n `;
+        }
+      }
 
       /* eslint-disable */
-      eval(code);
+      eval(`${statement} ${code}`);
       /* eslint-enable */
 
     } catch (err) {
@@ -79,7 +79,6 @@ class CodeView extends React.Component {
     } finally {
       ReactDOM.render = originalRender;
     }
-
 
   }
 
@@ -125,13 +124,12 @@ class CodeView extends React.Component {
           {this.renderExample()}
           <div className="code-view-toolbar">
 
-            <Button
-              size="xs"
-              shape={showCode ? 'primary' : 'default'}
+            <button
+              className="btn btn-xs btn-primary"
               onClick={this.handleShowCode}
             >
-              <IconFont icon="code" /> 代码
-            </Button>
+              <i className="icon icon-code" /> 代码
+            </button>
           </div>
 
           <CodeEditor
