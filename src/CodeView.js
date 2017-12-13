@@ -19,7 +19,8 @@ const propTypes = {
   source: PropTypes.string,
   children: PropTypes.string,
   dependencies: PropTypes.object,
-  babelTransformOptions: PropTypes.object
+  babelTransformOptions: PropTypes.object,
+  showCodeIcon: PropTypes.node
 };
 
 const defaultProps = {
@@ -60,7 +61,6 @@ class CodeView extends React.Component {
     ReactDOM.render = (element) => this.initialExample = element;
 
     try {
-      //console.log(Button);
       let code = Babel.transform(this.state.code, babelTransformOptions).code;
       let statement = '';
 
@@ -114,21 +114,22 @@ class CodeView extends React.Component {
   render() {
 
 
-    const { className, style } = this.props;
+    const { className, style, showCodeIcon } = this.props;
     const { showCode, beforeHTML, afterHTML, } = this.state;
-
+    const icon = (
+      <span><i className="icon icon-code" /> 代码</span>
+    );
     return (
       <div className={className} style={style}>
         <Markdown>{beforeHTML}</Markdown>
         <div className="code-view-wrapper">
           {this.renderExample()}
           <div className="code-view-toolbar">
-
             <button
-              className="btn btn-xs btn-primary"
+              className="btn btn-xs btn-default"
               onClick={this.handleShowCode}
             >
-              <i className="icon icon-code" /> 代码
+              {showCodeIcon ? showCodeIcon : icon}
             </button>
           </div>
 
