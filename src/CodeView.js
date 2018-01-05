@@ -117,7 +117,7 @@ class CodeView extends React.Component {
     const { className, style, showCodeIcon } = this.props;
     const { showCode, beforeHTML, afterHTML, } = this.state;
     const icon = (
-      <span><i className="icon icon-code" /> 代码</span>
+      <span><i className="icon icon-code" /></span>
     );
     return (
       <div className={className} style={style}>
