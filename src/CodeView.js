@@ -11,6 +11,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const ReactDOM = require('react-dom');
 const { Markdown } = require('react-markdown-reader');
+const classNames = require('classnames');
 
 
 const propTypes = {
@@ -20,6 +21,7 @@ const propTypes = {
   children: PropTypes.string,
   dependencies: PropTypes.object,
   babelTransformOptions: PropTypes.object,
+  buttonClassName: PropTypes.string,
   showCodeIcon: PropTypes.node
 };
 
@@ -114,7 +116,7 @@ class CodeView extends React.Component {
   render() {
 
 
-    const { className, style, showCodeIcon } = this.props;
+    const { className, style, showCodeIcon, buttonClassName } = this.props;
     const { showCode, beforeHTML, afterHTML, } = this.state;
     const icon = (
       <span><i className="icon icon-code" /></span>
@@ -126,7 +128,7 @@ class CodeView extends React.Component {
           {this.renderExample()}
           <div className="code-view-toolbar">
             <button
-              className="btn btn-xs btn-default"
+              className={classNames('btn btn-xs', buttonClassName)}
               onClick={this.handleShowCode}
             >
               {showCodeIcon ? showCodeIcon : icon}
