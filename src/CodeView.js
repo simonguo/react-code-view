@@ -40,7 +40,6 @@ class CodeView extends React.Component {
     this.state = {
       beforeHTML,
       afterHTML,
-      startLoad: false,
       code,
       showCode: props.showCode
     };
@@ -51,7 +50,6 @@ class CodeView extends React.Component {
     const { delay } = this.props;
     setTimeout(() => {
       this.executeCode();
-      this.setState({ startLoad: true });
     }, delay);
   }
 
@@ -81,12 +79,12 @@ class CodeView extends React.Component {
       console.log(err);
     } finally {
       ReactDOM.render = originalRender;
+      this.forceUpdate();
     }
 
   }
 
   handleCodeChange = (val) => {
-    this.setState({ code: val });
     this.executeCode(val);
   }
 
@@ -113,9 +111,6 @@ class CodeView extends React.Component {
   }
 
   render() {
-
-    this.executeCode();
-
     const { className, style, showCodeIcon, buttonClassName } = this.props;
     const { showCode, beforeHTML, afterHTML, } = this.state;
     const icon = (
