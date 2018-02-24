@@ -55,21 +55,22 @@ class CodeView extends React.Component {
     }, delay);
   }
 
-  executeCode() {
-
+  executeCode(nextCode) {
 
     const { babelTransformOptions, dependencies } = this.props;
     const originalRender = ReactDOM.render;
-    ReactDOM.render = (element) => this.initialExample = element;
+    ReactDOM.render = (element) => {
+      this.initialExample = element;
+    };
 
     try {
-      let code = Babel.transform(this.state.code, babelTransformOptions).code;
+      let code = window.Babel.transform(nextCode || this.state.code, babelTransformOptions).code;
       let statement = '';
 
       if (dependencies) {
-        for (let key in dependencies) {
+        Object.keys(dependencies).forEach((key) => {
           statement += `var ${key}= dependencies.${key};\n `;
-        }
+        });
       }
 
       /* eslint-disable */
@@ -86,7 +87,7 @@ class CodeView extends React.Component {
 
   handleCodeChange = (val) => {
     this.setState({ code: val });
-    this.executeCode();
+    this.executeCode(val);
   }
 
   handleShowCode = () => {
@@ -105,9 +106,7 @@ class CodeView extends React.Component {
       </div>
     );
     return (
-      <div
-        className="code-view"
-      >
+      <div className="code-view">
         {example}
       </div>
     );
@@ -115,6 +114,7 @@ class CodeView extends React.Component {
 
   render() {
 
+    this.executeCode();
 
     const { className, style, showCodeIcon, buttonClassName } = this.props;
     const { showCode, beforeHTML, afterHTML, } = this.state;
@@ -131,7 +131,7 @@ class CodeView extends React.Component {
               className={classNames('btn btn-xs', buttonClassName)}
               onClick={this.handleShowCode}
             >
-              {showCodeIcon ? showCodeIcon : icon}
+              {typeof showCodeIcon !== 'undefined' ? showCodeIcon : icon}
             </button>
           </div>
 
