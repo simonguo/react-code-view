@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
+import trim from 'lodash/trim';
 
 const propTypes = {
   readOnly: PropTypes.bool,
@@ -21,14 +22,7 @@ const defaultProps = {
 
 class CodeEditor extends React.Component {
   componentDidMount() {
-    const {
-      lineNumbers,
-      lineWrapping,
-      matchBrackets,
-      tabSize,
-      readOnly,
-      theme
-    } = this.props;
+    const { lineNumbers, lineWrapping, matchBrackets, tabSize, readOnly, theme } = this.props;
 
     if (CodeMirror === undefined) {
       return;
@@ -59,20 +53,18 @@ class CodeEditor extends React.Component {
     if (!readOnly && onChange) {
       onChange(this.editor.getValue());
     }
-  }
+  };
 
   render() {
     const { style, className, code } = this.props;
+
     return (
-      <div
-        style={style}
-        className={className}
-      >
+      <div style={style} className={className}>
         <textarea
-          ref={(ref) => {
+          ref={ref => {
             this.textarea = ref;
           }}
-          defaultValue={code}
+          defaultValue={trim(code)}
         />
       </div>
     );
@@ -83,4 +75,3 @@ CodeEditor.propTypes = propTypes;
 CodeEditor.defaultProps = defaultProps;
 
 export default CodeEditor;
-

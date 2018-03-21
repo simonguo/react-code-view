@@ -1,4 +1,3 @@
-
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/runmode/runmode';
@@ -6,15 +5,14 @@ import 'codemirror/addon/runmode/runmode';
 import CodeEditor from './CodeEditor';
 import parseHTML from './parseHTML';
 
-
 const React = require('react');
 const PropTypes = require('prop-types');
 const ReactDOM = require('react-dom');
 const { Markdown } = require('react-markdown-reader');
 const classNames = require('classnames');
 
-
 const propTypes = {
+  classPrefix: PropTypes.string,
   delay: PropTypes.number,
   showCode: PropTypes.bool,
   source: PropTypes.string,
@@ -28,7 +26,7 @@ const propTypes = {
 const defaultProps = {
   delay: 0,
   babelTransformOptions: {
-    presets: ['stage-0', 'react', 'es2015'],
+    presets: ['stage-0', 'react', 'es2015']
   }
 };
 
@@ -54,10 +52,9 @@ class CodeView extends React.Component {
   }
 
   executeCode(nextCode) {
-
     const { babelTransformOptions, dependencies } = this.props;
     const originalRender = ReactDOM.render;
-    ReactDOM.render = (element) => {
+    ReactDOM.render = element => {
       this.initialExample = element;
     };
 
@@ -66,7 +63,7 @@ class CodeView extends React.Component {
       let statement = '';
 
       if (dependencies) {
-        Object.keys(dependencies).forEach((key) => {
+        Object.keys(dependencies).forEach(key => {
           statement += `var ${key}= dependencies.${key};\n `;
         });
       }
@@ -74,47 +71,45 @@ class CodeView extends React.Component {
       /* eslint-disable */
       eval(`${statement} ${code}`);
       /* eslint-enable */
-
     } catch (err) {
       console.log(err);
     } finally {
       ReactDOM.render = originalRender;
       this.forceUpdate();
     }
-
   }
 
-  handleCodeChange = (val) => {
+  handleCodeChange = val => {
     this.executeCode(val);
-  }
+  };
 
   handleShowCode = () => {
     const showCode = !this.state.showCode;
     this.setState({ showCode });
-  }
+  };
+
+  addPrefix = name => {
+    const { classPrefix } = this.props;
+
+    if (classPrefix) {
+      return `${classPrefix}${name}`;
+    }
+    return name;
+  };
 
   renderExample() {
-    const example = (
-      <div>
-        {
-          this.initialExample ? this.initialExample : (
-            <div>Loading...</div>
-          )
-        }
-      </div>
-    );
-    return (
-      <div className="code-view">
-        {example}
-      </div>
-    );
+    const example = <div>{this.initialExample ? this.initialExample : <div>Loading...</div>}</div>;
+    return <div className="code-view">{example}</div>;
   }
 
   render() {
     const { className, style, showCodeIcon, buttonClassName } = this.props;
-    const { showCode, beforeHTML, afterHTML, } = this.state;
+    const { showCode, beforeHTML, afterHTML } = this.state;
+
     const icon = (
-      <span><i className="icon icon-code" /></span>
+      <span>
+        <i className={classNames(this.addPrefix('icon'), this.addPrefix('icon-code'))} />
+      </span>
     );
     return (
       <div className={className} style={style}>
@@ -123,7 +118,11 @@ class CodeView extends React.Component {
           {this.renderExample()}
           <div className="code-view-toolbar">
             <button
-              className={classNames('btn btn-xs', buttonClassName)}
+              className={classNames(
+                this.addPrefix('btn'),
+                this.addPrefix('btn-xs'),
+                buttonClassName
+              )}
               onClick={this.handleShowCode}
             >
               {typeof showCodeIcon !== 'undefined' ? showCodeIcon : icon}
