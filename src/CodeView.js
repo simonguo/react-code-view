@@ -42,13 +42,10 @@ class CodeView extends React.Component {
       showCode: props.showCode
     };
     this.executeCode = this.executeCode.bind(this);
-  }
 
-  componentWillMount() {
-    const { delay } = this.props;
     setTimeout(() => {
       this.executeCode();
-    }, delay);
+    }, props.delay);
   }
 
   executeCode(nextCode) {
