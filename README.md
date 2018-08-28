@@ -1,13 +1,34 @@
 # react-code-view
 
-`react-code-view` 是一个代码展示的 react 组件。
-把用 markdown 写的文档， 能够方便的转换成可以执行的代码，同时不影响整个文档的阅读。 还可以在线编辑示例代码。
+
+## 背景
+
+让 Markdown 中的代码可以实时运行，为什么会有这样一个需求？
+
+在我们前端团队中，技术相关的文档都采用 Markdown 编写， 文档中往往会伴随很多示例代码，我们希望大家在阅读文档的时候，可以运行示例代码，看到效果。
+
+
+## 需求
+
+- 让 Markdown 中的代码可以运行，并预览效果。
+- 代码可以在线编辑。
+- 不影响整个文档流的布局。
+- 支持 React, 支持代码高亮。
+- 可以配置 babel。
+
+
+明确需求以后，写了一个 React 组件来满足这些功能， [`react-code-view`](https://github.com/simonguo/react-code-view) ， 首先看一下效果：
 
 ![preview](https://user-images.githubusercontent.com/1203827/44707274-a30c0f80-aad6-11e8-8cc5-9cf7daf4d9e2.gif)
 
 在线预览: https://simonguo.github.io/react-code-view/
 
 
+## 原理
+
+- 就通过 `markdown-loader` 与 `html-loader` 解析 Markdown 文档。
+- 通过正则表达式取出 code ，交给  `codemirror`
+- 把 `codemirror` 中的代码通过 babel 编译，再通过 ReactDOM.render 渲染到指定的容器中。
 
 ## 安装
 
@@ -69,26 +90,25 @@ import '~react-code-view/lib/less/index.less';
 import { Button } from 'rsuite';
 
 
-<CodeView dependencies={{ Button}} >
-  {require('./test.md')}
+<CodeView dependencies={{ Button }} >
+  {require('./example.md')}
 </CodeView>
 
 ```
 
 源代码都统一写在 markdown 中，参考:
-[test.md](https://raw.githubusercontent.com/simonguo/react-code-view/master/docs/test.md)
+[example.md](https://raw.githubusercontent.com/simonguo/react-code-view/master/docs/example.md)
 
 > 这里需要注意的是把需要运行的代码一定要放在 `<!--start-code-->` 与  `<!--end-code-->` 之间。
 
-Github: https://github.com/simonguo/react-code-view
 
 ## API
 
-| Name                  | Type    | Default value                           | Description                       |
-| --------------------- | ------- | --------------------------------------- | --------------------------------- |
-| dependencies          | Object  |                                         | 依赖的组件                        |
-| showCode              | boolean | true                                    | 显示代码                          |
-| babelTransformOptions | Object  | presets: ['stage-0', 'react', 'es2015'] | babel 配置参数 [options][babeljs] |
+| Name                  | Type    | Default value                               | Description                       |
+| --------------------- | ------- | ------------------------------------------- | --------------------------------- |
+| dependencies          | Object  |                                             | 依赖的组件                        |
+| showCode              | boolean | true                                        | 显示代码                          |
+| babelTransformOptions | Object  | { presets: ['stage-0', 'react', 'es2015'] } | babel 配置参数 [options][babeljs] |
 
 
 [babeljs]: https://babeljs.io/docs/usage/api/#options
