@@ -19,7 +19,7 @@ class App extends React.Component {
             Button
           }}
         >
-          {require('./test.md')}
+          {require('./example.md')}
         </CodeView>
       </div>
     );
