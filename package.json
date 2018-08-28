@@ -33,8 +33,7 @@
     "codemirror": "^5.32.0",
     "lodash": "^4.17.5",
     "prop-types": "^15.6.0",
-    "react-markdown-reader": "^1.0.1",
-    "rsuite-docs": "^0.2.2"
+    "react-markdown-reader": "^1.0.1"
   },
   "peerDependencies": {
     "react": "^0.14.9 || >=15.3.0",
