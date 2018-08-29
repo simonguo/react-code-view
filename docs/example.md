@@ -24,8 +24,7 @@ ReactDOM.render(instance);
 ```
 <!--end-code-->
 
-
 > 可以试着手动修改代码
 
-
 Markdown 源文件: [example.md](https://raw.githubusercontent.com/simonguo/react-code-view/master/docs/example.md)
+Github: [react-code-view](https://github.com/simonguo/react-code-view)
