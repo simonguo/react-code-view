@@ -3,24 +3,24 @@ import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import trim from 'lodash/trim';
 
-const propTypes = {
-  readOnly: PropTypes.bool,
-  code: PropTypes.string,
-  theme: PropTypes.string,
-  matchBrackets: PropTypes.bool,
-  lineNumbers: PropTypes.bool,
-  lineWrapping: PropTypes.bool,
-  tabSize: PropTypes.number,
-  onChange: PropTypes.func
-};
-
-const defaultProps = {
-  matchBrackets: true,
-  tabSize: 2,
-  theme: 'default'
-};
-
 class CodeEditor extends React.Component {
+  static propTypes = {
+    readOnly: PropTypes.bool,
+    code: PropTypes.string,
+    theme: PropTypes.string,
+    matchBrackets: PropTypes.bool,
+    lineNumbers: PropTypes.bool,
+    lineWrapping: PropTypes.bool,
+    tabSize: PropTypes.number,
+    onChange: PropTypes.func
+  };
+
+  static defaultProps = {
+    matchBrackets: true,
+    tabSize: 2,
+    theme: 'default'
+  };
+
   componentDidMount() {
     const { lineNumbers, lineWrapping, matchBrackets, tabSize, readOnly, theme } = this.props;
 
@@ -70,8 +70,5 @@ class CodeEditor extends React.Component {
     );
   }
 }
-
-CodeEditor.propTypes = propTypes;
-CodeEditor.defaultProps = defaultProps;
 
 export default CodeEditor;

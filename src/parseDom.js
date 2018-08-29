@@ -3,4 +3,3 @@ export default function parseDom(arg) {
   objE.innerHTML = arg;
   return objE;
 }
-

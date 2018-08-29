@@ -4,6 +4,7 @@ import 'codemirror/addon/runmode/runmode';
 
 import CodeEditor from './CodeEditor';
 import parseHTML from './parseHTML';
+import Preview from './Preview';
 
 const React = require('react');
 const PropTypes = require('prop-types');
@@ -11,26 +12,25 @@ const ReactDOM = require('react-dom');
 const { Markdown } = require('react-markdown-reader');
 const classNames = require('classnames');
 
-const propTypes = {
-  classPrefix: PropTypes.string,
-  delay: PropTypes.number,
-  showCode: PropTypes.bool,
-  source: PropTypes.string,
-  children: PropTypes.string,
-  dependencies: PropTypes.object,
-  babelTransformOptions: PropTypes.object,
-  buttonClassName: PropTypes.string,
-  showCodeIcon: PropTypes.node
-};
-
-const defaultProps = {
-  delay: 0,
-  babelTransformOptions: {
-    presets: ['stage-0', 'react', 'es2015']
-  }
-};
-
 class CodeView extends React.Component {
+  static propTypes = {
+    classPrefix: PropTypes.string,
+    delay: PropTypes.number,
+    showCode: PropTypes.bool,
+    source: PropTypes.string,
+    children: PropTypes.string,
+    dependencies: PropTypes.object,
+    babelTransformOptions: PropTypes.object,
+    buttonClassName: PropTypes.string,
+    showCodeIcon: PropTypes.node
+  };
+
+  static defaultProps = {
+    delay: 0,
+    babelTransformOptions: {
+      presets: ['stage-0', 'react', 'es2015']
+    }
+  };
   constructor(props) {
     super(props);
 
@@ -39,7 +39,9 @@ class CodeView extends React.Component {
       beforeHTML,
       afterHTML,
       code,
-      showCode: props.showCode
+      showCode: props.showCode,
+      hasError: false,
+      errorMessage: null
     };
     this.executeCode = this.executeCode.bind(this);
 
@@ -51,10 +53,10 @@ class CodeView extends React.Component {
   executeCode(nextCode) {
     const { babelTransformOptions, dependencies } = this.props;
     const originalRender = ReactDOM.render;
+    let hasError = false;
     ReactDOM.render = element => {
       this.initialExample = element;
     };
-
     try {
       let code = window.Babel.transform(nextCode || this.state.code, babelTransformOptions).code;
       let statement = '';
@@ -69,14 +71,21 @@ class CodeView extends React.Component {
       eval(`${statement} ${code}`);
       /* eslint-enable */
     } catch (err) {
-      console.log(err);
+      hasError = true;
+      console.error(err);
     } finally {
       ReactDOM.render = originalRender;
-      this.forceUpdate();
+      if (!hasError) {
+        this.forceUpdate();
+      }
     }
   }
 
   handleCodeChange = val => {
+    this.setState({
+      hasError: false,
+      errorMessage: null
+    });
     this.executeCode(val);
   };
 
@@ -85,9 +94,15 @@ class CodeView extends React.Component {
     this.setState({ showCode });
   };
 
+  handleError = error => {
+    this.setState({
+      hasError: true,
+      errorMessage: error.message
+    });
+  };
+
   addPrefix = name => {
     const { classPrefix } = this.props;
-
     if (classPrefix) {
       return `${classPrefix}${name}`;
     }
@@ -95,25 +110,29 @@ class CodeView extends React.Component {
   };
 
   renderExample() {
-    const example = <div>{this.initialExample ? this.initialExample : <div>Loading...</div>}</div>;
-    return <div className="code-view">{example}</div>;
+    const { hasError, errorMessage } = this.state;
+    return (
+      <Preview hasError={hasError} errorMessage={errorMessage} onError={this.handleError}>
+        <div>{this.initialExample ? this.initialExample : <div>Loading...</div>}</div>
+      </Preview>
+    );
   }
 
   render() {
     const { className, style, showCodeIcon, buttonClassName } = this.props;
     const { showCode, beforeHTML, afterHTML } = this.state;
-
     const icon = (
       <span>
         <i className={classNames(this.addPrefix('icon'), this.addPrefix('icon-code'))} />
       </span>
     );
+
     return (
       <div className={className} style={style}>
         <Markdown>{beforeHTML}</Markdown>
-        <div className="code-view-wrapper">
+        <div className={this.addPrefix('code-view-wrapper')}>
           {this.renderExample()}
-          <div className="code-view-toolbar">
+          <div className={this.addPrefix('code-view-toolbar')}>
             <button
               className={classNames(
                 this.addPrefix('btn'),
@@ -125,7 +144,6 @@ class CodeView extends React.Component {
               {typeof showCodeIcon !== 'undefined' ? showCodeIcon : icon}
             </button>
           </div>
-
           <CodeEditor
             lineNumbers
             key="jsx"
@@ -140,8 +158,5 @@ class CodeView extends React.Component {
     );
   }
 }
-
-CodeView.propTypes = propTypes;
-CodeView.defaultProps = defaultProps;
 
 export default CodeView;
