@@ -1,6 +1,6 @@
 {
   "name": "react-code-view",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Code view for React",
   "main": "lib/index.js",
   "scripts": {
