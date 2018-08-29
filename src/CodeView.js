@@ -130,9 +130,9 @@ class CodeView extends React.Component {
     return (
       <div className={className} style={style}>
         <Markdown>{beforeHTML}</Markdown>
-        <div className={this.addPrefix('code-view-wrapper')}>
+        <div className="code-view-wrapper">
           {this.renderExample()}
-          <div className={this.addPrefix('code-view-toolbar')}>
+          <div className="code-view-toolbar">
             <button
               className={classNames(
                 this.addPrefix('btn'),
