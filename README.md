@@ -85,7 +85,7 @@ Github: https://github.com/simonguo/react-markdown-reader
 ```js
 
 import CodeView from 'react-code-view';
-import '~react-code-view/lib/less/index.less';
+import 'react-code-view/lib/less/index.less';
 
 import { Button } from 'rsuite';
 
@@ -104,11 +104,13 @@ import { Button } from 'rsuite';
 
 ## API
 
-| Name                  | Type    | Default value                               | Description                       |
-| --------------------- | ------- | ------------------------------------------- | --------------------------------- |
-| dependencies          | Object  |                                             | 依赖的组件                        |
-| showCode              | boolean | true                                        | 显示代码                          |
-| babelTransformOptions | Object  | { presets: ['stage-0', 'react', 'es2015'] } | babel 配置参数 [options][babeljs] |
+| Name                  | Type     | Default value                               | Description                       |
+| --------------------- | -------- | ------------------------------------------- | --------------------------------- |
+| dependencies          | Object   |                                             | 依赖的组件                        |
+| showCode              | boolean  | true                                        | 显示代码                          |
+| babelTransformOptions | Object   | { presets: ['stage-0', 'react', 'es2015'] } | babel 配置参数 [options][babeljs] |
+| theme                 | string   | 'light'                                     | 主题，可选项 'light','dark'       |
+| renderToolbar         | Function |                                             | 自定义工具栏                      |
 
 
 [babeljs]: https://babeljs.io/docs/usage/api/#options

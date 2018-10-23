@@ -15,6 +15,7 @@ class App extends React.Component {
             presets: ['stage-0', 'react', 'es2015']
           }}
           showCode
+          theme="dark"
           dependencies={{
             Button
           }}
@@ -26,6 +27,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />,
-  document.getElementById('app')
-);
+ReactDOM.render(<App />, document.getElementById('app'));

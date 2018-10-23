@@ -13,18 +13,62 @@
 - 不影响整个文档流的布局
 - 支持 React, 支持代码高亮
 
+## 演示
+
 <!--start-code-->
+
 ```js
-const instance = (
-  <Button>
-    Test
-  </Button>
-);
+const instance = <Button>Test</Button>;
 ReactDOM.render(instance);
 ```
+
 <!--end-code-->
 
 > 可以试着手动修改代码
 
-Markdown 源文件: [example.md](https://raw.githubusercontent.com/simonguo/react-code-view/master/docs/example.md)
-Github: [react-code-view](https://github.com/simonguo/react-code-view)
+
+## 示例代码
+
+```js
+import CodeView from 'react-code-view';
+import 'react-code-view/lib/less/index.less';
+
+import { Button } from 'rsuite';
+
+
+<CodeView dependencies={{ Button }} >
+  {require('./example.md')}
+</CodeView>
+```
+
+## API
+
+
+### `theme` `string`
+
+设置主题，可选项： 'light', 'dark'
+
+默认值：'light'
+
+### `dependencies` `Object`
+
+依赖的资源
+
+### `showCode` `boolean`
+
+显示代码
+
+默认值: true
+
+### `babelTransformOptions` `Object`
+
+babel 配置参数 [options][babeljs]
+
+默认值: { presets: ['stage-0', 'react', 'es2015'] }
+
+[babeljs]: https://babeljs.io/docs/usage/api/#options
+
+## 源码
+
+- Github: [react-code-view](https://github.com/simonguo/react-code-view)
+- Markdown 源文件: [example.md](https://raw.githubusercontent.com/simonguo/react-code-view/master/docs/example.md)

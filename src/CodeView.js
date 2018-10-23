@@ -14,6 +14,7 @@ const classNames = require('classnames');
 
 class CodeView extends React.Component {
   static propTypes = {
+    theme: PropTypes.oneOf(['light', 'dark']),
     classPrefix: PropTypes.string,
     delay: PropTypes.number,
     showCode: PropTypes.bool,
@@ -22,10 +23,12 @@ class CodeView extends React.Component {
     dependencies: PropTypes.object,
     babelTransformOptions: PropTypes.object,
     buttonClassName: PropTypes.string,
-    showCodeIcon: PropTypes.node
+    showCodeIcon: PropTypes.node,
+    renderToolbar: PropTypes.node
   };
 
   static defaultProps = {
+    theme: 'light',
     delay: 0,
     babelTransformOptions: {
       presets: ['stage-0', 'react', 'es2015']
@@ -119,12 +122,21 @@ class CodeView extends React.Component {
   }
 
   render() {
-    const { className, style, showCodeIcon, buttonClassName } = this.props;
+    const { className, style, showCodeIcon, buttonClassName, renderToolbar, theme } = this.props;
     const { showCode, beforeHTML, afterHTML } = this.state;
     const icon = (
       <span>
         <i className={classNames(this.addPrefix('icon'), this.addPrefix('icon-code'))} />
       </span>
+    );
+
+    const showCodeButton = (
+      <button
+        className={classNames(this.addPrefix('btn'), this.addPrefix('btn-xs'), buttonClassName)}
+        onClick={this.handleShowCode}
+      >
+        {typeof showCodeIcon !== 'undefined' ? showCodeIcon : icon}
+      </button>
     );
 
     return (
@@ -133,23 +145,14 @@ class CodeView extends React.Component {
         <div className="code-view-wrapper">
           {this.renderExample()}
           <div className="code-view-toolbar">
-            <button
-              className={classNames(
-                this.addPrefix('btn'),
-                this.addPrefix('btn-xs'),
-                buttonClassName
-              )}
-              onClick={this.handleShowCode}
-            >
-              {typeof showCodeIcon !== 'undefined' ? showCodeIcon : icon}
-            </button>
+            {renderToolbar ? renderToolbar(showCodeButton) : showCodeButton}
           </div>
           <CodeEditor
             lineNumbers
             key="jsx"
             onChange={this.handleCodeChange}
             className={`doc-code ${showCode ? 'show' : ''}`}
-            theme="base16-light"
+            theme={`base16-${theme}`}
             code={this.state.code}
           />
         </div>
