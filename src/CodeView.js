@@ -24,7 +24,7 @@ class CodeView extends React.Component {
     babelTransformOptions: PropTypes.object,
     buttonClassName: PropTypes.string,
     showCodeIcon: PropTypes.node,
-    renderToolbar: PropTypes.node
+    renderToolbar: PropTypes.func
   };
 
   static defaultProps = {
