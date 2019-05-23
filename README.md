@@ -26,7 +26,7 @@
 
 ## 原理
 
-- 就通过 `markdown-loader` 与 `html-loader` 解析 Markdown 文档。
+- 就通过 `markdown-loader@2.0.0` 与 `html-loader` 解析 Markdown 文档。
 - 通过正则表达式取出 code ，交给  `codemirror`
 - 把 `codemirror` 中的代码通过 babel 编译，再通过 ReactDOM.render 渲染到指定的容器中。
 
@@ -112,5 +112,11 @@ import { Button } from 'rsuite';
 | theme                 | string   | 'light'                                     | 主题，可选项 'light','dark'       |
 | renderToolbar         | Function |                                             | 自定义工具栏                      |
 
+
+
+
+## 谁在使用？
+
+- [React Suite](https://rsuitejs.com/)
 
 [babeljs]: https://babeljs.io/docs/usage/api/#options
