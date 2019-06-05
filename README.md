@@ -79,6 +79,7 @@ Github: https://github.com/simonguo/react-markdown-reader
 ```html
 <script type="text/javascript" src="//cdn.staticfile.org/babel-standalone/6.24.0/babel.min.js"></script>
 ```
+> 如果 `cdn.staticfile.org` 在你所在区域访问不太良好，可以更换其他 CDN。 
 
 ## 示例
 
