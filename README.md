@@ -99,11 +99,11 @@ The source code is uniformly written in markdown, reference:
 
 | Name                  | Type     | Default value                               | Description                                       |
 | --------------------- | -------- | ------------------------------------------- | ------------------------------------------------- |
-| dependencies          | Object   |                                             | Dependent components.                             |
-| showCode              | boolean  | true                                        | Display code.                                     |
 | babelTransformOptions | Object   | { presets: ['stage-0', 'react', 'es2015'] } | Babel configuration parameters [options][babeljs] |
-| theme                 | string   | 'light'                                     | Theme, options `light` and `dark`.                |
+| dependencies          | Object   |                                             | Dependent components.                             |
 | renderToolbar         | Function |                                             | Custom toolbar.                                   |
+| showCode              | boolean  | true                                        | Display code.                                     |
+| theme                 | string   | 'light'                                     | Theme, options `light` and `dark`.                |
 
 ## Who is using?
 

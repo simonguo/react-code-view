@@ -99,11 +99,11 @@ import { Button } from 'rsuite';
 
 | Name                  | Type     | Default value                               | Description                       |
 | --------------------- | -------- | ------------------------------------------- | --------------------------------- |
-| dependencies          | Object   |                                             | 依赖的组件                        |
-| showCode              | boolean  | true                                        | 显示代码                          |
 | babelTransformOptions | Object   | { presets: ['stage-0', 'react', 'es2015'] } | babel 配置参数 [options][babeljs] |
-| theme                 | string   | 'light'                                     | 主题，可选项 'light','dark'       |
+| dependencies          | Object   |                                             | 依赖的组件                        |
 | renderToolbar         | Function |                                             | 自定义工具栏                      |
+| showCode              | boolean  | true                                        | 显示代码                          |
+| theme                 | string   | 'light'                                     | 主题，可选项 'light','dark'       |
 
 ## 谁在使用？
 
