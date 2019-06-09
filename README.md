@@ -110,4 +110,4 @@ The source code is uniformly written in markdown, reference:
 - [React Suite](https://rsuitejs.com/)
 
 [babeljs]: https://babeljs.io/docs/usage/api/#options
-[readm-cn]: https://github.com/simonguo/react-code-view/blob/master/README.md
+[readm-cn]: https://github.com/simonguo/react-code-view/blob/master/README_zh-CN.md
