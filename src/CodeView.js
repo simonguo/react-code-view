@@ -57,9 +57,15 @@ class CodeView extends React.Component {
     };
     this.executeCode = this.executeCode.bind(this);
 
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.executeCode();
     }, props.delay);
+  }
+
+  componentWillUnmount() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
   }
 
   executeCode(nextCode) {
