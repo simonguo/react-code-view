@@ -1,3 +1,7 @@
+# 1.2.2
+
+- Fixed component not rendering when the code property value was updated.
+
 # 1.2.0
 
 - Update dependencies
