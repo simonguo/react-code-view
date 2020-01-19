@@ -34,6 +34,15 @@ class CodeView extends React.Component {
       presets: ['stage-0', 'react', 'es2015']
     }
   };
+
+  static getDerivedStateFromProps(nextProps, preState) {
+    if (nextProps.code && nextProps.code !== preState.code) {
+      return {
+        code: nextProps.code
+      };
+    }
+    return null;
+  }
   constructor(props) {
     super(props);
 
