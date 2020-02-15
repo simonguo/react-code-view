@@ -20,7 +20,10 @@ class CodeEditor extends React.Component {
     tabSize: 2,
     theme: 'default'
   };
-
+  constructor(props) {
+    super(props);
+    this.textareaRef = React.createRef();
+  }
   componentDidMount() {
     const { lineNumbers, lineWrapping, matchBrackets, tabSize, readOnly, theme } = this.props;
 
@@ -28,7 +31,7 @@ class CodeEditor extends React.Component {
       return;
     }
 
-    this.editor = CodeMirror.fromTextArea(this.textarea, {
+    this.editor = CodeMirror.fromTextArea(this.textareaRef.current, {
       mode: 'jsx',
       lineNumbers,
       lineWrapping,
@@ -60,12 +63,7 @@ class CodeEditor extends React.Component {
 
     return (
       <div style={style} className={className}>
-        <textarea
-          ref={ref => {
-            this.textarea = ref;
-          }}
-          value={trim(code)}
-        />
+        <textarea ref={this.textareaRef} defaultValue={trim(code)} />
       </div>
     );
   }
