@@ -64,7 +64,7 @@ class CodeEditor extends React.Component {
           ref={ref => {
             this.textarea = ref;
           }}
-          defaultValue={trim(code)}
+          value={trim(code)}
         />
       </div>
     );

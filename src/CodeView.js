@@ -36,10 +36,9 @@ class CodeView extends React.Component {
   };
 
   static getDerivedStateFromProps(nextProps, preState) {
-    if (nextProps.code && nextProps.code !== preState.code) {
-      return {
-        code: nextProps.code
-      };
+    const { code } = parseHTML(nextProps.children || nextProps.source);
+    if (code && code !== preState.code) {
+      return { code };
     }
     return null;
   }
