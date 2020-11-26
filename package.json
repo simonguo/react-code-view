@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/simonguo/react-code-view#readme",
   "dependencies": {
+    "@rsuite/icons": "^1.0.0-12",
     "classnames": "^2.2.5",
     "codemirror": "^5.32.0",
     "lodash": "^4.17.5",

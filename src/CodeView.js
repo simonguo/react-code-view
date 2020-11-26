@@ -1,6 +1,7 @@
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/addon/runmode/runmode';
+import IconCode from '@rsuite/icons/Code';
 
 import CodeEditor from './CodeEditor';
 import parseHTML from './parseHTML';
@@ -140,7 +141,7 @@ class CodeView extends React.Component {
     const { showCode, beforeHTML, afterHTML } = this.state;
     const icon = (
       <span>
-        <i className={classNames(this.addPrefix('icon'), this.addPrefix('icon-code'))} />
+        <IconCode className={classNames(this.addPrefix('icon'), this.addPrefix('icon-code'))} />
       </span>
     );
 
