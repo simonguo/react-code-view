@@ -1,3 +1,7 @@
+# 1.2.6
+
+- Replace with svg icon
+
 # 1.2.2
 
 - Fixed component not rendering when the code property value was updated.
