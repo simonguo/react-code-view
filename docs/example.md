@@ -5,6 +5,10 @@
 <!--start-code-->
 
 ```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Button } from 'rsuite';
+
 const App = () => {
   return <Button>Test</Button>;
 };

@@ -42,7 +42,8 @@ const renderer = require('react-code-view/webpack/renderer');
     loader: 'markdown-loader',
     options: {
       renderer: renderer(
-        // Pass languages to highlight.js. Default value: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less']
+        // Pass languages to highlight.js.
+        // Default value: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less']
         // See https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
       )
     }
@@ -79,10 +80,14 @@ return (
 
 | Name             | Type                              | Default value           | Description                                                     |
 | ---------------- | --------------------------------- | ----------------------- | --------------------------------------------------------------- |
+| afterCompile     | (code: string) => string          |                         | 在编译代码之后执行                                              |
+| beforeCompile    | (code: string) => string          |                         | 在编译代码之前执行                                              |
 | children         | any                               |                         | 渲染的代码。 通常通过 `markdown-loader`` 导入                   |
+| compiler         | (code: string) => string          |                         | 转换代码的编译器。 默认使用 swc.transformSync                   |
 | dependencies     | object                            |                         | 执行代码所需的依赖对象                                          |
 | editable         | boolean                           | false                   | 渲染一个可以修改源代码的代码编辑器                              |
 | editor           | object                            |                         | 编辑器属性配置                                                  |
+| onChange         | (code?: string) => void           |                         | 代码改变后执行的回调                                            |
 | renderToolbar    | (buttons: ReactNode) => ReactNode |                         | 自定义渲染工具栏                                                |
 | sourceCode       | string                            |                         | 渲染的代码                                                      |
 | theme            | 'light' , 'dark'                  | 'light'                 | 代码编辑器主题，应用于 CodeMirror                               |

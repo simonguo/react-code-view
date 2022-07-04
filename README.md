@@ -42,7 +42,8 @@ const renderer = require('react-code-view/webpack/renderer');
     loader: 'markdown-loader',
     options: {
       renderer: renderer(
-        // Pass languages to highlight.js. Default value: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less']
+        // Pass languages to highlight.js.
+        // Default value: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less']
         // See https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
       )
     }
@@ -79,10 +80,14 @@ The source code is written in markdown, refer to [example.md](https://raw.github
 
 | Name             | Type                              | Default value           | Description                                                               |
 | ---------------- | --------------------------------- | ----------------------- | ------------------------------------------------------------------------- |
+| afterCompile     | (code: string) => string          |                         | Executed after compiling the code                                         |
+| beforeCompile    | (code: string) => string          |                         | Executed before compiling the code                                        |
 | children         | any                               |                         | The code to be rendered is executed. Usually imported via markdown-loader |
+| compiler         | (code: string) => string          |                         | A compiler that transforms the code. Use swc.transformSync by default     |
 | dependencies     | object                            |                         | Dependent objects required by the executed code                           |
 | editable         | boolean                           | false                   | Renders a code editor that can modify the source code                     |
 | editor           | object                            |                         | Editor properties                                                         |
+| onChange         | (code?: string) => void           |                         | Callback triggered after code change                                      |
 | renderToolbar    | (buttons: ReactNode) => ReactNode |                         | Customize the rendering toolbar                                           |
 | sourceCode       | string                            |                         | The code to be rendered is executed                                       |
 | theme            | 'light' , 'dark'                  | 'light'                 | Code editor theme, applied to CodeMirror                                  |

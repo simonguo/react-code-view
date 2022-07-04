@@ -14,7 +14,7 @@ import parseHTML from './utils/parseHTML';
 import Preview from './Preview';
 import canUseDOM from './utils/canUseDOM';
 
-interface CodeViewProps extends React.HTMLAttributes<HTMLElement> {
+interface CodeViewProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onChange'> {
   /** Code editor theme, applied to CodeMirror */
   theme?: 'light' | 'dark';
 
@@ -52,6 +52,21 @@ interface CodeViewProps extends React.HTMLAttributes<HTMLElement> {
 
   /** Customize the rendering toolbar */
   renderToolbar?: (buttons: React.ReactNode) => React.ReactNode;
+
+  /** Callback triggered after code change */
+  onChange?: (code?: string) => void;
+
+  /**
+   * A compiler that transforms the code. Use swc.transformSync by default
+   * See https://swc.rs/docs/usage/wasm
+   */
+  compiler?: (code: string) => string;
+
+  /** Executed before compiling the code */
+  beforeCompile?: (code: string) => string;
+
+  /** Executed after compiling the code */
+  afterCompile?: (code: string) => string;
 }
 
 const defaultTransformOptions = {
@@ -73,6 +88,10 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
     transformOptions = defaultTransformOptions,
     sourceCode,
     renderToolbar,
+    onChange,
+    beforeCompile,
+    compiler,
+    afterCompile,
     ...rest
   } = props;
 
@@ -118,7 +137,7 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
   const prefix = name => (classPrefix ? `${classPrefix}-${name}` : name);
 
   const executeCode = useCallback(
-    (nextCode?: string) => {
+    (pendCode: string = code) => {
       if (!canUseDOM) {
         return;
       }
@@ -136,10 +155,13 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
           ? Object.keys(dependencies).map(key => `var ${key}= dependencies.${key};`)
           : [];
 
-        const { code: compiledCode } = transformSync(nextCode || code, transformOptions);
+        const beforeCompileCode = beforeCompile?.(pendCode) || pendCode;
+        const { code: compiledCode } = compiler
+          ? compiler(beforeCompileCode)
+          : transformSync(beforeCompileCode, transformOptions);
 
         /* eslint-disable */
-        eval(`${statement.join('\n')} ${compiledCode}`);
+        eval(`${statement.join('\n')} ${afterCompile?.(compiledCode) || compiledCode}`);
         /* eslint-enable */
       } catch (err) {
         console.error(err);
@@ -156,6 +178,7 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
     (code?: string) => {
       setHasError(false);
       setErrorMessage(null);
+      onChange?.(code);
 
       if (initialized) {
         executeCode(code);
