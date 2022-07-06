@@ -2,8 +2,6 @@
 
 Let the React code in Markdown be rendered to the page, and support online editing.
 
-English | [中文版][readm-cn]
-
 ![preview](https://user-images.githubusercontent.com/1203827/44707274-a30c0f80-aad6-11e8-8cc5-9cf7daf4d9e2.gif)
 
 ## Principle of implementation
@@ -88,5 +86,3 @@ The source code is written in markdown, refer to [example.md](https://raw.github
 | sourceCode     | string                            |                         | The code to be rendered is executed                                       |
 | theme          | 'light' , 'dark'                  | 'light'                 | Code editor theme, applied to CodeMirror                                  |
 | compileOptions | object                            | defaultTransformOptions | swc configuration https://swc.rs/docs/configuration/compilation           |
-
-[readm-cn]: https://github.com/simonguo/react-code-view/blob/master/README_zh-CN.md
