@@ -1,0 +1,54 @@
+.rcv {
+  &-container {
+    position: relative;
+    margin-bottom: 18px;
+    border: 1px dashed #f1f1f1;
+    padding: 18px 18px 28px 18px;
+  }
+
+  &-toolbar {
+    right: 0;
+    bottom: 0;
+    border-bottom: 1px dashed #f5f5f5;
+    text-align: right;
+    .btn {
+      border-style: dashed;
+      .icon-code {
+        font-size: 20px;
+      }
+    }
+  }
+
+  &-render {
+    padding: 10px 0;
+    position: relative;
+  }
+
+  &-editor {
+    height: auto;
+    overflow: hidden;
+  }
+
+  &-error {
+    color: red;
+  }
+
+  &-highlight {
+    background-color: #f5f5f5;
+    margin: 1em 0;
+    padding: 10px;
+
+    pre {
+      margin: 0;
+    }
+  }
+}
+
+.CodeMirror {
+  padding: 10px;
+  margin: 10px 0;
+  height: auto !important;
+  pre {
+    padding: 0 20px;
+  }
+}

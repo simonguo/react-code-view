@@ -20,44 +20,40 @@ npm install react-code-view
 
 ### Configure Webpack
 
-Support for `markdown` needs to be added in webpack.
-
-```
-npm install html-loader --save-dev
-npm install markdown-loader --save-dev
-```
-
-`webpack.config.js`
-
 ```js
-
-const renderer = require('react-code-view/webpack/renderer');
-
-...
-{
-  test: /\.md$/,
-  use: [{
-    loader: 'html-loader'
-  }, {
-    loader: 'markdown-loader',
-    options: {
-      renderer: renderer(
-        // Pass languages to highlight.js.
-        // Default value: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less']
-        // See https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
-      )
-    }
-  }]
-}
+// webpack.config.js
+export default {
+  module: {
+    rules: [
+      {
+        test: /\.md$/,
+        use: [
+          {
+            loader: 'react-code-view/webpack-md-loader',
+            parseLanguages: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less', 'typescript'],
+            htmlOptions: {
+              // HTML Loader options
+              // See https://github.com/webpack-contrib/html-loader#options
+            },
+            markedOptions: {
+              // Pass options to marked
+              // See https://marked.js.org/using_advanced#options
+            }
+          }
+        ]
+      }
+    ]
+  }
+};
 ```
 
-## Example
+## Usage
 
 ```js
 import CodeView from 'react-code-view';
 import { Button } from 'rsuite';
 
-import 'react-code-view/lib/less/index.less';
+import 'react-code-view/styles/index.less'; // or 'react-code-view/styles/react-code-view.css'
 
 return (
   <CodeView
@@ -78,19 +74,19 @@ The source code is written in markdown, refer to [example.md](https://raw.github
 
 ### `<CodeView>`
 
-| Name             | Type                              | Default value           | Description                                                               |
-| ---------------- | --------------------------------- | ----------------------- | ------------------------------------------------------------------------- |
-| afterCompile     | (code: string) => string          |                         | Executed after compiling the code                                         |
-| beforeCompile    | (code: string) => string          |                         | Executed before compiling the code                                        |
-| children         | any                               |                         | The code to be rendered is executed. Usually imported via markdown-loader |
-| compiler         | (code: string) => string          |                         | A compiler that transforms the code. Use swc.transformSync by default     |
-| dependencies     | object                            |                         | Dependent objects required by the executed code                           |
-| editable         | boolean                           | false                   | Renders a code editor that can modify the source code                     |
-| editor           | object                            |                         | Editor properties                                                         |
-| onChange         | (code?: string) => void           |                         | Callback triggered after code change                                      |
-| renderToolbar    | (buttons: ReactNode) => ReactNode |                         | Customize the rendering toolbar                                           |
-| sourceCode       | string                            |                         | The code to be rendered is executed                                       |
-| theme            | 'light' , 'dark'                  | 'light'                 | Code editor theme, applied to CodeMirror                                  |
-| transformOptions | object                            | defaultTransformOptions | swc configuration https://swc.rs/docs/configuration/compilation           |
+| Name           | Type                              | Default value           | Description                                                               |
+| -------------- | --------------------------------- | ----------------------- | ------------------------------------------------------------------------- |
+| afterCompile   | (code: string) => string          |                         | Executed after compiling the code                                         |
+| beforeCompile  | (code: string) => string          |                         | Executed before compiling the code                                        |
+| children       | any                               |                         | The code to be rendered is executed. Usually imported via markdown-loader |
+| compiler       | (code: string) => string          |                         | A compiler that transforms the code. Use swc.transformSync by default     |
+| dependencies   | object                            |                         | Dependent objects required by the executed code                           |
+| editable       | boolean                           | false                   | Renders a code editor that can modify the source code                     |
+| editor         | object                            |                         | Editor properties                                                         |
+| onChange       | (code?: string) => void           |                         | Callback triggered after code change                                      |
+| renderToolbar  | (buttons: ReactNode) => ReactNode |                         | Customize the rendering toolbar                                           |
+| sourceCode     | string                            |                         | The code to be rendered is executed                                       |
+| theme          | 'light' , 'dark'                  | 'light'                 | Code editor theme, applied to CodeMirror                                  |
+| compileOptions | object                            | defaultTransformOptions | swc configuration https://swc.rs/docs/configuration/compilation           |
 
 [readm-cn]: https://github.com/simonguo/react-code-view/blob/master/README_zh-CN.md

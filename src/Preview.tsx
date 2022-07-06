@@ -3,7 +3,7 @@ import ErrorBoundary from './ErrorBoundary';
 
 const Preview = ({ children, ...rest }) => (
   <ErrorBoundary {...rest}>
-    <div className="react-code-view-render">{children}</div>
+    <div className="rcv-render">{children}</div>
   </ErrorBoundary>
 );
 

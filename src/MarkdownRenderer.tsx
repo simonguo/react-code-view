@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: string | null;
@@ -15,7 +16,7 @@ const MarkdownRenderer = React.forwardRef(
       <div
         {...rest}
         ref={ref}
-        className={className || 'markdown'}
+        className={classNames(className, 'rcv-markdown')}
         dangerouslySetInnerHTML={{ __html: children }}
       />
     );

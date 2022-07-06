@@ -38,6 +38,5 @@ node_modules
 build
 lib
 
-.tern-project
+dist
 assets
-yarn.lock

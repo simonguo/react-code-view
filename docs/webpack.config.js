@@ -2,7 +2,6 @@ const path = require('path');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
-const markdownRenderer = require('./webpack/renderer');
 
 const { NODE_ENV } = process.env;
 
@@ -55,12 +54,9 @@ module.exports = {
         test: /\.md$/,
         use: [
           {
-            loader: 'html-loader'
-          },
-          {
-            loader: 'markdown-loader',
+            loader: path.resolve('./webpack-md-loader'),
             options: {
-              renderer: markdownRenderer()
+              parseLanguages: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less', 'typescript']
             }
           }
         ]
@@ -71,7 +67,7 @@ module.exports = {
     new HtmlwebpackPlugin({
       title: 'React Code View',
       filename: 'index.html',
-      template: 'docs/index.html',
+      template: './docs/index.html',
       inject: true,
       hash: true,
       path: docsPath

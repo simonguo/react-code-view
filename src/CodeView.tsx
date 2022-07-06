@@ -112,18 +112,19 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
     importAndRunSwcOnMount();
   }, []);
 
-  useEffect(() => {
-    if (initialized) {
-      executeCode();
-    }
-  }, [initialized]);
-
   const sourceStr: string = children?.__esModule ? children.default : sourceCode;
   const { code, beforeHTML, afterHTML } = parseHTML(sourceStr) || {};
   const [editable, setEditable] = useState(isEditable);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [compiledReactNode, setCompiledReactNode] = useState(null);
+
+  useEffect(() => {
+    if (initialized) {
+      console.log('CodeView: initialized', children);
+      executeCode(code);
+    }
+  }, [initialized, code]);
 
   const handleExpandEditor = useCallback(() => {
     setEditable(!editable);
@@ -155,14 +156,21 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
           ? Object.keys(dependencies).map(key => `var ${key}= dependencies.${key};`)
           : [];
 
-        const beforeCompileCode = beforeCompile?.(pendCode) || pendCode;
-        const { code: compiledCode } = compiler
-          ? compiler(beforeCompileCode)
-          : transformSync(beforeCompileCode, transformOptions);
+        console.log(pendCode, code);
 
-        /* eslint-disable */
-        eval(`${statement.join('\n')} ${afterCompile?.(compiledCode) || compiledCode}`);
-        /* eslint-enable */
+        const beforeCompileCode = beforeCompile?.(pendCode) || pendCode;
+
+        if (beforeCompileCode) {
+          console.log(beforeCompileCode, '-------');
+
+          const { code: compiledCode } = compiler
+            ? compiler(beforeCompileCode)
+            : transformSync(beforeCompileCode, transformOptions);
+
+          /* eslint-disable */
+          eval(`${statement.join('\n')} ${afterCompile?.(compiledCode) || compiledCode}`);
+          /* eslint-enable */
+        }
       } catch (err) {
         console.error(err);
       } finally {
@@ -208,19 +216,17 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
   return (
     <div ref={ref} {...rest}>
       <MarkdownRenderer>{beforeHTML}</MarkdownRenderer>
-      <div className="react-code-view">
+      <div className="rcv-container">
         <Preview hasError={hasError} errorMessage={errorMessage} onError={handleError}>
           {compiledReactNode || <div>Loading...</div>}
         </Preview>
-        <div className="react-code-view-toolbar">
-          {renderToolbar ? renderToolbar(codeButton) : codeButton}
-        </div>
+        <div className="rcv-toolbar">{renderToolbar ? renderToolbar(codeButton) : codeButton}</div>
         {showCodeEditor && (
           <CodeEditor
             {...editorProps}
             key="jsx"
             onChange={handleCodeChange}
-            className={classNames(editorClassName, 'react-code-view-editor')}
+            className={classNames(editorClassName, 'rcv-editor')}
             editorConfig={{ lineNumbers: true, theme: `base16-${theme}` }}
             code={code}
           />

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Button, Grid } from 'rsuite';
 import CodeView from '../src';
 
-import './less/index.less';
+import './styles/index.less';
 
 const App = () => {
   return (

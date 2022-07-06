@@ -20,44 +20,40 @@ npm install react-code-view
 
 ### 配置 Webpack
 
-在 webpack 中需要添加对 `markdown` 的支持。
-
-```
-npm install html-loader --save-dev
-npm install markdown-loader --save-dev
-```
-
-`webpack.config.js` 配置
-
 ```js
-
-const renderer = require('react-code-view/webpack/renderer');
-
-...
-{
-  test: /\.md$/,
-  use: [{
-    loader: 'html-loader'
-  }, {
-    loader: 'markdown-loader',
-    options: {
-      renderer: renderer(
-        // Pass languages to highlight.js.
-        // Default value: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less']
-        // See https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
-      )
-    }
-  }]
-}
+// webpack.config.js
+export default {
+  module: {
+    rules: [
+      {
+        test: /\.md$/,
+        use: [
+          {
+            loader: 'react-code-view/webpack-md-loader',
+            parseLanguages: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less', 'typescript'],
+            htmlOptions: {
+              // HTML Loader options
+              // See https://github.com/webpack-contrib/html-loader#options
+            },
+            markedOptions: {
+              // Pass options to marked
+              // See https://marked.js.org/using_advanced#options
+            }
+          }
+        ]
+      }
+    ]
+  }
+};
 ```
 
-## 示例
+## 使用
 
 ```js
 import CodeView from 'react-code-view';
 import { Button } from 'rsuite';
 
-import 'react-code-view/lib/less/index.less';
+import 'react-code-view/styles/styles.less'; // or 'react-code-view/styles/react-code-view.css'
 
 return (
   <CodeView
