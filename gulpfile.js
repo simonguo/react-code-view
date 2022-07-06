@@ -1,3 +1,5 @@
+const fs = require('fs');
+const util = require('util');
 const less = require('gulp-less');
 const postcss = require('gulp-postcss');
 const sourcemaps = require('gulp-sourcemaps');
@@ -5,6 +7,9 @@ const rename = require('gulp-rename');
 const gulp = require('gulp');
 const STYLE_SOURCE_DIR = './src/less';
 const STYLE_DIST_DIR = './dist/styles';
+const pkg = require('./package.json');
+
+const writeFile = util.promisify(fs.writeFile);
 
 function buildLess() {
   return gulp
@@ -41,4 +46,23 @@ function copyLoader() {
   return gulp.src(['./webpack-md-loader/*']).pipe(gulp.dest('dist/webpack-md-loader'));
 }
 
-exports.build = gulp.series(buildLess, buildCSS, copyLessFiles, copyDocs, copyLoader);
+function createPkgFile(done) {
+  pkg.scripts = {};
+
+  writeFile('dist/package.json', JSON.stringify(pkg, null, 2) + '\n')
+    .then(() => {
+      done();
+    })
+    .catch(err => {
+      if (err) console.error(err.toString());
+    });
+}
+
+exports.build = gulp.series(
+  buildLess,
+  buildCSS,
+  copyLessFiles,
+  copyDocs,
+  copyLoader,
+  createPkgFile
+);
