@@ -1,32 +1,8 @@
 # react-code-view
 
-English | [中文版][readm-cn]
-
-## Why use this component?
-
-Let the code in Markdown run in real time, why is there such a need?
-
-In our front-end team, technical-related documents are written in Markdown. There are often a lot of sample code in the documentation. We hope that when you read the documentation, you can run the sample code to see the rendering interface.
-
-## What are the requirements?
-
-- Let the code in Markdown run and preview.
-- The code can be edited online.
-- Does not affect the layout of the entire document stream.
-- Support React, support code highlighting.
-- Babel can be configured.
-
-After understanding the requirements, I wrote a React component to satisfy these functions, [`react-code-view`](https://github.com/simonguo/react-code-view) , first look at the preview:
+Let the React code in Markdown be rendered to the page, and support online editing.
 
 ![preview](https://user-images.githubusercontent.com/1203827/44707274-a30c0f80-aad6-11e8-8cc5-9cf7daf4d9e2.gif)
-
-Preview: https://simonguo.github.io/react-code-view/
-
-## Principle of implementation
-
-- Parse the Markdown document with `markdown-loader` and `html-loader`.
-- Take the code out of the regular expression and give it to `codemirror`
-- Compile the code in `codemirror` through babel and render it to the specified container via `ReactDOM.render` .
 
 ## Install
 
@@ -34,80 +10,101 @@ Preview: https://simonguo.github.io/react-code-view/
 npm install react-code-view
 ```
 
-### Configure webpack .
-
-Support for `markdown-loader` needs to be added in webpack. Need to install:
-
-```
-npm install html-loader --save-dev
-npm install markdown-loader@5.0.0 --save-dev
-npm install react-markdown-reader@1.2.0 --save-dev
-```
-
-`webpack.config.js`
+### Configure Webpack
 
 ```js
+// webpack.config.js
+export default {
+  module: {
+    rules: [
+      {
+        test: /\.md$/,
+        loader: 'react-code-view/webpack-md-loader'
+      }
+    ]
+  }
+};
+```
 
-const markdownRenderer = require('react-markdown-reader').renderer;
+#### Options
 
-...
+```json
 {
-  test: /\.md$/,
-  use: [{
-    loader: 'html-loader'
-  }, {
-    loader: 'markdown-loader',
-    options: {
-      renderer: markdownRenderer(/**languages:Array<string>**/)
-    }
-  }]
+  "parseLanguages": [
+    // Supported languages for highlight.js
+    // default: "javascript", "bash", "xml", "css", "markdown", "less", "typescript"
+    // See https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
+  ],
+  "htmlOptions": {
+    // HTML Loader options
+    // See https://github.com/webpack-contrib/html-loader#options
+  },
+  "markedOptions": {
+    // Pass options to marked
+    // See https://marked.js.org/using_advanced#options
+  }
 }
 ```
 
-languages 默认值：`["javascript", "bash", "xml", "css", "markdown", "less"]`;
+**webpack.config.js**
 
-### Add Babel
+```js
 
-The sample code usually uses `ES2015+`, `React`, etc., and needs to compile the code in real time, so introduce `Babel` in `HTML`:
-
-```html
-<script
-  type="text/javascript"
-  src="//cdn.staticfile.org/babel-standalone/6.24.0/babel.min.js"
-></script>
+export default {
+  module: {
+    rules: [
+      {
+        test: /\.md$/,
+        use:[
+          loader: 'react-code-view/webpack-md-loader',
+          options:{
+            parseLanguages: ['typescript','rust']
+          }
+        ]
+      }
+    ]
+  }
+};
 ```
 
-> If `cdn.staticfile.org` is not well accessed in your area, you can change other CDN.
-
-## Example
+## Usage
 
 ```js
 import CodeView from 'react-code-view';
-import 'react-code-view/lib/less/index.less';
-
 import { Button } from 'rsuite';
 
-<CodeView dependencies={{ Button }}>{require('./example.md')}</CodeView>;
+import 'react-code-view/styles/react-code-view.css';
+
+return (
+  <CodeView
+    dependencies={{
+      Button
+    }}
+  >
+    {require('./example.md')}
+  </CodeView>
+);
 ```
 
-The source code is uniformly written in markdown, reference:
-[example.md](https://raw.githubusercontent.com/simonguo/react-code-view/master/docs/example.md)
+The source code is written in markdown, refer to [example.md](https://raw.githubusercontent.com/simonguo/react-code-view/master/docs/example.md)
 
-> The important thing to note here is that the code that needs to be run must be placed in `<!--start-code-->` and `<!--end-code-->` between.
+> Note: The code to be rendered must be placed between `<!--start-code-->` and `<!--end-code-->`
 
-## API
+## Props
 
-| Name                  | Type     | Default value                               | Description                                       |
-| --------------------- | -------- | ------------------------------------------- | ------------------------------------------------- |
-| babelTransformOptions | Object   | { presets: ['stage-0', 'react', 'es2015'] } | Babel configuration parameters [options][babeljs] |
-| dependencies          | Object   |                                             | Dependent components.                             |
-| renderToolbar         | Function |                                             | Custom toolbar.                                   |
-| showCode              | boolean  | true                                        | Display code.                                     |
-| theme                 | string   | 'light'                                     | Theme, options `light` and `dark`.                |
+### `<CodeView>`
 
-## Who is using?
-
-- [React Suite](https://rsuitejs.com/)
-
-[babeljs]: https://babeljs.io/docs/usage/api/#options
-[readm-cn]: https://github.com/simonguo/react-code-view/blob/master/README_zh-CN.md
+| Name           | Type                              | Default value           | Description                                                               |
+| -------------- | --------------------------------- | ----------------------- | ------------------------------------------------------------------------- |
+| afterCompile   | (code: string) => string          |                         | Executed after compiling the code                                         |
+| beforeCompile  | (code: string) => string          |                         | Executed before compiling the code                                        |
+| children       | any                               |                         | The code to be rendered is executed. Usually imported via markdown-loader |
+| compiler       | (code: string) => string          |                         | A compiler that transforms the code. Use swc.transformSync by default     |
+| dependencies   | object                            |                         | Dependent objects required by the executed code                           |
+| editable       | boolean                           | false                   | Renders a code editor that can modify the source code                     |
+| editor         | object                            |                         | Editor properties                                                         |
+| onChange       | (code?: string) => void           |                         | Callback triggered after code change                                      |
+| renderToolbar  | (buttons: ReactNode) => ReactNode |                         | Customize the rendering toolbar                                           |
+| sourceCode     | string                            |                         | The code to be rendered is executed                                       |
+| theme          | 'light' , 'dark'                  | 'light'                 | Code editor theme, applied to CodeMirror                                  |
+| compileOptions | object                            | defaultTransformOptions | swc configuration https://swc.rs/docs/configuration/compilation           |

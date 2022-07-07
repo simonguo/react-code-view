@@ -1,0 +1,44 @@
+{
+  "title": "Markdown Loader options",
+  "type": "object",
+  "properties": {
+    "htmlOptions": {
+      "description": "HTML Loader options",
+      "link": "https://github.com/webpack-contrib/html-loader#options",
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": true
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
+    },
+    "markedOptions": {
+      "description": "Marked options",
+      "link": "https://marked.js.org/using_advanced#options",
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
+    },
+    "parseLanguages": {
+      "description": "Languages that support parsing",
+      "link": "https://github.com/webpack-contrib/less-loader#additionalData",
+      "anyOf": [
+        {
+          "type": "array"
+        },
+        {
+          "instanceof": "Function"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}
