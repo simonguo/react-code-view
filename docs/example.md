@@ -12,11 +12,11 @@ npm install react-code-view
 
 ## Usage
 
-```js
+```jsx
 import CodeView from 'react-code-view';
 import { Button } from 'rsuite';
 
-import 'react-code-view/styles/styles.less'; // or 'react-code-view/styles/react-code-view.css'
+import 'react-code-view/styles/react-code-view.css';
 
 return <CodeView dependencies={{ Button }}>{require('./example.md')}</CodeView>;
 ```

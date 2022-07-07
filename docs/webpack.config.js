@@ -52,14 +52,7 @@ module.exports = {
       },
       {
         test: /\.md$/,
-        use: [
-          {
-            loader: path.resolve('./webpack-md-loader'),
-            options: {
-              parseLanguages: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less', 'typescript']
-            }
-          }
-        ]
+        loader: path.resolve('./webpack-md-loader')
       }
     ]
   },

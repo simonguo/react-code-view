@@ -13,7 +13,7 @@ const writeFile = util.promisify(fs.writeFile);
 
 function buildLess() {
   return gulp
-    .src([`${STYLE_SOURCE_DIR}/*.less`])
+    .src([`${STYLE_SOURCE_DIR}/index.less`])
     .pipe(sourcemaps.init())
     .pipe(less({ javascriptEnabled: true, paths: ['*.css', '*.less'] }))
     .pipe(postcss([require('autoprefixer')]))
@@ -30,10 +30,6 @@ function buildCSS() {
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(`${STYLE_DIST_DIR}`));
-}
-
-function copyLessFiles() {
-  return gulp.src([`${STYLE_SOURCE_DIR}/*.less`]).pipe(gulp.dest(STYLE_DIST_DIR));
 }
 
 function copyDocs() {
@@ -58,11 +54,4 @@ function createPkgFile(done) {
     });
 }
 
-exports.build = gulp.series(
-  buildLess,
-  buildCSS,
-  copyLessFiles,
-  copyDocs,
-  copyLoader,
-  createPkgFile
-);
+exports.build = gulp.series(buildLess, buildCSS, copyDocs, copyLoader, createPkgFile);

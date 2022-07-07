@@ -1,20 +1,16 @@
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/mode/jsx/jsx';
-import 'codemirror/addon/runmode/runmode';
-
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import CodeIcon from '@rsuite/icons/Code';
 import classNames from 'classnames';
 import MarkdownRenderer from './MarkdownRenderer';
-import initSwc, { transformSync } from '@swc/wasm-web';
 import CodeEditor from './CodeEditor';
 import parseHTML from './utils/parseHTML';
 import Preview from './Preview';
 import canUseDOM from './utils/canUseDOM';
 
-interface CodeViewProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onChange'> {
+const React = require('react');
+const ReactDOM = require('react-dom');
+
+export interface CodeViewProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onChange'> {
   /** Code editor theme, applied to CodeMirror */
   theme?: 'light' | 'dark';
 
@@ -102,14 +98,20 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
     buttonClassName,
     ...editorProps
   } = editor;
+
   const [initialized, setInitialized] = useState(false);
+  const transfrom = useRef<any>(null);
 
   useEffect(() => {
-    async function importAndRunSwcOnMount() {
-      await initSwc();
-      setInitialized(true);
+    if (!canUseDOM) {
+      return;
     }
-    importAndRunSwcOnMount();
+
+    import('@swc/wasm-web').then(async module => {
+      await module.default();
+      transfrom.current = module.transformSync;
+      setInitialized(true);
+    });
   }, []);
 
   const sourceStr: string = children?.__esModule ? children.default : sourceCode;
@@ -121,7 +123,6 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
 
   useEffect(() => {
     if (initialized) {
-      console.log('CodeView: initialized', children);
       executeCode(code);
     }
   }, [initialized, code]);
@@ -156,16 +157,12 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
           ? Object.keys(dependencies).map(key => `var ${key}= dependencies.${key};`)
           : [];
 
-        console.log(pendCode, code);
-
         const beforeCompileCode = beforeCompile?.(pendCode) || pendCode;
 
         if (beforeCompileCode) {
-          console.log(beforeCompileCode, '-------');
-
           const { code: compiledCode } = compiler
             ? compiler(beforeCompileCode)
-            : transformSync(beforeCompileCode, transformOptions);
+            : transfrom.current?.(beforeCompileCode, transformOptions);
 
           /* eslint-disable */
           eval(`${statement.join('\n')} ${afterCompile?.(compiledCode) || compiledCode}`);
@@ -218,7 +215,7 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
       <MarkdownRenderer>{beforeHTML}</MarkdownRenderer>
       <div className="rcv-container">
         <Preview hasError={hasError} errorMessage={errorMessage} onError={handleError}>
-          {compiledReactNode || <div>Loading...</div>}
+          {compiledReactNode}
         </Preview>
         <div className="rcv-toolbar">{renderToolbar ? renderToolbar(codeButton) : codeButton}</div>
         {showCodeEditor && (

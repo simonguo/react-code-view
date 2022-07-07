@@ -4,12 +4,6 @@ Let the React code in Markdown be rendered to the page, and support online editi
 
 ![preview](https://user-images.githubusercontent.com/1203827/44707274-a30c0f80-aad6-11e8-8cc5-9cf7daf4d9e2.gif)
 
-## Principle of implementation
-
-- Parse Markdown documents through `markdown-loader` and `html-loader`.
-- Extract the code that needs to be rendered in the document and pass it to the `codemirror` editor.
-- Compile the code in `codemirror` through swc, and then render the component to the specified container through `ReactDOM.render`.
-
 ## Install
 
 ```
@@ -25,18 +19,46 @@ export default {
     rules: [
       {
         test: /\.md$/,
-        use: [
-          {
-            loader: 'react-code-view/webpack-md-loader',
-            parseLanguages: ['javascript', 'bash', 'xml', 'css', 'markdown', 'less', 'typescript'],
-            htmlOptions: {
-              // HTML Loader options
-              // See https://github.com/webpack-contrib/html-loader#options
-            },
-            markedOptions: {
-              // Pass options to marked
-              // See https://marked.js.org/using_advanced#options
-            }
+        loader: 'react-code-view/webpack-md-loader'
+      }
+    ]
+  }
+};
+```
+
+#### Options
+
+```json
+{
+  "parseLanguages": [
+    // Supported languages for highlight.js
+    // default: "javascript", "bash", "xml", "css", "markdown", "less", "typescript"
+    // See https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
+  ],
+  "htmlOptions": {
+    // HTML Loader options
+    // See https://github.com/webpack-contrib/html-loader#options
+  },
+  "markedOptions": {
+    // Pass options to marked
+    // See https://marked.js.org/using_advanced#options
+  }
+}
+```
+
+**webpack.config.js**
+
+```js
+
+export default {
+  module: {
+    rules: [
+      {
+        test: /\.md$/,
+        use:[
+          loader: 'react-code-view/webpack-md-loader',
+          options:{
+            parseLanguages: ['typescript','rust']
           }
         ]
       }
@@ -51,7 +73,7 @@ export default {
 import CodeView from 'react-code-view';
 import { Button } from 'rsuite';
 
-import 'react-code-view/styles/index.less'; // or 'react-code-view/styles/react-code-view.css'
+import 'react-code-view/styles/react-code-view.css';
 
 return (
   <CodeView

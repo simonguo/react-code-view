@@ -5,6 +5,8 @@ import CodeView from '../src';
 
 import './styles/index.less';
 
+const example = require('./example.md');
+
 const App = () => {
   return (
     <Grid>
@@ -16,7 +18,7 @@ const App = () => {
           return code.replace(/import\ [\w\,\{\}\ ]+\ from\ "[\w-]+";/gi, '');
         }}
       >
-        {require('./example.md')}
+        {example}
       </CodeView>
     </Grid>
   );

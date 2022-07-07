@@ -14,11 +14,9 @@ module.exports = (languages = defaultLanguages) => {
       ? hl.highlight(code, { language, ignoreIllegals: true })
       : hl.highlightAuto(code);
 
-    return `
-    <div class="rcv-highlight">
-      <pre><code class="${language || ''}">${value}</code></pre>
-    </div>
-    `;
+    return `<div class="rcv-highlight"><pre><code class="${
+      language || ''
+    }">${value}</code></pre></div>`;
   };
 
   renderer.code = codeRenderer;
