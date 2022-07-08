@@ -28,7 +28,7 @@ export default {
 
 #### Options
 
-```json
+```js
 {
   "parseLanguages": [
     // Supported languages for highlight.js
