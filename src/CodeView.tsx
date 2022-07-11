@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { useEffect, useState, useCallback, useRef } from 'react';
 import CodeIcon from '@rsuite/icons/Code';
 import classNames from 'classnames';
@@ -121,12 +122,6 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
   const [errorMessage, setErrorMessage] = useState(null);
   const [compiledReactNode, setCompiledReactNode] = useState(null);
 
-  useEffect(() => {
-    if (initialized) {
-      executeCode(code);
-    }
-  }, [initialized, code]);
-
   const handleExpandEditor = useCallback(() => {
     setEditable(!editable);
   }, [editable]);
@@ -147,7 +142,6 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
       const originalRender = ReactDOM.render;
 
       // Redefine the render function, which will reset to the default value after `eval` is executed.
-      // @ts-ignore
       ReactDOM.render = element => {
         setCompiledReactNode(element);
       };
@@ -164,20 +158,23 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
             ? compiler(beforeCompileCode)
             : transfrom.current?.(beforeCompileCode, transformOptions);
 
-          /* eslint-disable */
           eval(`${statement.join('\n')} ${afterCompile?.(compiledCode) || compiledCode}`);
-          /* eslint-enable */
         }
       } catch (err) {
         console.error(err);
       } finally {
         // Reset the render function to the original value.
-        // @ts-ignore
         ReactDOM.render = originalRender;
       }
     },
-    [initialized, code, dependencies]
+    [code, dependencies, beforeCompile, compiler, transformOptions, afterCompile]
   );
+
+  useEffect(() => {
+    if (initialized) {
+      executeCode(code);
+    }
+  }, [initialized, code, executeCode]);
 
   const handleCodeChange = useCallback(
     (code?: string) => {
@@ -189,7 +186,7 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
         executeCode(code);
       }
     },
-    [executeCode, initialized]
+    [executeCode, initialized, onChange]
   );
 
   const codeButton = (

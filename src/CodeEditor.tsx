@@ -7,6 +7,7 @@ export interface CodeEditorProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   code?: string;
   editorConfig?: EditorConfiguration;
   onChange?: (code?: string) => void;
+  onInitialized?: (editor: EditorFromTextArea) => void;
 }
 
 const defaultEditorConfig = {
@@ -30,7 +31,7 @@ async function importCodeMirror() {
 }
 
 const CodeEditor = React.forwardRef((props: CodeEditorProps, ref: React.Ref<HTMLDivElement>) => {
-  const { code, onChange, editorConfig, ...rest } = props;
+  const { code, editorConfig, onChange, onInitialized, ...rest } = props;
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const editor = useRef<EditorFromTextArea | null>(null);
@@ -47,12 +48,16 @@ const CodeEditor = React.forwardRef((props: CodeEditorProps, ref: React.Ref<HTML
       }
 
       setInitialized(true);
+
       editor.current = CodeMirror.fromTextArea(textareaRef.current, {
         ...defaultEditorConfig,
         ...editorConfig
       });
       editor.current.on('change', handleChange);
+
+      onInitialized?.(editor.current);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

@@ -10,7 +10,7 @@ module.exports = (api, options) => {
   return {
     presets: [
       ['@babel/preset-env', { modules, loose: true }],
-      ['@babel/preset-react', { development: dev }],
+      ['@babel/preset-react', { development: dev, runtime: 'automatic' }],
       '@babel/typescript'
     ],
     plugins: [
