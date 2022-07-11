@@ -15,10 +15,9 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
      - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: 16
-          cache: 'npm'
+          node-version: 'lts/*'
 
       - name: Install
         run: npm install
