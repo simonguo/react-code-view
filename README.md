@@ -1,6 +1,6 @@
 # react-code-view
 
-Let the React code in Markdown be rendered to the page, and support online editing.
+`react-code-view` is a React component based on `codemirror` and `marked`. It enables `jsx` code in `markdown` to be rendered to the page.
 
 ![preview](https://user-images.githubusercontent.com/1203827/44707274-a30c0f80-aad6-11e8-8cc5-9cf7daf4d9e2.gif)
 
