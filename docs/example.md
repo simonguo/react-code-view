@@ -21,7 +21,7 @@ import 'react-code-view/styles/react-code-view.css';
 return <CodeView dependencies={{ Button }}>{require('./example.md')}</CodeView>;
 ```
 
-> See [example.md](https://github.com/simonguo/react-code-view/blob/master/docs/example.md)
+> See [example.md](https://github.com/simonguo/react-code-view/blob/main/docs/example.md)
 
 ## Example
 
