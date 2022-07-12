@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const marked = require('marked');
 const hl = require('highlight.js/lib/core');
 const defaultLanguages = ['javascript', 'bash', 'xml', 'css', 'markdown', 'less'];

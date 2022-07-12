@@ -25,6 +25,8 @@ return <CodeView dependencies={{ Button }}>{require('./example.md')}</CodeView>;
 
 ## Example
 
+### First example
+
 <!--start-code-->
 
 ```js
@@ -35,10 +37,20 @@ import ReactDOM from 'react-dom';
 import { Button } from 'rsuite';
 
 const App = () => {
-  return <Button>Test</Button>;
+  return <Button>First example</Button>;
 };
 
 ReactDOM.render(<App />);
+```
+
+<!--end-code-->
+
+### Second example
+
+<!--start-code-->
+
+```js
+ReactDOM.render(<Button>Second example</Button>);
 ```
 
 <!--end-code-->
