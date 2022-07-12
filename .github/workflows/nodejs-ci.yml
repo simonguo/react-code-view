@@ -18,5 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - env: 
+          HUSKY: 0
       - run: npm install
       - run: npm test
