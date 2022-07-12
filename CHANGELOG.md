@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/simonguo/react-code-view/compare/2.0.0...2.1.0) (2022-07-12)
+
+
+### Features
+
+* support for rendering multiple examples in markdown ([#35](https://github.com/simonguo/react-code-view/issues/35)) ([d021789](https://github.com/simonguo/react-code-view/commit/d021789b8ebcd540c54f34131c1aa1a1be79a442))
+
+
+
 # 2.0.0
 
 ## Features
