@@ -13,6 +13,7 @@
     "build:docs": "rm -rf assets && webpack --mode production --config ./docs/webpack.config.js",
     "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:types && npm run build:gulp",
     "clean": "rimraf dist",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "dev": "webpack serve --mode development --port 3100 --host 0.0.0.0 --progress --config ./docs/webpack.config.js",
     "format": "prettier --write \"{src,test}/**/*.{tsx,ts,js}\"",
     "format:check": "prettier --list-different \"{src,test}/**/*.{tsx,ts,js}\"",
@@ -20,7 +21,8 @@
     "publish:docs": "node docs/gh-pages.js",
     "prepublishOnly": "npm run build",
     "test:watch": "jest --watch ",
-    "test": "npm run format:check && npm run lint && jest"
+    "test": "npm run format:check && npm run lint && jest",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -74,6 +76,7 @@
     "@typescript-eslint/parser": "^5.30.5",
     "autoprefixer": "^10.4.7",
     "babel-loader": "^8.1.0",
+    "conventional-changelog-cli": "^2.2.2",
     "css-loader": "^6.7.1",
     "cssnano": "^5.1.12",
     "eslint": "^7.25.0",
@@ -89,6 +92,7 @@
     "gulp-rename": "^2.0.0",
     "gulp-sourcemaps": "^3.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.1",
     "jest": "^28.1.2",
     "jest-environment-jsdom": "^28.1.2",
     "less": "^4.1.3",
