@@ -21,4 +21,4 @@ jobs:
       - env:
           HUSKY: 0
         run: npm install
-        run: npm test
+      - run: npm test
