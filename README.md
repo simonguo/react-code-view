@@ -86,7 +86,7 @@ return (
 );
 ```
 
-The source code is written in markdown, refer to [example.md](https://raw.githubusercontent.com/simonguo/react-code-view/master/docs/example.md)
+The source code is written in markdown, refer to [example.md](https://raw.githubusercontent.com/simonguo/react-code-view/main/docs/example.md)
 
 > Note: The code to be rendered must be placed between `<!--start-code-->` and `<!--end-code-->`
 
