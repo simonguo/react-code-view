@@ -2,7 +2,7 @@
 
 ---
 
-`react-code-view` is a React component based on `codemirror` and `marked`. It enables `jsx` code in `markdown` to be rendered to the page.
+**React Code View** can render source code in markdown documents. And brings you the ability to render React components with editable source code and live preview.
 
 ## Install
 
@@ -30,14 +30,20 @@ return <CodeView dependencies={{ Button }}>{require('./example.md')}</CodeView>;
 <!--start-code-->
 
 ```js
-// example.md
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'rsuite';
 
 const App = () => {
-  return <Button>First example</Button>;
+  const [count, setCount] = React.useState(1);
+
+  return (
+    <>
+      <Button onClick={() => setCount(count + 1)}>
+        <span>★</span> Star {count}
+      </Button>
+    </>
+  );
 };
 
 ReactDOM.render(<App />);

@@ -1,8 +1,8 @@
-# react-code-view
+# React Code View
 
-`react-code-view` is a React component based on `codemirror` and `marked`. It enables `jsx` code in `markdown` to be rendered to the page.
+**React Code View** can render source code in markdown documents. And brings you the ability to render React components with editable source code and live preview.
 
-![preview](https://user-images.githubusercontent.com/1203827/44707274-a30c0f80-aad6-11e8-8cc5-9cf7daf4d9e2.gif)
+![React Code View](https://user-images.githubusercontent.com/1203827/178659124-f4a8658f-1087-4c55-b89b-04dcfc5568cb.gif)
 
 ## Install
 
