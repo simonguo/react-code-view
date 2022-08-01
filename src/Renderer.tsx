@@ -82,7 +82,6 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
   } = editor;
 
   const [editable, setEditable] = useState(isEditable);
-  const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [compiledReactNode, setCompiledReactNode] = useState(null);
 
@@ -91,7 +90,6 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
   }, [editable]);
 
   const handleError = useCallback(error => {
-    setHasError(true);
     setErrorMessage(error.message);
   }, []);
 
@@ -123,7 +121,7 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
           });
         }
       } catch (err) {
-        console.error(err);
+        console.warn(err);
       } finally {
         // Reset the render function to the original value.
         ReactDOM.render = originalRender;
@@ -138,11 +136,9 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
 
   const handleCodeChange = useCallback(
     (code?: string) => {
-      setHasError(false);
-      setErrorMessage(null);
       onChange?.(code);
-
       executeCode(code);
+      setErrorMessage(null);
     },
     [executeCode, onChange]
   );
@@ -164,6 +160,7 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
   );
 
   const showCodeEditor = editable && code;
+  const hasError = !!errorMessage;
 
   return (
     <div className="rcv-container" {...rest} ref={ref}>
