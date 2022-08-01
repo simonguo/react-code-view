@@ -1,11 +1,18 @@
-# [2.1.0](https://github.com/simonguo/react-code-view/compare/2.0.0...2.1.0) (2022-07-12)
+# [2.2.0](https://github.com/simonguo/react-code-view/compare/2.1.0...2.2.0) (2022-08-01)
 
+### Bug Fixes
+
+- **Renderer:** fix timely re-renders ([#39](https://github.com/simonguo/react-code-view/issues/39)) ([cf77850](https://github.com/simonguo/react-code-view/commit/cf77850e046baf131a54f0d5ace062990671ef39))
+
+### Performance Improvements
+
+- **transform:** use sucrase instead of @swc/wasm-web to improve transcoding performance [#38](https://github.com/simonguo/react-code-view/issues/38)
+
+# [2.1.0](https://github.com/simonguo/react-code-view/compare/2.0.0...2.1.0) (2022-07-12)
 
 ### Features
 
-* support for rendering multiple examples in markdown ([#35](https://github.com/simonguo/react-code-view/issues/35)) ([d021789](https://github.com/simonguo/react-code-view/commit/d021789b8ebcd540c54f34131c1aa1a1be79a442))
-
-
+- support for rendering multiple examples in markdown ([#35](https://github.com/simonguo/react-code-view/issues/35)) ([d021789](https://github.com/simonguo/react-code-view/commit/d021789b8ebcd540c54f34131c1aa1a1be79a442))
 
 # 2.0.0
 
