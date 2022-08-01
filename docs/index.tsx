@@ -15,7 +15,7 @@ const App = () => {
         theme="dark"
         dependencies={{ Button }}
         afterCompile={(code: string) => {
-          return code.replace(/import\ [\w\,\{\}\ ]+\ from\ "[\w-]+";/gi, '');
+          return code.replace(/import\ [\*\w\,\{\}\ ]+\ from\ ?[\."'@/\w-]+;/gi, '');
         }}
       >
         {example}

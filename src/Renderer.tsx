@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import CodeIcon from '@rsuite/icons/Code';
 import classNames from 'classnames';
+import { transform as transformCode, Options } from 'sucrase';
 import CodeEditor from './CodeEditor';
 import Preview from './Preview';
 import canUseDOM from './utils/canUseDOM';
+import evalCode from './utils/evalCode';
 
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -37,22 +39,15 @@ export interface RendererProps extends Omit<React.HTMLAttributes<HTMLElement>, '
   };
 
   /**
-   * swc configuration
-   * https://swc.rs/docs/configuration/compilation
+   * https://github.com/alangpierce/sucrase#transforms
    */
-  transformOptions?: object;
+  transformOptions?: Options;
 
   /** Customize the rendering toolbar */
   renderToolbar?: (buttons: React.ReactNode) => React.ReactNode;
 
   /** Callback triggered after code change */
   onChange?: (code?: string) => void;
-
-  /**
-   * A compiler that transforms the code. Use swc.transformSync by default
-   * See https://swc.rs/docs/usage/wasm
-   */
-  compiler?: (code: string) => string;
 
   /** Executed before compiling the code */
   beforeCompile?: (code: string) => string;
@@ -61,14 +56,7 @@ export interface RendererProps extends Omit<React.HTMLAttributes<HTMLElement>, '
   afterCompile?: (code: string) => string;
 }
 
-const defaultTransformOptions = {
-  jsc: {
-    parser: {
-      syntax: 'ecmascript',
-      jsx: true
-    }
-  }
-};
+const defaultTransformOptions: Options = { transforms: ['jsx'] };
 
 const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivElement>) => {
   const {
@@ -81,7 +69,6 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
     renderToolbar,
     onChange,
     beforeCompile,
-    compiler,
     afterCompile,
     ...rest
   } = props;
@@ -93,21 +80,6 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
     buttonClassName,
     ...editorProps
   } = editor;
-
-  const [initialized, setInitialized] = useState(false);
-  const transfrom = useRef<any>(null);
-
-  useEffect(() => {
-    if (!canUseDOM) {
-      return;
-    }
-
-    import('@swc/wasm-web').then(async module => {
-      await module.default();
-      transfrom.current = module.transformSync;
-      setInitialized(true);
-    });
-  }, []);
 
   const [editable, setEditable] = useState(isEditable);
   const [hasError, setHasError] = useState(false);
@@ -139,18 +111,16 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
       };
 
       try {
-        const statement = dependencies
-          ? Object.keys(dependencies).map(key => `var ${key}= dependencies.${key};`)
-          : [];
-
         const beforeCompileCode = beforeCompile?.(pendCode) || pendCode;
 
         if (beforeCompileCode) {
-          const { code: compiledCode } = compiler
-            ? compiler(beforeCompileCode)
-            : transfrom.current?.(beforeCompileCode, transformOptions);
+          const { code: compiledCode } = transformCode(beforeCompileCode, transformOptions);
 
-          eval(`${statement.join('\n')} ${afterCompile?.(compiledCode) || compiledCode}`);
+          evalCode(afterCompile?.(compiledCode) || compiledCode, {
+            React,
+            ReactDOM,
+            ...dependencies
+          });
         }
       } catch (err) {
         console.error(err);
@@ -159,14 +129,12 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
         ReactDOM.render = originalRender;
       }
     },
-    [code, dependencies, beforeCompile, compiler, transformOptions, afterCompile]
+    [code, dependencies, beforeCompile, transformOptions, afterCompile]
   );
 
   useEffect(() => {
-    if (initialized) {
-      executeCode(code);
-    }
-  }, [initialized, code, executeCode]);
+    executeCode(code);
+  }, [code, executeCode]);
 
   const handleCodeChange = useCallback(
     (code?: string) => {
@@ -174,11 +142,9 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
       setErrorMessage(null);
       onChange?.(code);
 
-      if (initialized) {
-        executeCode(code);
-      }
+      executeCode(code);
     },
-    [executeCode, initialized, onChange]
+    [executeCode, onChange]
   );
 
   const codeButton = (
@@ -197,7 +163,7 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
     </button>
   );
 
-  const showCodeEditor = editable && code && initialized;
+  const showCodeEditor = editable && code;
 
   return (
     <div className="rcv-container" {...rest} ref={ref}>

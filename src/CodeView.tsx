@@ -24,7 +24,6 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
     renderToolbar,
     onChange,
     beforeCompile,
-    compiler,
     afterCompile,
     ...rest
   } = props;
@@ -47,7 +46,6 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
               renderToolbar={renderToolbar}
               onChange={onChange}
               beforeCompile={beforeCompile}
-              compiler={compiler}
               afterCompile={afterCompile}
               editor={editor}
             />
