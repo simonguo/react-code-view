@@ -5,6 +5,7 @@ import CodeView from '../src';
 
 import './styles/index.less';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const example = require('./example.md');
 
 const App = () => {

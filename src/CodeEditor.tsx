@@ -49,13 +49,14 @@ const CodeEditor = React.forwardRef((props: CodeEditorProps, ref: React.Ref<HTML
 
       setInitialized(true);
 
-      editor.current = CodeMirror.fromTextArea(textareaRef.current, {
-        ...defaultEditorConfig,
-        ...editorConfig
-      });
-      editor.current.on('change', handleChange);
-
-      onInitialized?.(editor.current);
+      if (!editor.current) {
+        editor.current = CodeMirror.fromTextArea(textareaRef.current, {
+          ...defaultEditorConfig,
+          ...editorConfig
+        });
+        editor.current.on('change', handleChange);
+        onInitialized?.(editor.current);
+      }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
