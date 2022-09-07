@@ -1,5 +1,5 @@
-import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { Button, Grid } from 'rsuite';
 import CodeView from '../src';
 
@@ -25,10 +25,4 @@ const App = () => {
   );
 };
 
-const root = ReactDOM.createRoot(document.getElementById('app') as HTMLDivElement);
-
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+ReactDOM.render(<App />, document.getElementById('app'));
