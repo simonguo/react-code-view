@@ -1,3 +1,12 @@
+## [2.2.1](https://github.com/simonguo/react-code-view/compare/2.2.0...2.2.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* **CodeEditor:** fix Codemirror being initialized twice ([#40](https://github.com/simonguo/react-code-view/issues/40)) ([bb4aa2c](https://github.com/simonguo/react-code-view/commit/bb4aa2cc3088b1ac64ca94a58ad04aa69f0e8dea))
+
+
+
 # [2.2.0](https://github.com/simonguo/react-code-view/compare/2.1.0...2.2.0) (2022-08-01)
 
 ### Bug Fixes
