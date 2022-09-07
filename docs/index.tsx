@@ -1,10 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { StrictMode } from 'react';
+import ReactDOM from 'react-dom/client';
 import { Button, Grid } from 'rsuite';
 import CodeView from '../src';
 
 import './styles/index.less';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const example = require('./example.md');
 
 const App = () => {
@@ -24,4 +25,10 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const root = ReactDOM.createRoot(document.getElementById('app') as HTMLDivElement);
+
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
