@@ -2,11 +2,38 @@ import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import mergeRefs from './utils/mergeRefs';
-import { iconPath as copyPath } from './icons/Copy';
+import { iconPath as copyPath, svgTpl } from './icons/Copy';
 import { iconPath as checkPath } from './icons/Check';
 
 interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: string | null;
+}
+
+function appendCopyButton(container?: HTMLDivElement | null) {
+  if (!container) {
+    return;
+  }
+
+  const button = document.createElement('button');
+  button.className =
+    'copy-code-button rs-btn-icon rs-btn-icon-circle rs-btn rs-btn-subtle rs-btn-xs';
+  button.title = 'Copy code';
+  button.innerHTML = svgTpl(copyPath);
+  button.onclick = e => {
+    e.preventDefault();
+    const code = container?.querySelector('code')?.textContent;
+    const icon = button.querySelector('.copy-icon-path');
+
+    icon?.setAttribute('d', checkPath);
+    if (code) {
+      copy(code);
+    }
+
+    setTimeout(() => {
+      icon?.setAttribute('d', copyPath);
+    }, 2000);
+  };
+  container?.appendChild(button);
 }
 
 const MarkdownRenderer = React.forwardRef(
@@ -15,22 +42,8 @@ const MarkdownRenderer = React.forwardRef(
     const mdRef = React.useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      mdRef.current?.querySelectorAll('.copy-code-button').forEach(el => {
-        el.addEventListener('click', e => {
-          e.preventDefault();
-
-          const code = (el.nextElementSibling as HTMLInputElement)?.value;
-          const icon = el.querySelector('.copy-icon-path');
-
-          icon?.setAttribute('d', checkPath);
-          if (code) {
-            copy(code);
-          }
-
-          setTimeout(() => {
-            icon?.setAttribute('d', copyPath);
-          }, 2000);
-        });
+      mdRef.current?.querySelectorAll('.rcv-code-renderer').forEach((el: any) => {
+        appendCopyButton(el);
       });
     }, []);
 
