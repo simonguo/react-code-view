@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { useEffect, useState, useCallback } from 'react';
-import CodeIcon from '@rsuite/icons/Code';
 import classNames from 'classnames';
 import { transform as transformCode, Options } from 'sucrase';
 import CodeEditor from './CodeEditor';
 import Preview from './Preview';
 import canUseDOM from './utils/canUseDOM';
 import evalCode from './utils/evalCode';
+import CodeIcon from './icons/Code';
 
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -17,6 +17,9 @@ export interface RendererProps extends Omit<React.HTMLAttributes<HTMLElement>, '
 
   /** The code to be rendered is executed */
   code?: string;
+
+  /** The component used to render the copy button */
+  copyCodeButtonAs?: React.ElementType;
 
   /** Dependent objects required by the executed code */
   dependencies?: object;
@@ -66,6 +69,7 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
     editable: isEditable = false,
     transformOptions = defaultTransformOptions,
     code,
+    copyCodeButtonAs,
     renderToolbar,
     onChange,
     beforeCompile,
@@ -172,6 +176,7 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
         <CodeEditor
           {...editorProps}
           key="jsx"
+          copyCodeButtonAs={copyCodeButtonAs}
           onChange={handleCodeChange}
           className={classNames(editorClassName, 'rcv-editor')}
           editorConfig={{ lineNumbers: true, theme: `base16-${theme}` }}
