@@ -4,6 +4,7 @@ import CopyCodeButton from './CopyCodeButton';
 export interface CodeEditorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   code?: string;
   editorConfig?: EditorConfiguration;
+  copyCodeButtonAs?: React.ElementType;
   onChange?: (code?: string) => void;
   onInitialized?: (editor: EditorFromTextArea) => void;
 }
@@ -29,7 +30,7 @@ async function importCodeMirror() {
 }
 
 const CodeEditor = React.forwardRef((props: CodeEditorProps, ref: React.Ref<HTMLDivElement>) => {
-  const { code, editorConfig, onChange, onInitialized, ...rest } = props;
+  const { code, editorConfig, copyCodeButtonAs, onChange, onInitialized, ...rest } = props;
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const editor = useRef<EditorFromTextArea | null>(null);
@@ -67,7 +68,11 @@ const CodeEditor = React.forwardRef((props: CodeEditorProps, ref: React.Ref<HTML
 
   return (
     <div ref={ref} {...rest}>
-      <CopyCodeButton className='rs-btn-icon rs-btn-icon-circle rs-btn rs-btn-subtle rs-btn-xs' code={code?.trim()} />
+      <CopyCodeButton
+        as={copyCodeButtonAs}
+        className="rs-btn-icon rs-btn-icon-circle rs-btn rs-btn-subtle rs-btn-xs"
+        code={code?.trim()}
+      />
       {!initialized && <div className="rcv-editor-loader">Editor initializing ...</div>}
       <textarea ref={textareaRef} defaultValue={code?.trim()} />
     </div>
