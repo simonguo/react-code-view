@@ -1,3 +1,12 @@
+## [2.3.1](https://github.com/simonguo/react-code-view/compare/2.3.0...2.3.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* fix HTML parsing error ([#54](https://github.com/simonguo/react-code-view/issues/54)) ([5c1aa7f](https://github.com/simonguo/react-code-view/commit/5c1aa7f3a0c6401284490fa653edb6263049a7e1))
+
+
+
 # [2.3.0](https://github.com/simonguo/react-code-view/compare/2.2.1...2.3.0) (2024-01-26)
 
 
