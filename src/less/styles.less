@@ -2,17 +2,17 @@
   &-container {
     position: relative;
     margin-bottom: 18px;
-    border: 1px dashed #f1f1f1;
+    border: 1px solid #f1f1f1;
     padding: 18px 18px 28px 18px;
+    border-radius: 6px;
   }
 
   &-toolbar {
     right: 0;
     bottom: 0;
-    border-bottom: 1px dashed #f5f5f5;
+
     text-align: right;
     .btn {
-      border-style: dashed;
       .icon-code {
         font-size: 20px;
       }
@@ -46,9 +46,12 @@
   }
 
   &-highlight {
-    background-color: #f5f5f5;
+    background-color: #282c34;
+    border-radius: 6px;
     margin: 1em 0;
-    padding: 10px;
+    padding: 12px;
+    color: #eee;
+    position: relative;
 
     pre {
       margin: 0;
@@ -63,4 +66,20 @@
   pre {
     padding: 0 20px;
   }
+}
+
+.copy-code-button {
+  position: absolute;
+  color: #858b94;
+}
+
+.rcv-editor .copy-code-button {
+  right: 8px;
+  top: 16px;
+  z-index: 1;
+}
+
+.rcv-highlight .copy-code-button {
+  right: 8px;
+  top: 8px;
 }

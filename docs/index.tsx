@@ -15,6 +15,9 @@ const App = () => {
         editable
         theme="dark"
         dependencies={{ Button }}
+        editor={{
+          buttonClassName: 'rs-btn rs-btn-sm rs-btn-icon'
+        }}
         afterCompile={(code: string) => {
           return code.replace(/import\ [\*\w\,\{\}\ ]+\ from\ ?[\."'@/\w-]+;/gi, '');
         }}

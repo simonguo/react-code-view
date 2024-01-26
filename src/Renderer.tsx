@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { useEffect, useState, useCallback } from 'react';
-import CodeIcon from '@rsuite/icons/Code';
 import classNames from 'classnames';
 import { transform as transformCode, Options } from 'sucrase';
 import CodeEditor from './CodeEditor';
 import Preview from './Preview';
 import canUseDOM from './utils/canUseDOM';
 import evalCode from './utils/evalCode';
+import CodeIcon from './icons/Code';
 
 const React = require('react');
 const ReactDOM = require('react-dom');

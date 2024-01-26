@@ -1,8 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { EditorFromTextArea, EditorConfiguration } from 'codemirror';
-import { useRef } from 'react';
-import { useEffect } from 'react';
-
+import CopyCodeButton from './CopyCodeButton';
 export interface CodeEditorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   code?: string;
   editorConfig?: EditorConfiguration;
@@ -69,6 +67,7 @@ const CodeEditor = React.forwardRef((props: CodeEditorProps, ref: React.Ref<HTML
 
   return (
     <div ref={ref} {...rest}>
+      <CopyCodeButton className='rs-btn-icon rs-btn-icon-circle rs-btn rs-btn-subtle rs-btn-xs' code={code?.trim()} />
       {!initialized && <div className="rcv-editor-loader">Editor initializing ...</div>}
       <textarea ref={textareaRef} defaultValue={code?.trim()} />
     </div>
