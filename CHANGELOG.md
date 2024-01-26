@@ -1,3 +1,12 @@
+# [2.3.0](https://github.com/simonguo/react-code-view/compare/2.2.1...2.3.0) (2024-01-26)
+
+
+### Features
+
+* add support for one-click copy code ([#53](https://github.com/simonguo/react-code-view/issues/53)) ([f379146](https://github.com/simonguo/react-code-view/commit/f3791464b6c55c325c50d89ed50953c15c2e08e6))
+
+
+
 ## [2.2.1](https://github.com/simonguo/react-code-view/compare/2.2.0...2.2.1) (2022-09-07)
 
 
