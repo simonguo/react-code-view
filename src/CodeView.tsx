@@ -25,6 +25,9 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
     onChange,
     beforeCompile,
     afterCompile,
+    onOpenEditor,
+    onCloseEditor,
+    renderExtraFooter,
     ...rest
   } = props;
 
@@ -41,13 +44,16 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
               code={fragment.content}
               editable={editable}
               theme={theme}
+              editor={editor}
               dependencies={dependencies}
               transformOptions={transformOptions}
               renderToolbar={renderToolbar}
-              onChange={onChange}
-              beforeCompile={beforeCompile}
               afterCompile={afterCompile}
-              editor={editor}
+              onChange={onChange}
+              onOpenEditor={onOpenEditor}
+              onCloseEditor={onCloseEditor}
+              beforeCompile={beforeCompile}
+              renderExtraFooter={renderExtraFooter}
             />
           );
         } else if (fragment.type === 'html') {

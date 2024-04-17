@@ -49,6 +49,18 @@ export interface RendererProps extends Omit<React.HTMLAttributes<HTMLElement>, '
   /** Customize the rendering toolbar */
   renderToolbar?: (buttons: React.ReactNode) => React.ReactNode;
 
+  /** Customize the rendering footer */
+  renderExtraFooter?: () => React.ReactNode;
+
+  /**
+   * Callback triggered when the editor is opened
+   */
+  onOpenEditor?: () => void;
+  /**
+   * Callback triggered when the editor is closed
+   */
+  onCloseEditor?: () => void;
+
   /** Callback triggered after code change */
   onChange?: (code?: string) => void;
 
@@ -71,6 +83,9 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
     code,
     copyCodeButtonAs,
     renderToolbar,
+    renderExtraFooter,
+    onOpenEditor,
+    onCloseEditor,
     onChange,
     beforeCompile,
     afterCompile,
@@ -91,7 +106,13 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
 
   const handleExpandEditor = useCallback(() => {
     setEditable(!editable);
-  }, [editable]);
+
+    if (editable) {
+      onCloseEditor?.();
+    } else if (!editable) {
+      onOpenEditor?.();
+    }
+  }, [editable, onCloseEditor, onOpenEditor]);
 
   const handleError = useCallback(error => {
     setErrorMessage(error.message);
@@ -183,6 +204,7 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
           code={code}
         />
       )}
+      {renderExtraFooter?.()}
     </div>
   );
 });

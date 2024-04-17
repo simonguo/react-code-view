@@ -21,6 +21,15 @@ const App = () => {
         afterCompile={(code: string) => {
           return code.replace(/import\ [\*\w\,\{\}\ ]+\ from\ ?[\."'@/\w-]+;/gi, '');
         }}
+        onOpenEditor={() => {
+          console.log('open editor');
+        }}
+        onCloseEditor={() => {
+          console.log('close editor');
+        }}
+        renderExtraFooter={() => {
+          return <div>Footer</div>;
+        }}
       >
         {example}
       </CodeView>
