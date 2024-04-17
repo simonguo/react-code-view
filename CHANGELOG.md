@@ -1,3 +1,11 @@
+# [2.4.0](https://github.com/simonguo/react-code-view/compare/2.3.1...2.4.0) (2024-04-17)
+
+
+### Features
+
+* add support for `renderExtraFooter` and `onOpenEditor` and `onCloseEditor` ([#55](https://github.com/simonguo/react-code-view/issues/55)) ([886d862](https://github.com/simonguo/react-code-view/commit/886d8624b6efca9a6753293e73d3891e1cea3018))
+
+
 ## [2.3.1](https://github.com/simonguo/react-code-view/compare/2.3.0...2.3.1) (2024-01-26)
 
 
