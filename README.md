@@ -94,16 +94,19 @@ The source code is written in markdown, refer to [example.md](https://raw.github
 
 ### `<CodeView>`
 
-| Name           | Type                              | Default value           | Description                                                               |
-| -------------- | --------------------------------- | ----------------------- | ------------------------------------------------------------------------- |
-| afterCompile   | (code: string) => string          |                         | Executed after compiling the code                                         |
-| beforeCompile  | (code: string) => string          |                         | Executed before compiling the code                                        |
-| children       | any                               |                         | The code to be rendered is executed. Usually imported via markdown-loader |
-| dependencies   | object                            |                         | Dependent objects required by the executed code                           |
-| editable       | boolean                           | false                   | Renders a code editor that can modify the source code                     |
-| editor         | object                            |                         | Editor properties                                                         |
-| onChange       | (code?: string) => void           |                         | Callback triggered after code change                                      |
-| renderToolbar  | (buttons: ReactNode) => ReactNode |                         | Customize the rendering toolbar                                           |
-| sourceCode     | string                            |                         | The code to be rendered is executed                                       |
-| theme          | 'light' , 'dark'                  | 'light'                 | Code editor theme, applied to CodeMirror                                  |
-| compileOptions | object                            | defaultTransformOptions | https://github.com/alangpierce/sucrase#transforms                         |
+| Name              | Type                              | Default value           | Description                                                               |
+| ----------------- | --------------------------------- | ----------------------- | ------------------------------------------------------------------------- |
+| afterCompile      | (code: string) => string          |                         | Executed after compiling the code                                         |
+| beforeCompile     | (code: string) => string          |                         | Executed before compiling the code                                        |
+| children          | any                               |                         | The code to be rendered is executed. Usually imported via markdown-loader |
+| compileOptions    | object                            | defaultTransformOptions | https://github.com/alangpierce/sucrase#transforms                         |
+| dependencies      | object                            |                         | Dependent objects required by the executed code                           |
+| editable          | boolean                           | false                   | Renders a code editor that can modify the source code                     |
+| editor            | object                            |                         | Editor properties                                                         |
+| onChange          | (code?: string) => void           |                         | Callback triggered after code change                                      |
+| onCloseEditor     | () => void                        |                         | Callback triggered when the editor is closed                              |
+| onOpenEditor      | () => void                        |                         | Callback triggered when the editor is opened                              |
+| renderExtraFooter | () => ReactNode                   |                         | Customize the rendering footer                                            |
+| renderToolbar     | (buttons: ReactNode) => ReactNode |                         | Customize the rendering toolbar                                           |
+| sourceCode        | string                            |                         | The code to be rendered is executed                                       |
+| theme             | 'light' , 'dark'                  | 'light'                 | Code editor theme, applied to CodeMirror                                  |
