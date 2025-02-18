@@ -1,6 +1,6 @@
 {
   "name": "react-code-view",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Code view for React",
   "main": "cjs/index.js",
   "module": "esm/index.js",
