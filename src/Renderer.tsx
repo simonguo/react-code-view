@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { useEffect, useState, useCallback } from 'react';
 import classNames from 'classnames';
-import { transform as transformCode, Options } from 'sucrase';
 import CodeEditor from './CodeEditor';
 import Preview from './Preview';
 import canUseDOM from './utils/canUseDOM';
 import evalCode from './utils/evalCode';
 import CodeIcon from './icons/Code';
+import { useEffect, useState, useCallback } from 'react';
+import { transform as transformCode, Options } from 'sucrase';
 
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -22,7 +22,7 @@ export interface RendererProps extends Omit<React.HTMLAttributes<HTMLElement>, '
   copyCodeButtonAs?: React.ElementType;
 
   /** Dependent objects required by the executed code */
-  dependencies?: object;
+  dependencies?: Record<string, unknown>;
 
   /** Renders a code editor that can modify the source code */
   editable?: boolean;
@@ -47,18 +47,18 @@ export interface RendererProps extends Omit<React.HTMLAttributes<HTMLElement>, '
   transformOptions?: Options;
 
   /** Customize the rendering toolbar */
-  renderToolbar?: (buttons: React.ReactNode) => React.ReactNode;
+  renderToolbar?: (
+    buttons: React.ReactNode,
+    showCodeButtonProps: React.HTMLAttributes<HTMLButtonElement>
+  ) => React.ReactNode;
 
   /** Customize the rendering footer */
   renderExtraFooter?: () => React.ReactNode;
 
-  /**
-   * Callback triggered when the editor is opened
-   */
+  /** Callback triggered when the editor is opened */
   onOpenEditor?: () => void;
-  /**
-   * Callback triggered when the editor is closed
-   */
+
+  /** Callback triggered when the editor is closed */
   onCloseEditor?: () => void;
 
   /** Callback triggered after code change */
@@ -168,14 +168,16 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
     [executeCode, onChange]
   );
 
-  const codeButton = (
-    <button
-      role="switch"
-      aria-checked={editable}
-      aria-label="Show the full source"
-      className={classNames(prefix('btn'), prefix('btn-xs'), buttonClassName)}
-      onClick={handleExpandEditor}
-    >
+  const showCodeButtonProps = {
+    role: 'switch',
+    'aria-checked': editable,
+    'aria-label': 'Show the full source',
+    className: buttonClassName,
+    onClick: handleExpandEditor
+  };
+
+  const showCodeButton = (
+    <button {...showCodeButtonProps}>
       {typeof codeIcon !== 'undefined' ? (
         codeIcon
       ) : (
@@ -192,7 +194,9 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
       <Preview hasError={hasError} errorMessage={errorMessage} onError={handleError}>
         {compiledReactNode}
       </Preview>
-      <div className="rcv-toolbar">{renderToolbar ? renderToolbar(codeButton) : codeButton}</div>
+      <div className="rcv-toolbar">
+        {renderToolbar ? renderToolbar(showCodeButton, showCodeButtonProps) : showCodeButton}
+      </div>
       {showCodeEditor && (
         <CodeEditor
           {...editorProps}
