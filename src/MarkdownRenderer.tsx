@@ -7,18 +7,22 @@ import { iconPath as checkPath } from './icons/Check';
 
 interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: string | null;
+  copyButtonProps?: React.HTMLAttributes<HTMLButtonElement>;
 }
 
-function appendCopyButton(container?: HTMLDivElement | null) {
+function appendCopyButton(
+  container?: HTMLDivElement | null,
+  buttonProps?: React.HTMLAttributes<HTMLButtonElement>
+) {
   if (!container) {
     return;
   }
 
   const button = document.createElement('button');
-  button.className =
-    'copy-code-button rs-btn-icon rs-btn-icon-circle rs-btn rs-btn-subtle rs-btn-xs';
+  button.className = 'btn-copy-code';
   button.title = 'Copy code';
   button.innerHTML = svgTpl(copyPath);
+
   button.onclick = e => {
     e.preventDefault();
     const code = container?.querySelector('code')?.textContent;
@@ -33,18 +37,26 @@ function appendCopyButton(container?: HTMLDivElement | null) {
       icon?.setAttribute('d', copyPath);
     }, 2000);
   };
+
+  if (buttonProps) {
+    Object.entries(buttonProps || {}).forEach(([key, value]) => {
+      button.setAttribute(key, value);
+    });
+  }
+
   container?.appendChild(button);
 }
 
 const MarkdownRenderer = React.forwardRef(
   (props: MarkdownRendererProps, ref: React.Ref<HTMLDivElement>) => {
-    const { children, className, ...rest } = props;
+    const { children, className, copyButtonProps, ...rest } = props;
     const mdRef = React.useRef<HTMLDivElement>(null);
 
     useEffect(() => {
       mdRef.current?.querySelectorAll('.rcv-code-renderer').forEach((el: any) => {
-        appendCopyButton(el);
+        appendCopyButton(el, copyButtonProps);
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (!children) {

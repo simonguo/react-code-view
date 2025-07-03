@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react';
 import MarkdownRenderer from './MarkdownRenderer';
 import parseHTML from './utils/parseHTML';
@@ -10,6 +9,9 @@ export interface CodeViewProps extends RendererProps {
 
   /** The code to be rendered is executed */
   sourceCode?: string;
+
+  /** The properties of the copy button */
+  copyButtonProps?: React.HTMLAttributes<HTMLButtonElement>;
 }
 
 const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivElement>) => {
@@ -21,6 +23,7 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
     theme = 'light',
     editable,
     transformOptions,
+    copyButtonProps,
     renderToolbar,
     onChange,
     beforeCompile,
@@ -57,7 +60,11 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
             />
           );
         } else if (fragment.type === 'html') {
-          return <MarkdownRenderer key={fragment.key}>{fragment.content}</MarkdownRenderer>;
+          return (
+            <MarkdownRenderer key={fragment.key} copyButtonProps={copyButtonProps}>
+              {fragment.content}
+            </MarkdownRenderer>
+          );
         }
       })}
     </div>
