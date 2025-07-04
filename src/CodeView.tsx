@@ -11,7 +11,9 @@ export interface CodeViewProps extends RendererProps {
   sourceCode?: string;
 
   /** The properties of the copy button */
-  copyButtonProps?: React.HTMLAttributes<HTMLButtonElement>;
+  copyButtonProps?: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    [key: `data-${string}`]: string;
+  };
 }
 
 const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivElement>) => {
@@ -23,6 +25,7 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
     theme = 'light',
     editable,
     transformOptions,
+    copyButtonAs,
     copyButtonProps,
     renderToolbar,
     onChange,
@@ -57,6 +60,8 @@ const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivE
               onCloseEditor={onCloseEditor}
               beforeCompile={beforeCompile}
               renderExtraFooter={renderExtraFooter}
+              copyButtonProps={copyButtonProps}
+              copyButtonAs={copyButtonAs}
             />
           );
         } else if (fragment.type === 'html') {

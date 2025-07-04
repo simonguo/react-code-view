@@ -31,6 +31,7 @@ const App = () => {
           return <div>Footer</div>;
         }}
         copyButtonProps={{
+          'data-appearence': 'subtle',
           className: 'rs-btn-icon rs-btn-icon-circle rs-btn rs-btn-subtle rs-btn-xs'
         }}
       >

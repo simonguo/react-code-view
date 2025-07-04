@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import copy from 'copy-to-clipboard';
 import CopyIcon from './icons/Copy';
 import CheckIcon from './icons/Check';
@@ -12,18 +12,19 @@ function CopyCodeButton(props: CopyCodeButtonProps) {
   const { as: Component = 'button', code, ...rest } = props;
   const [copied, setCopied] = useState(false);
 
-  if (!code) {
-    return null;
-  }
-
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
+    if (!code) {
+      return;
+    }
     setCopied(true);
     copy(code);
 
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
-  };
+    setTimeout(() => setCopied(false), 2000);
+  }, [code]);
+
+  if (!code) {
+    return null;
+  }
 
   return (
     <Component data-type="copy" onClick={handleClick} {...rest}>
