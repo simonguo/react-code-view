@@ -1,3 +1,12 @@
+## [2.6.1](https://github.com/simonguo/react-code-view/compare/2.6.0...2.6.1) (2025-07-04)
+
+
+### Bug Fixes
+
+* **types:** add support for data-* attributes in button props ([#58](https://github.com/simonguo/react-code-view/issues/58)) ([92bb75c](https://github.com/simonguo/react-code-view/commit/92bb75c2797b67d3ede20bb6b7fde0c30b8bc7a4))
+
+
+
 # [2.6.0](https://github.com/simonguo/react-code-view/compare/2.5.0...2.6.0) (2025-07-04)
 
 

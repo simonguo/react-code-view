@@ -9,11 +9,6 @@ export interface CodeViewProps extends RendererProps {
 
   /** The code to be rendered is executed */
   sourceCode?: string;
-
-  /** The properties of the copy button */
-  copyButtonProps?: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    [key: `data-${string}`]: string;
-  };
 }
 
 const CodeView = React.forwardRef((props: CodeViewProps, ref: React.Ref<HTMLDivElement>) => {
