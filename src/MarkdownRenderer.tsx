@@ -10,6 +10,7 @@ interface MarkdownRendererProps extends React.HTMLAttributes<HTMLDivElement> {
    * Markdown content as HTML string
    */
   children?: string | null;
+
   /**
    * Props to be passed to the copy button
    */

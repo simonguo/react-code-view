@@ -36,7 +36,12 @@ export interface RendererProps extends Omit<React.HTMLAttributes<HTMLElement>, '
   code?: string;
 
   /** The component used to render the copy button */
-  copyCodeButtonAs?: React.ElementType;
+  copyButtonAs?: React.ElementType;
+
+  /** The properties of the copy button */
+  copyButtonProps?: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    [key: `data-${string}`]: string;
+  };
 
   /** Dependent objects required by the executed code */
   dependencies?: Record<string, unknown>;
@@ -87,7 +92,8 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
     editable: isEditable = false,
     transformOptions = defaultTransformOptions,
     code,
-    copyCodeButtonAs,
+    copyButtonAs,
+    copyButtonProps,
     renderToolbar,
     renderExtraFooter,
     onOpenEditor,
@@ -209,7 +215,8 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
         <CodeEditor
           {...editorProps}
           key="jsx"
-          copyCodeButtonAs={copyCodeButtonAs}
+          copyButtonAs={copyButtonAs}
+          copyButtonProps={copyButtonProps}
           onChange={handleCodeChange}
           className={classNames(editorClassName, 'rcv-editor')}
           editorConfig={{ lineNumbers: true, theme: `base16-${theme}` }}
