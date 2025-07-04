@@ -30,6 +30,9 @@ const App = () => {
         renderExtraFooter={() => {
           return <div>Footer</div>;
         }}
+        copyButtonProps={{
+          className: 'rs-btn-icon rs-btn-icon-circle rs-btn rs-btn-subtle rs-btn-xs'
+        }}
       >
         {example}
       </CodeView>

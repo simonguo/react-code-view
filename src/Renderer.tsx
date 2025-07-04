@@ -11,6 +11,23 @@ import { transform as transformCode, Options } from 'sucrase';
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+interface EditorProps {
+  /** The className of the editor */
+  className?: string;
+
+  /** Add a prefix to the className of the buttons on the toolbar */
+  classPrefix?: string;
+
+  /** The className of the code button displayed on the toolbar */
+  buttonClassName?: string;
+
+  /** Customize the code icon on the toolbar */
+  icon?: React.ReactNode;
+
+  /** The properties of the show code button */
+  showCodeButtonProps?: React.HTMLAttributes<HTMLButtonElement>;
+}
+
 export interface RendererProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onChange'> {
   /** Code editor theme, applied to CodeMirror */
   theme?: 'light' | 'dark';
@@ -28,18 +45,7 @@ export interface RendererProps extends Omit<React.HTMLAttributes<HTMLElement>, '
   editable?: boolean;
 
   /** Editor properties */
-  editor?: {
-    className?: string;
-
-    /** Add a prefix to the className of the buttons on the toolbar */
-    classPrefix?: string;
-
-    /** The className of the code button displayed on the toolbar */
-    buttonClassName?: string;
-
-    /** Customize the code icon on the toolbar */
-    icon?: React.ReactNode;
-  };
+  editor?: EditorProps;
 
   /**
    * https://github.com/alangpierce/sucrase#transforms
@@ -97,6 +103,7 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
     icon: codeIcon,
     className: editorClassName,
     buttonClassName,
+    showCodeButtonProps,
     ...editorProps
   } = editor;
 
@@ -168,16 +175,17 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
     [executeCode, onChange]
   );
 
-  const showCodeButtonProps = {
+  const toggleButtonProps = {
     role: 'switch',
     'aria-checked': editable,
     'aria-label': 'Show the full source',
     className: buttonClassName,
-    onClick: handleExpandEditor
+    onClick: handleExpandEditor,
+    ...showCodeButtonProps
   };
 
   const showCodeButton = (
-    <button {...showCodeButtonProps}>
+    <button {...toggleButtonProps}>
       {typeof codeIcon !== 'undefined' ? (
         codeIcon
       ) : (
@@ -195,7 +203,7 @@ const Renderer = React.forwardRef((props: RendererProps, ref: React.Ref<HTMLDivE
         {compiledReactNode}
       </Preview>
       <div className="rcv-toolbar">
-        {renderToolbar ? renderToolbar(showCodeButton, showCodeButtonProps) : showCodeButton}
+        {renderToolbar ? renderToolbar(showCodeButton, toggleButtonProps) : showCodeButton}
       </div>
       {showCodeEditor && (
         <CodeEditor

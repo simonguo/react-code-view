@@ -60,7 +60,7 @@ describe('MarkdownRenderer', () => {
     // Check if copy button is rendered with the correct class
     const copyButton = container.querySelector('button[title="Copy code"]');
     expect(copyButton).toBeInTheDocument();
-    expect(copyButton).toHaveClass('btn-copy-code');
+    expect(copyButton).toHaveAttribute('data-type', 'copy');
   });
 
   it('applies custom copy button props', () => {
