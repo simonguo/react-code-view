@@ -1,45 +1,35 @@
-# [2.5.0](https://github.com/simonguo/react-code-view/compare/2.4.1...2.5.0) (2025-07-04)
+# [2.6.0](https://github.com/simonguo/react-code-view/compare/2.5.0...2.6.0) (2025-07-04)
 
 
+### Features
 
-## [2.4.1](https://github.com/simonguo/react-code-view/compare/2.4.0...2.4.1) (2025-02-18)
+* improve copy button functionality and styling ([#57](https://github.com/simonguo/react-code-view/issues/57)) ([255d109](https://github.com/simonguo/react-code-view/commit/255d10906ba2198087f67c8a9789841a95eb4c79))
 
 
 
 # [2.4.0](https://github.com/simonguo/react-code-view/compare/2.3.1...2.4.0) (2024-04-17)
 
-
 ### Features
 
-* add support for `renderExtraFooter` and `onOpenEditor` and `onCloseEditor` ([#55](https://github.com/simonguo/react-code-view/issues/55)) ([886d862](https://github.com/simonguo/react-code-view/commit/886d8624b6efca9a6753293e73d3891e1cea3018))
-
+- add support for `renderExtraFooter` and `onOpenEditor` and `onCloseEditor` ([#55](https://github.com/simonguo/react-code-view/issues/55)) ([886d862](https://github.com/simonguo/react-code-view/commit/886d8624b6efca9a6753293e73d3891e1cea3018))
 
 ## [2.3.1](https://github.com/simonguo/react-code-view/compare/2.3.0...2.3.1) (2024-01-26)
 
-
 ### Bug Fixes
 
-* fix HTML parsing error ([#54](https://github.com/simonguo/react-code-view/issues/54)) ([5c1aa7f](https://github.com/simonguo/react-code-view/commit/5c1aa7f3a0c6401284490fa653edb6263049a7e1))
-
-
+- fix HTML parsing error ([#54](https://github.com/simonguo/react-code-view/issues/54)) ([5c1aa7f](https://github.com/simonguo/react-code-view/commit/5c1aa7f3a0c6401284490fa653edb6263049a7e1))
 
 # [2.3.0](https://github.com/simonguo/react-code-view/compare/2.2.1...2.3.0) (2024-01-26)
 
-
 ### Features
 
-* add support for one-click copy code ([#53](https://github.com/simonguo/react-code-view/issues/53)) ([f379146](https://github.com/simonguo/react-code-view/commit/f3791464b6c55c325c50d89ed50953c15c2e08e6))
-
-
+- add support for one-click copy code ([#53](https://github.com/simonguo/react-code-view/issues/53)) ([f379146](https://github.com/simonguo/react-code-view/commit/f3791464b6c55c325c50d89ed50953c15c2e08e6))
 
 ## [2.2.1](https://github.com/simonguo/react-code-view/compare/2.2.0...2.2.1) (2022-09-07)
 
-
 ### Bug Fixes
 
-* **CodeEditor:** fix Codemirror being initialized twice ([#40](https://github.com/simonguo/react-code-view/issues/40)) ([bb4aa2c](https://github.com/simonguo/react-code-view/commit/bb4aa2cc3088b1ac64ca94a58ad04aa69f0e8dea))
-
-
+- **CodeEditor:** fix Codemirror being initialized twice ([#40](https://github.com/simonguo/react-code-view/issues/40)) ([bb4aa2c](https://github.com/simonguo/react-code-view/commit/bb4aa2cc3088b1ac64ca94a58ad04aa69f0e8dea))
 
 # [2.2.0](https://github.com/simonguo/react-code-view/compare/2.1.0...2.2.0) (2022-08-01)
 
