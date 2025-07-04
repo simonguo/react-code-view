@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import copy from 'copy-to-clipboard';
-import classNames from 'classnames';
 import CopyIcon from './icons/Copy';
 import CheckIcon from './icons/Check';
 
@@ -10,7 +9,7 @@ interface CopyCodeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
 }
 
 function CopyCodeButton(props: CopyCodeButtonProps) {
-  const { as: Component = 'button', code, className, ...rest } = props;
+  const { as: Component = 'button', code, ...rest } = props;
   const [copied, setCopied] = useState(false);
 
   if (!code) {
@@ -27,11 +26,7 @@ function CopyCodeButton(props: CopyCodeButtonProps) {
   };
 
   return (
-    <Component
-      {...rest}
-      className={classNames('copy-code-button', className)}
-      onClick={handleClick}
-    >
+    <Component data-type="copy" onClick={handleClick} {...rest}>
       {copied ? <CheckIcon /> : <CopyIcon />}
     </Component>
   );
