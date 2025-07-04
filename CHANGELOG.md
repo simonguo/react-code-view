@@ -1,3 +1,7 @@
+# [2.5.0](https://github.com/simonguo/react-code-view/compare/2.4.1...2.5.0) (2025-07-04)
+
+
+
 ## [2.4.1](https://github.com/simonguo/react-code-view/compare/2.4.0...2.4.1) (2025-02-18)
 
 
