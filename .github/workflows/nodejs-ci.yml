@@ -21,7 +21,7 @@ jobs:
       - name: Enable Corepack (PNPM from packageManager)
         run: |
           corepack enable
-          corepack prepare pnpm@9.0.0 --activate
+          corepack prepare pnpm@8.15.8 --activate
 
       - name: Setup Node
         uses: actions/setup-node@v4
