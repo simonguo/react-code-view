@@ -18,10 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - name: Enable Corepack (PNPM from packageManager)
+        run: |
+          corepack enable
 
       - name: Setup Node
         uses: actions/setup-node@v4
