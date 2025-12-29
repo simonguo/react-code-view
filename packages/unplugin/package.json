@@ -85,7 +85,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/user/react-code-view.git",
+    "url": "https://github.com/simonguo/react-code-view.git",
     "directory": "packages/unplugin"
   },
   "publishConfig": {
