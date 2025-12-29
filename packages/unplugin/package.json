@@ -88,6 +88,9 @@
     "url": "https://github.com/user/react-code-view.git",
     "directory": "packages/unplugin"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
