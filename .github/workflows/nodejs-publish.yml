@@ -34,17 +34,19 @@ jobs:
         env:
           HUSKY: 0
 
-      - name: Authenticate to npm
-        run: |
-          printf "//registry.npmjs.org/:_authToken=${NPM_TOKEN}\n" >> ~/.npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Build
         run: pnpm -w build
+
+      - name: Verify npm authentication
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish with Changesets
         run: pnpm release
         env:
           NPM_CONFIG_PROVENANCE: true
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
