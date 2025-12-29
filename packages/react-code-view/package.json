@@ -1,6 +1,6 @@
 {
   "name": "react-code-view",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "A React component for rendering code with live preview and syntax highlighting",
   "license": "MIT",
   "main": "./dist/index.cjs",

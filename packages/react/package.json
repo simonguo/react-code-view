@@ -1,6 +1,6 @@
 {
   "name": "@react-code-view/react",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "React components for rendering code with live preview",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -20,8 +20,15 @@
     "./styles": "./styles/index.css",
     "./styles/*": "./styles/*"
   },
-  "files": ["dist", "styles", "README.md"],
-  "sideEffects": ["*.css", "*.less"],
+  "files": [
+    "dist",
+    "styles",
+    "README.md"
+  ],
+  "sideEffects": [
+    "*.css",
+    "*.less"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
