@@ -1,0 +1,32 @@
+{
+  "name": "react-code-view-rollup-example",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "serve": "serve dist -l 3002"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@react-code-view/react": "workspace:*"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.2.0",
+    "@rollup/plugin-replace": "^5.0.0",
+    "@rollup/plugin-typescript": "^11.1.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "rollup": "^4.9.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-serve": "^2.0.2",
+    "serve": "^14.2.0",
+    "tslib": "^2.6.0",
+    "typescript": "^5.3.0"
+  }
+}

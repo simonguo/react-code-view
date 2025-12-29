@@ -12,13 +12,33 @@ on:
       - main
 jobs:
   test:
-    name: 'Test'
+    name: 'Build & Test'
     runs-on: ubuntu-latest
-    container: node:16
 
     steps:
-      - uses: actions/checkout@v2
-      - env:
+      - uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
           HUSKY: 0
-        run: npm install
-      - run: npm test
+
+      - name: Typecheck
+        run: pnpm -w typecheck
+
+      - name: Build
+        run: pnpm -w build
+
+      - name: Test
+        run: pnpm -w test --reporter verbose

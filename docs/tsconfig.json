@@ -1,0 +1,24 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@react-code-view/core": ["../packages/core/src"],
+      "@react-code-view/react": ["../packages/react/src"],
+      "@react-code-view/unplugin": ["../packages/unplugin/src"],
+      "@react-code-view/react/styles/index.css": ["../packages/react/styles/index.css"]
+    },
+    "types": ["vite/client"],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "noEmit": true
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

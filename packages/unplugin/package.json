@@ -1,0 +1,130 @@
+{
+  "name": "@react-code-view/unplugin",
+  "version": "3.0.0",
+  "description": "Build tool plugins for react-code-view (Webpack, Vite, Rollup, esbuild, Rspack)",
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./webpack": {
+      "import": {
+        "types": "./dist/webpack.d.ts",
+        "default": "./dist/webpack.js"
+      },
+      "require": {
+        "types": "./dist/webpack.d.cts",
+        "default": "./dist/webpack.cjs"
+      }
+    },
+    "./vite": {
+      "import": {
+        "types": "./dist/vite.d.ts",
+        "default": "./dist/vite.js"
+      },
+      "require": {
+        "types": "./dist/vite.d.cts",
+        "default": "./dist/vite.cjs"
+      }
+    },
+    "./rollup": {
+      "import": {
+        "types": "./dist/rollup.d.ts",
+        "default": "./dist/rollup.js"
+      },
+      "require": {
+        "types": "./dist/rollup.d.cts",
+        "default": "./dist/rollup.cjs"
+      }
+    },
+    "./esbuild": {
+      "import": {
+        "types": "./dist/esbuild.d.ts",
+        "default": "./dist/esbuild.js"
+      },
+      "require": {
+        "types": "./dist/esbuild.d.cts",
+        "default": "./dist/esbuild.cjs"
+      }
+    },
+    "./rspack": {
+      "import": {
+        "types": "./dist/rspack.d.ts",
+        "default": "./dist/rspack.js"
+      },
+      "require": {
+        "types": "./dist/rspack.d.cts",
+        "default": "./dist/rspack.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "markdown",
+    "webpack",
+    "vite",
+    "rollup",
+    "esbuild",
+    "rspack",
+    "unplugin",
+    "react-code-view",
+    "code-view",
+    "loader"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/user/react-code-view.git",
+    "directory": "packages/unplugin"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@react-code-view/core": "workspace:*",
+    "unplugin": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "webpack": ">=4.0.0",
+    "vite": ">=3.0.0",
+    "rollup": ">=2.0.0",
+    "esbuild": ">=0.17.0",
+    "@rspack/core": ">=0.5.0"
+  },
+  "peerDependenciesMeta": {
+    "webpack": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    },
+    "rollup": {
+      "optional": true
+    },
+    "esbuild": {
+      "optional": true
+    },
+    "@rspack/core": {
+      "optional": true
+    }
+  }
+}

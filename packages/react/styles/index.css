@@ -1,0 +1,497 @@
+/* 
+ * @react-code-view/react
+ * Base styles for code view components
+ * Shiki handles syntax highlighting styles automatically
+ */
+
+/* ============================================
+   CSS Custom Properties (Theme Variables)
+   ============================================ */
+
+:root {
+  --rcv-font-family-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --rcv-font-size-code: 14px;
+  --rcv-line-height-code: 1.5;
+  
+  /* Colors - Light theme */
+  --rcv-color-bg: #ffffff;
+  --rcv-color-bg-code: #f6f8fa;
+  --rcv-color-bg-toolbar: #f1f3f5;
+  --rcv-color-text: #24292f;
+  --rcv-color-text-muted: #57606a;
+  --rcv-color-border: #d0d7de;
+  --rcv-color-border-hover: #8c959f;
+  --rcv-color-primary: #0969da;
+  --rcv-color-primary-hover: #0550ae;
+  --rcv-color-error: #cf222e;
+  --rcv-color-error-bg: #ffebe9;
+  --rcv-color-success: #1a7f37;
+  
+  /* Spacing */
+  --rcv-spacing-xs: 4px;
+  --rcv-spacing-sm: 8px;
+  --rcv-spacing-md: 16px;
+  --rcv-spacing-lg: 24px;
+  
+  /* Border radius */
+  --rcv-radius-sm: 4px;
+  --rcv-radius-md: 6px;
+  --rcv-radius-lg: 8px;
+  
+  /* Transitions */
+  --rcv-transition-fast: 150ms ease;
+  --rcv-transition-normal: 200ms ease;
+}
+
+/* ============================================
+   CodeMirror 6 Editor Styles
+   ============================================ */
+
+.rcv-code-editor {
+  width: 100%;
+  border: 1px solid var(--rcv-color-border);
+  border-radius: var(--rcv-radius-md);
+  overflow: hidden;
+  background: var(--rcv-color-bg-code);
+}
+
+.rcv-code-editor .cm-editor {
+  height: 100%;
+  font-family: var(--rcv-font-family-mono);
+  font-size: var(--rcv-font-size-code);
+  line-height: var(--rcv-line-height-code);
+  outline: none;
+}
+
+.rcv-code-editor .cm-scroller {
+  overflow: auto;
+  font-family: inherit;
+}
+
+.rcv-code-editor .cm-content {
+  padding: var(--rcv-spacing-md);
+  min-height: 200px;
+  caret-color: var(--rcv-color-text);
+}
+
+.rcv-code-editor .cm-line {
+  padding: 0 2px;
+}
+
+.rcv-code-editor .cm-gutters {
+  background-color: var(--rcv-color-bg-toolbar);
+  border-right: 1px solid var(--rcv-color-border);
+  color: var(--rcv-color-text-muted);
+  user-select: none;
+}
+
+.rcv-code-editor .cm-gutterElement {
+  padding: 0 var(--rcv-spacing-sm);
+}
+
+.rcv-code-editor .cm-activeLineGutter {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.rcv-code-editor .cm-activeLine {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.rcv-code-editor .cm-selectionBackground {
+  background-color: rgba(9, 105, 218, 0.18) !important;
+}
+
+.rcv-code-editor .cm-focused .cm-selectionBackground {
+  background-color: rgba(9, 105, 218, 0.25) !important;
+}
+
+.rcv-code-editor .cm-cursor {
+  border-left-color: var(--rcv-color-text);
+}
+
+.rcv-code-editor .cm-foldPlaceholder {
+  background-color: var(--rcv-color-bg-toolbar);
+  border: 1px solid var(--rcv-color-border);
+  color: var(--rcv-color-text-muted);
+  padding: 0 var(--rcv-spacing-xs);
+  border-radius: var(--rcv-radius-sm);
+}
+
+/* Dark theme */
+.rcv-theme-dark,
+.rcv-theme-dark .rcv-renderer,
+.rcv-theme-dark .rcv-markdown {
+  --rcv-color-bg: #0d1117;
+  --rcv-color-bg-code: #161b22;
+  --rcv-color-bg-toolbar: #21262d;
+  --rcv-color-text: #c9d1d9;
+  --rcv-color-text-muted: #8b949e;
+  --rcv-color-border: #30363d;
+  --rcv-color-border-hover: #484f58;
+  --rcv-color-primary: #58a6ff;
+  --rcv-color-primary-hover: #79c0ff;
+  --rcv-color-error: #f85149;
+  --rcv-color-error-bg: #3d1117;
+  --rcv-color-success: #3fb950;
+}
+
+/* ============================================
+   CodeView Container
+   ============================================ */
+
+.rcv-code-view {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rcv-color-border);
+  border-radius: var(--rcv-radius-lg);
+  background-color: var(--rcv-color-bg);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+}
+
+/* ============================================
+   Preview Section
+   ============================================ */
+
+.rcv-code-view__preview {
+  padding: var(--rcv-spacing-lg);
+  border-bottom: 1px solid var(--rcv-color-border);
+}
+
+.rcv-preview {
+  min-height: 40px;
+}
+
+.rcv-preview--error {
+  background-color: var(--rcv-color-error-bg);
+  border-radius: var(--rcv-radius-sm);
+  padding: var(--rcv-spacing-sm);
+}
+
+.rcv-preview__error {
+  color: var(--rcv-color-error);
+  font-family: var(--rcv-font-family-mono);
+  font-size: var(--rcv-font-size-code);
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.rcv-preview--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rcv-color-text-muted);
+  font-style: italic;
+}
+
+/* ============================================
+   Toolbar
+   ============================================ */
+
+.rcv-code-view__toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--rcv-spacing-sm);
+  padding: var(--rcv-spacing-sm) var(--rcv-spacing-md);
+  background-color: var(--rcv-color-bg-toolbar);
+  border-bottom: 1px solid var(--rcv-color-border);
+}
+
+.rcv-code-view__toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rcv-spacing-xs);
+  padding: var(--rcv-spacing-xs) var(--rcv-spacing-sm);
+  border: 1px solid var(--rcv-color-border);
+  border-radius: var(--rcv-radius-sm);
+  background-color: var(--rcv-color-bg);
+  color: var(--rcv-color-text);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--rcv-transition-fast);
+}
+
+.rcv-code-view__toggle-btn:hover {
+  border-color: var(--rcv-color-border-hover);
+  background-color: var(--rcv-color-bg-code);
+}
+
+.rcv-code-view__toggle-btn:focus-visible {
+  outline: 2px solid var(--rcv-color-primary);
+  outline-offset: 2px;
+}
+
+.rcv-code-view__toggle-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================================
+   Copy Button
+   ============================================ */
+
+.rcv-copy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--rcv-color-border);
+  border-radius: var(--rcv-radius-sm);
+  background-color: var(--rcv-color-bg);
+  color: var(--rcv-color-text-muted);
+  cursor: pointer;
+  transition: all var(--rcv-transition-fast);
+  margin-left: auto;
+}
+
+.rcv-copy-button:hover {
+  border-color: var(--rcv-color-border-hover);
+  color: var(--rcv-color-text);
+}
+
+.rcv-copy-button:focus-visible {
+  outline: 2px solid var(--rcv-color-primary);
+  outline-offset: 2px;
+}
+
+.rcv-copy-button--copied {
+  color: var(--rcv-color-success);
+  border-color: var(--rcv-color-success);
+}
+
+.rcv-copy-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================================
+   Code Section
+   ============================================ */
+
+.rcv-code-view__code {
+  overflow: auto;
+  background-color: var(--rcv-color-bg-code);
+}
+
+/* ============================================
+   Code Editor
+   ============================================ */
+
+.rcv-code-editor {
+  min-height: 100px;
+}
+
+.rcv-code-editor__textarea {
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  padding: var(--rcv-spacing-md);
+  border: none;
+  background-color: transparent;
+  color: var(--rcv-color-text);
+  font-family: var(--rcv-font-family-mono);
+  font-size: var(--rcv-font-size-code);
+  line-height: var(--rcv-line-height-code);
+  resize: vertical;
+}
+
+.rcv-code-editor__textarea:focus {
+  outline: none;
+}
+
+/* CodeMirror overrides */
+.rcv-code-editor .CodeMirror {
+  height: auto;
+  min-height: 100px;
+  font-family: var(--rcv-font-family-mono);
+  font-size: var(--rcv-font-size-code);
+  line-height: var(--rcv-line-height-code);
+}
+
+/* ============================================
+   Renderer (Syntax Highlighted Code)
+   ============================================ */
+
+.rcv-renderer {
+  overflow: auto;
+  background-color: var(--rcv-color-bg-code);
+  border-radius: var(--rcv-radius-md);
+  border: 1px solid var(--rcv-color-border);
+}
+
+.rcv-renderer__pre {
+  display: flex;
+  margin: 0;
+  padding: var(--rcv-spacing-md);
+  overflow: auto;
+  background: transparent;
+}
+
+.rcv-renderer__line-numbers {
+  display: flex;
+  flex-direction: column;
+  padding-right: var(--rcv-spacing-md);
+  margin-right: var(--rcv-spacing-md);
+  border-right: 1px solid var(--rcv-color-border);
+  color: var(--rcv-color-text-muted);
+  font-family: var(--rcv-font-family-mono);
+  font-size: var(--rcv-font-size-code);
+  line-height: var(--rcv-line-height-code);
+  text-align: right;
+  user-select: none;
+}
+
+.rcv-renderer__line-number {
+  display: block;
+}
+
+.rcv-renderer__code {
+  flex: 1;
+  font-family: var(--rcv-font-family-mono);
+  font-size: var(--rcv-font-size-code);
+  line-height: var(--rcv-line-height-code);
+  color: var(--rcv-color-text);
+}
+
+/* ============================================
+   Markdown Renderer
+   ============================================ */
+
+.rcv-markdown {
+  padding: var(--rcv-spacing-md);
+  color: var(--rcv-color-text);
+  line-height: 1.6;
+}
+
+.rcv-markdown h1,
+.rcv-markdown h2,
+.rcv-markdown h3,
+.rcv-markdown h4,
+.rcv-markdown h5,
+.rcv-markdown h6 {
+  margin-top: var(--rcv-spacing-lg);
+  margin-bottom: var(--rcv-spacing-sm);
+  font-weight: 600;
+}
+
+.rcv-markdown h1 { font-size: 2em; }
+.rcv-markdown h2 { font-size: 1.5em; }
+.rcv-markdown h3 { font-size: 1.25em; }
+
+.rcv-markdown p {
+  margin-top: 0;
+  margin-bottom: var(--rcv-spacing-md);
+}
+
+/* Inline code only (not inside pre blocks) */
+.rcv-markdown :not(pre) > code {
+  padding: 0.2em 0.4em;
+  background-color: var(--rcv-color-bg-code);
+  border-radius: var(--rcv-radius-sm);
+  font-family: var(--rcv-font-family-mono);
+  font-size: 0.9em;
+}
+
+/* Code blocks wrapper from Shiki */
+.rcv-markdown .rcv-code-block {
+  margin: var(--rcv-spacing-md) 0;
+  border-radius: var(--rcv-radius-md);
+  overflow: hidden;
+}
+
+/* Let Shiki's pre handle its own styling */
+.rcv-markdown .rcv-code-block pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.rcv-markdown .rcv-code-block code {
+  background: transparent;
+}
+
+/* Regular pre blocks (fallback) */
+.rcv-markdown pre:not(.shiki) {
+  padding: var(--rcv-spacing-md);
+  background-color: var(--rcv-color-bg-code);
+  border-radius: var(--rcv-radius-md);
+  overflow: auto;
+  margin: var(--rcv-spacing-md) 0;
+}
+
+.rcv-markdown pre:not(.shiki) code {
+  padding: 0;
+  background: none;
+}
+
+.rcv-markdown blockquote {
+  margin: 0 0 var(--rcv-spacing-md);
+  padding-left: var(--rcv-spacing-md);
+  border-left: 4px solid var(--rcv-color-border);
+  color: var(--rcv-color-text-muted);
+}
+
+.rcv-markdown ul,
+.rcv-markdown ol {
+  margin-top: 0;
+  margin-bottom: var(--rcv-spacing-md);
+  padding-left: var(--rcv-spacing-lg);
+}
+
+.rcv-markdown li {
+  margin-bottom: var(--rcv-spacing-xs);
+}
+
+.rcv-markdown a {
+  color: var(--rcv-color-primary);
+  text-decoration: none;
+}
+
+.rcv-markdown a:hover {
+  text-decoration: underline;
+}
+
+.rcv-markdown img {
+  max-width: 100%;
+  height: auto;
+}
+
+.rcv-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--rcv-spacing-md);
+}
+
+.rcv-markdown th,
+.rcv-markdown td {
+  padding: var(--rcv-spacing-sm);
+  border: 1px solid var(--rcv-color-border);
+  text-align: left;
+}
+
+.rcv-markdown th {
+  background-color: var(--rcv-color-bg-code);
+  font-weight: 600;
+}
+
+/* ============================================
+   Error Boundary
+   ============================================ */
+
+.rcv-error {
+  padding: var(--rcv-spacing-md);
+  background-color: var(--rcv-color-error-bg);
+  border-radius: var(--rcv-radius-md);
+}
+
+.rcv-error__message {
+  color: var(--rcv-color-error);
+  font-family: var(--rcv-font-family-mono);
+  font-size: var(--rcv-font-size-code);
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

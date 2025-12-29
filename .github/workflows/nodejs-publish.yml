@@ -1,30 +1,44 @@
 # see https://help.github.com/cn/actions/language-and-framework-guides/publishing-nodejs-packages
 
-name: Node.js Package
+name: Release Packages
 
 on:
+  workflow_dispatch: {}
   push:
-    tags: ['*']
+    tags:
+      - 'v*'
 
 jobs:
   publish:
-    name: 'Publish'
+    name: 'Publish to npm'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
-      - uses: actions/checkout@v2
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
         with:
-          node-version: '14.x'
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
 
       - name: Build
-        run: npm run build
+        run: pnpm -w build
 
-      - name: Npm Publish
-        run: npm publish dist
+      - name: Publish with Changesets
+        run: pnpm release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true

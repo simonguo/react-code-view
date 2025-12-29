@@ -1,19 +1,16 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "strict": true,
+    "composite": true,
     "declaration": true,
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noImplicitAny": false,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "target": "esnext",
-    "module": "esnext",
-    "jsx": "react",
-    "skipLibCheck": true
+    "declarationMap": true
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/react" },
+    { "path": "./packages/unplugin" },
+    { "path": "./packages/react-code-view" }
+  ],
+  "include": [],
+  "exclude": ["node_modules", "dist", "packages/*/dist"]
 }

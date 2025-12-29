@@ -1,112 +1,268 @@
 # React Code View
 
-**React Code View** can render source code in markdown documents. And brings you the ability to render React components with editable source code and live preview.
+[![npm](https://img.shields.io/npm/v/react-code-view.svg)](https://www.npmjs.com/package/react-code-view)
+[![npm](https://img.shields.io/npm/dm/react-code-view.svg)](https://www.npmjs.com/package/react-code-view)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
+A React component library for rendering code with **live preview** and syntax highlighting.
 
 ![React Code View](https://user-images.githubusercontent.com/1203827/178659124-f4a8658f-1087-4c55-b89b-04dcfc5568cb.gif)
 
-## Install
+## ✨ Features
 
-```
+- 🎨 **Live Preview** - Execute and preview React code in real-time
+- ✏️ **Editable Code** - Built-in code editor with syntax highlighting
+- 📝 **Markdown Support** - Render markdown content with code blocks
+- 🔌 **Universal Plugin** - Works with Webpack, Vite, Rollup, esbuild, and Rspack
+- 🎯 **TypeScript** - Full TypeScript support out of the box
+- 📦 **Tree-shakeable** - Import only what you need
+
+## ✅ Requirements
+
+- Node.js >= 18
+- PNPM >= 8 (monorepo managed via PNPM + Turbo)
+
+## 📦 Installation
+
+```bash
+# npm
 npm install react-code-view
+
+# pnpm
+pnpm add react-code-view
+
+# yarn
+yarn add react-code-view
 ```
 
-### Configure Webpack
+## 🚀 Quick Start
 
-```js
-// webpack.config.js
-export default {
-  module: {
-    rules: [
-      {
-        test: /\.md$/,
-        loader: 'react-code-view/webpack-md-loader'
-      }
-    ]
-  }
-};
-```
+```tsx
+import CodeView from 'react-code-view';
+import 'react-code-view/styles';
 
-#### Options
+function App() {
+  const code = `
+<button onClick={() => alert('Hello!')}>
+  Click me
+</button>
+  `.trim();
 
-```js
-{
-  "parseLanguages": [
-    // Supported languages for highlight.js
-    // default: "javascript", "bash", "xml", "css", "markdown", "less", "typescript"
-    // See https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
-  ],
-  "htmlOptions": {
-    // HTML Loader options
-    // See https://github.com/webpack-contrib/html-loader#options
-  },
-  "markedOptions": {
-    // Pass options to marked
-    // See https://marked.js.org/using_advanced#options
-  }
+  return (
+    <CodeView 
+      language="jsx"
+      editable
+      renderPreview
+    >
+      {code}
+    </CodeView>
+  );
 }
 ```
 
-**webpack.config.js**
+## 📚 Packages
+
+This monorepo contains the following packages:
+
+| Package | Version | Description |
+|---------|---------|-------------|
+| [`react-code-view`](./packages/react-code-view) | [![npm](https://img.shields.io/npm/v/react-code-view.svg)](https://www.npmjs.com/package/react-code-view) | Main package (re-exports all) |
+| [`@react-code-view/react`](./packages/react) | [![npm](https://img.shields.io/npm/v/@react-code-view/react.svg)](https://www.npmjs.com/package/@react-code-view/react) | React components |
+| [`@react-code-view/core`](./packages/core) | [![npm](https://img.shields.io/npm/v/@react-code-view/core.svg)](https://www.npmjs.com/package/@react-code-view/core) | Core transformation utilities |
+| [`@react-code-view/unplugin`](./packages/unplugin) | [![npm](https://img.shields.io/npm/v/@react-code-view/unplugin.svg)](https://www.npmjs.com/package/@react-code-view/unplugin) | Build tool plugins |
+
+## 🔧 Build Tool Integration
+
+React Code View supports all major build tools through [unplugin](https://github.com/unjs/unplugin):
+
+### Vite
 
 ```js
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import reactCodeView from '@react-code-view/unplugin/vite';
 
-export default {
-  module: {
-    rules: [
-      {
-        test: /\.md$/,
-        use:[
-          loader: 'react-code-view/webpack-md-loader',
-          options:{
-            parseLanguages: ['typescript','rust']
-          }
-        ]
-      }
-    ]
-  }
+export default defineConfig({
+  plugins: [
+    react(),
+    reactCodeView()
+  ]
+});
+```
+
+### Webpack
+
+```js
+// webpack.config.js
+const ReactCodeViewPlugin = require('@react-code-view/unplugin/webpack');
+
+module.exports = {
+  plugins: [
+    ReactCodeViewPlugin()
+  ]
 };
 ```
 
-## Usage
+### Rollup
 
 ```js
-import CodeView from 'react-code-view';
-import { Button } from 'rsuite';
+// rollup.config.js
+import reactCodeView from '@react-code-view/unplugin/rollup';
 
-import 'react-code-view/styles/react-code-view.css';
-
-return (
-  <CodeView
-    dependencies={{
-      Button
-    }}
-  >
-    {require('./example.md')}
-  </CodeView>
-);
+export default {
+  plugins: [
+    reactCodeView()
+  ]
+};
 ```
 
-The source code is written in markdown, refer to [example.md](https://raw.githubusercontent.com/simonguo/react-code-view/main/docs/example.md)
+### esbuild
 
-> Note: The code to be rendered must be placed between `<!--start-code-->` and `<!--end-code-->`
+```js
+import * as esbuild from 'esbuild';
+import reactCodeView from '@react-code-view/unplugin/esbuild';
 
-## Props
+await esbuild.build({
+  plugins: [
+    reactCodeView()
+  ]
+});
+```
 
-### `<CodeView>`
+### Rspack
 
-| Name              | Type                              | Default value           | Description                                                               |
-| ----------------- | --------------------------------- | ----------------------- | ------------------------------------------------------------------------- |
-| afterCompile      | (code: string) => string          |                         | Executed after compiling the code                                         |
-| beforeCompile     | (code: string) => string          |                         | Executed before compiling the code                                        |
-| children          | any                               |                         | The code to be rendered is executed. Usually imported via markdown-loader |
-| compileOptions    | object                            | defaultTransformOptions | https://github.com/alangpierce/sucrase#transforms                         |
-| dependencies      | object                            |                         | Dependent objects required by the executed code                           |
-| editable          | boolean                           | false                   | Renders a code editor that can modify the source code                     |
-| editor            | object                            |                         | Editor properties                                                         |
-| onChange          | (code?: string) => void           |                         | Callback triggered after code change                                      |
-| onCloseEditor     | () => void                        |                         | Callback triggered when the editor is closed                              |
-| onOpenEditor      | () => void                        |                         | Callback triggered when the editor is opened                              |
-| renderExtraFooter | () => ReactNode                   |                         | Customize the rendering footer                                            |
-| renderToolbar     | (buttons: ReactNode) => ReactNode |                         | Customize the rendering toolbar                                           |
-| sourceCode        | string                            |                         | The code to be rendered is executed                                       |
-| theme             | 'light' , 'dark'                  | 'light'                 | Code editor theme, applied to CodeMirror                                  |
+```js
+// rspack.config.js
+const ReactCodeViewPlugin = require('@react-code-view/unplugin/rspack');
+
+module.exports = {
+  plugins: [
+    ReactCodeViewPlugin()
+  ]
+};
+```
+
+## 📖 API Reference
+
+### CodeView Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `string` | - | Source code to display |
+| `dependencies` | `object` | `{}` | Dependencies for code execution |
+| `language` | `string` | `'jsx'` | Syntax highlighting language |
+| `editable` | `boolean` | `true` | Enable code editing |
+| `renderPreview` | `boolean` | `true` | Show live preview |
+| `showLineNumbers` | `boolean` | `true` | Show line numbers |
+| `showCopyButton` | `boolean` | `true` | Show copy button |
+| `theme` | `string` | `'rcv-theme-default'` | Theme class name |
+| `beforeCompile` | `function` | - | Transform code before compile |
+| `afterCompile` | `function` | - | Transform code after compile |
+| `onChange` | `function` | - | Callback when code changes |
+| `onError` | `function` | - | Callback when error occurs |
+
+### Other Components
+
+- **`Renderer`** - Syntax-highlighted code display
+- **`MarkdownRenderer`** - Render markdown with syntax highlighting
+- **`CodeEditor`** - Editable code component
+- **`Preview`** - Display executed code output
+- **`CopyCodeButton`** - Copy code to clipboard button
+- **`ErrorBoundary`** - Error boundary for code execution
+
+### Hooks
+
+- **`useCodeExecution`** - Execute code and capture a rendered element
+
+  Example:
+
+  ```tsx
+  import { useCodeExecution } from '@react-code-view/react';
+
+  export function LivePreview({ source }: { source: string }) {
+    const { element, error, code, updateCode } = useCodeExecution(source, {
+      // Optional: inject deps into runtime scope
+      dependencies: { alert },
+      // Optional: configure transforms (e.g. TS + JSX)
+      transformOptions: { transforms: ['typescript', 'jsx'] },
+      beforeCompile: (c) => c.trim(),
+      afterCompile: (c) => c,
+      onError: (e) => console.error('Execution error:', e)
+    });
+
+    return (
+      <div>
+        <textarea value={code} onChange={(e) => updateCode(e.target.value)} />
+        {error ? <div role="alert">{String(error.message || error)}</div> : element}
+      </div>
+    );
+  }
+  ```
+
+## 🎨 Theming
+
+Import the base styles:
+
+```tsx
+import 'react-code-view/styles';
+```
+
+Use theme classes:
+
+```tsx
+// Light theme (default)
+<CodeView theme="rcv-theme-default">...</CodeView>
+
+// Dark theme
+<CodeView theme="rcv-theme-dark">...</CodeView>
+```
+
+Customize with CSS variables:
+
+```css
+.rcv-code-view {
+  --rcv-color-bg: #ffffff;
+  --rcv-color-bg-code: #f6f8fa;
+  --rcv-color-text: #24292f;
+  --rcv-color-border: #d0d7de;
+  --rcv-color-primary: #0969da;
+  --rcv-color-error: #cf222e;
+}
+```
+
+## 🛠️ Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Build all packages (turbo)
+pnpm build
+
+# Start docs dev server (Vite)
+pnpm docs
+
+# Run tests (Vitest in each package)
+pnpm test
+
+# Lint code (ESLint)
+pnpm lint
+
+## 🤖 CI/CD
+
+- CI runs on Node 18+ and uses PNPM and Turbo to install, type-check, build, and test the monorepo.
+- Docs are built with Vite and deployed to GitHub Pages from `docs/dist`.
+```
+
+## 📝 Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for release history.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](./CONTRIBUTING.md) for details.
+
+## 📄 License
+
+[MIT](./LICENSE) © [Simon Guo](https://github.com/simonguo)

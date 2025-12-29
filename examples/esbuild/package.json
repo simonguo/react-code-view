@@ -1,0 +1,23 @@
+{
+  "name": "react-code-view-esbuild-example",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node build.js --dev",
+    "build": "node build.js",
+    "serve": "serve dist -l 3003"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@react-code-view/react": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "esbuild": "^0.19.0",
+    "serve": "^14.2.0",
+    "typescript": "^5.3.0"
+  }
+}
