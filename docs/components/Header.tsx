@@ -13,10 +13,29 @@ export const Header: React.FC<HeaderProps> = ({ theme, onThemeToggle }) => {
     <header className="docs-header">
       <div className="header-container">
         <div className="header-left">
-          <Link to="/" className="logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2"/>
-              <path d="M8 12h8M12 8v8" stroke="currentColor" strokeWidth="2"/>
+          <Link to="/" className="logo" aria-label="React Code View home">
+            <svg width="32" height="32" viewBox="0 0 64 64" fill="none" role="img" aria-hidden="true">
+              <rect x="6" y="6" width="52" height="52" rx="10" fill="currentColor" opacity="0.08" />
+              <path
+                d="M24 24.5L16.5 32 24 39.5"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M40 24.5L47.5 32 40 39.5"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M30 44c1.5-2.4 3.5-8 3.5-12s-2-9.6-3.5-12"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
             </svg>
             <span className="logo-text">React Code View</span>
           </Link>
