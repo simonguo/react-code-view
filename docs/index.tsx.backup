@@ -1,0 +1,484 @@
+import React, { useState, useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
+import { CodeView, MarkdownRenderer, Renderer } from '@react-code-view/react';
+import { initHighlighter } from '@react-code-view/core';
+import '@react-code-view/react/styles/index.css';
+
+import './styles/index.css';
+
+// Initialize Shiki highlighter
+initHighlighter().catch(console.error);
+
+// Example code snippets
+const counterExample = `
+const App = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div style={{ textAlign: 'center', padding: '20px' }}>
+      <h2 style={{ margin: '0 0 16px' }}>Count: {count}</h2>
+      <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+        <button 
+          onClick={() => setCount(c => c - 1)}
+          style={buttonStyle}
+        >
+          -
+        </button>
+        <button 
+          onClick={() => setCount(c => c + 1)}
+          style={buttonStyle}
+        >
+          +
+        </button>
+        <button 
+          onClick={() => setCount(0)}
+          style={{ ...buttonStyle, backgroundColor: '#6c757d' }}
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const buttonStyle = {
+  padding: '8px 20px',
+  fontSize: '16px',
+  backgroundColor: '#0969da',
+  color: 'white',
+  border: 'none',
+  borderRadius: '6px',
+  cursor: 'pointer'
+};
+
+render(<App />);
+`.trim();
+
+const formExample = `
+const App = () => {
+  const [form, setForm] = useState({ name: '', email: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 2000);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} style={formStyle}>
+      <div style={fieldStyle}>
+        <label>Name</label>
+        <input
+          value={form.name}
+          onChange={e => setForm({...form, name: e.target.value})}
+          placeholder="Enter your name"
+          style={inputStyle}
+        />
+      </div>
+      <div style={fieldStyle}>
+        <label>Email</label>
+        <input
+          type="email"
+          value={form.email}
+          onChange={e => setForm({...form, email: e.target.value})}
+          placeholder="Enter your email"
+          style={inputStyle}
+        />
+      </div>
+      <button type="submit" style={submitStyle}>
+        {submitted ? '✓ Submitted!' : 'Submit'}
+      </button>
+    </form>
+  );
+};
+
+const formStyle = { display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '300px' };
+const fieldStyle = { display: 'flex', flexDirection: 'column', gap: '4px' };
+const inputStyle = { padding: '8px 12px', borderRadius: '6px', border: '1px solid #d0d7de', fontSize: '14px' };
+const submitStyle = { padding: '10px', backgroundColor: '#1a7f37', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '14px' };
+
+render(<App />);
+`.trim();
+
+const todoExample = `
+const App = () => {
+  const [todos, setTodos] = useState([
+    { id: 1, text: 'Learn React', done: true },
+    { id: 2, text: 'Try react-code-view', done: false }
+  ]);
+  const [input, setInput] = useState('');
+
+  const addTodo = () => {
+    if (!input.trim()) return;
+    setTodos([...todos, { id: Date.now(), text: input, done: false }]);
+    setInput('');
+  };
+
+  const toggleTodo = (id) => {
+    setTodos(todos.map(t => t.id === id ? {...t, done: !t.done} : t));
+  };
+
+  return (
+    <div style={{ maxWidth: '350px' }}>
+      <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+        <input
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyPress={e => e.key === 'Enter' && addTodo()}
+          placeholder="Add a todo..."
+          style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #d0d7de' }}
+        />
+        <button onClick={addTodo} style={btnStyle}>Add</button>
+      </div>
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        {todos.map(todo => (
+          <li 
+            key={todo.id}
+            onClick={() => toggleTodo(todo.id)}
+            style={{
+              padding: '10px',
+              marginBottom: '8px',
+              backgroundColor: '#f6f8fa',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              textDecoration: todo.done ? 'line-through' : 'none',
+              opacity: todo.done ? 0.6 : 1
+            }}
+          >
+            {todo.done ? '✓' : '○'} {todo.text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const btnStyle = { padding: '8px 16px', backgroundColor: '#0969da', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' };
+
+render(<App />);
+`.trim();
+
+const markdownDoc = `
+# React Code View
+
+A powerful React component library for rendering code with **live preview** and syntax highlighting.
+
+## ✨ Features
+
+- 🎨 **Live Preview** - Execute and preview React code in real-time
+- ✏️ **Editable** - Built-in code editor with syntax highlighting
+- 📝 **Markdown** - Render markdown content with code blocks
+- 🔌 **Universal Plugin** - Vite, Webpack, Rollup, esbuild, Rspack
+- 🎯 **TypeScript** - Full TypeScript support
+- 📦 **Tree-shakeable** - Import only what you need
+
+## 📦 Installation
+
+\`\`\`bash
+# Using npm
+npm install react-code-view
+
+# Using pnpm
+pnpm add react-code-view
+
+# Using yarn
+yarn add react-code-view
+\`\`\`
+
+## 🚀 Quick Start
+
+\`\`\`tsx
+import CodeView from 'react-code-view';
+import 'react-code-view/styles';
+
+function App() {
+  return (
+    <CodeView language="jsx" editable>
+      {\`<button onClick={() => alert('Hello!')}>
+  Click me
+</button>\`}
+    </CodeView>
+  );
+}
+\`\`\`
+`;
+
+const App: React.FC = () => {
+  const [theme, setTheme] = useState<'rcv-theme-default' | 'rcv-theme-dark'>('rcv-theme-default');
+  const isDark = theme === 'rcv-theme-dark';
+
+  // Apply dark class to body element
+  useEffect(() => {
+    if (isDark) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [isDark]);
+
+  return (
+    <div className={`app ${isDark ? 'dark' : ''}`}>
+      <header className="header">
+        <div className="header-content">
+          <div className="logo">
+            <span className="logo-icon">{'</>'}</span>
+            <h1>React Code View</h1>
+          </div>
+          <p className="tagline">Live code preview for React components</p>
+          <div className="header-actions">
+            <button onClick={() => setTheme(isDark ? 'rcv-theme-default' : 'rcv-theme-dark')} className="btn btn-outline">
+              {isDark ? '☀️ Light' : '🌙 Dark'}
+            </button>
+            <a href="https://github.com/simonguo/react-code-view" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+              ⭐ GitHub
+            </a>
+            <a href="https://www.npmjs.com/package/react-code-view" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+              npm
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main className="main">
+        {/* Introduction */}
+        <section className="section">
+          <MarkdownRenderer 
+            className={theme} 
+            theme={isDark ? 'github-dark' : 'github-light'}
+          >
+            {markdownDoc}
+          </MarkdownRenderer>
+        </section>
+
+        {/* Packages */}
+        <section className="section">
+          <h2>📚 Packages</h2>
+          <div className="packages-grid">
+            <div className="package-card">
+              <h3>react-code-view</h3>
+              <p>Main package with all features bundled</p>
+              <code>npm install react-code-view</code>
+            </div>
+            <div className="package-card">
+              <h3>@react-code-view/react</h3>
+              <p>React components only</p>
+              <code>npm install @react-code-view/react</code>
+            </div>
+            <div className="package-card">
+              <h3>@react-code-view/core</h3>
+              <p>Core transformation utilities (framework-agnostic)</p>
+              <code>npm install @react-code-view/core</code>
+            </div>
+            <div className="package-card">
+              <h3>@react-code-view/unplugin</h3>
+              <p>Build tool plugins for all major bundlers</p>
+              <code>npm install @react-code-view/unplugin</code>
+            </div>
+          </div>
+        </section>
+
+        {/* Live Examples */}
+        <section className="section">
+          <h2>🎮 Live Examples</h2>
+          <p className="section-desc">Try editing the code below and see the results instantly!</p>
+
+          <div className="example">
+            <h3>Counter</h3>
+            <CodeView
+              theme={theme}
+              language="jsx"
+              editable
+              renderPreview
+              showCopyButton
+              dependencies={{ useState: React.useState }}
+            >
+              {counterExample}
+            </CodeView>
+          </div>
+
+          <div className="example">
+            <h3>Form</h3>
+            <CodeView
+              theme={theme}
+              language="jsx"
+              editable
+              renderPreview
+              showCopyButton
+              dependencies={{ useState: React.useState }}
+            >
+              {formExample}
+            </CodeView>
+          </div>
+
+          <div className="example">
+            <h3>Todo List</h3>
+            <CodeView
+              theme={theme}
+              language="jsx"
+              editable
+              renderPreview
+              showCopyButton
+              dependencies={{ useState: React.useState }}
+            >
+              {todoExample}
+            </CodeView>
+          </div>
+        </section>
+
+        {/* Build Tool Integration */}
+        <section className="section">
+          <h2>🔧 Build Tool Integration</h2>
+          <p className="section-desc">Works with all major build tools via unplugin</p>
+
+          <div className="integration-grid">
+            <div className="integration-card">
+              <h4>Vite</h4>
+              <Renderer
+                code={`// vite.config.js
+import reactCodeView from '@react-code-view/unplugin/vite';
+
+export default {
+  plugins: [reactCodeView()]
+};`}
+                language="javascript"
+                className={theme}
+                theme={isDark ? 'github-dark' : 'github-light'}
+              />
+            </div>
+
+            <div className="integration-card">
+              <h4>Webpack</h4>
+              <Renderer
+                code={`// webpack.config.js
+const ReactCodeViewPlugin = require('@react-code-view/unplugin/webpack');
+
+module.exports = {
+  plugins: [ReactCodeViewPlugin()]
+};`}
+                language="javascript"
+                className={theme}
+                theme={isDark ? 'github-dark' : 'github-light'}
+              />
+            </div>
+
+            <div className="integration-card">
+              <h4>Rollup</h4>
+              <Renderer
+                code={`// rollup.config.js
+import reactCodeView from '@react-code-view/unplugin/rollup';
+
+export default {
+  plugins: [reactCodeView()]
+};`}
+                language="javascript"
+                className={theme}
+                theme={isDark ? 'github-dark' : 'github-light'}
+              />
+            </div>
+
+            <div className="integration-card">
+              <h4>esbuild</h4>
+              <Renderer
+                code={`// build.js
+import * as esbuild from 'esbuild';
+import reactCodeView from '@react-code-view/unplugin/esbuild';
+
+await esbuild.build({
+  plugins: [reactCodeView()]
+});`}
+                language="javascript"
+                className={theme}
+                theme={isDark ? 'github-dark' : 'github-light'}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* API Reference */}
+        <section className="section">
+          <h2>📖 API Reference</h2>
+          
+          <div className="api-section">
+            <h3>CodeView Props</h3>
+            <table className="api-table">
+              <thead>
+                <tr>
+                  <th>Prop</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>children</code></td>
+                  <td><code>string</code></td>
+                  <td>-</td>
+                  <td>Source code to display</td>
+                </tr>
+                <tr>
+                  <td><code>dependencies</code></td>
+                  <td><code>object</code></td>
+                  <td><code>{'{}'}</code></td>
+                  <td>Dependencies for code execution</td>
+                </tr>
+                <tr>
+                  <td><code>language</code></td>
+                  <td><code>string</code></td>
+                  <td><code>'jsx'</code></td>
+                  <td>Syntax highlighting language</td>
+                </tr>
+                <tr>
+                  <td><code>editable</code></td>
+                  <td><code>boolean</code></td>
+                  <td><code>true</code></td>
+                  <td>Enable code editing</td>
+                </tr>
+                <tr>
+                  <td><code>renderPreview</code></td>
+                  <td><code>boolean</code></td>
+                  <td><code>true</code></td>
+                  <td>Show live preview</td>
+                </tr>
+                <tr>
+                  <td><code>theme</code></td>
+                  <td><code>string</code></td>
+                  <td><code>'rcv-theme-default'</code></td>
+                  <td>Theme class name</td>
+                </tr>
+                <tr>
+                  <td><code>onChange</code></td>
+                  <td><code>function</code></td>
+                  <td>-</td>
+                  <td>Callback when code changes</td>
+                </tr>
+                <tr>
+                  <td><code>onError</code></td>
+                  <td><code>function</code></td>
+                  <td>-</td>
+                  <td>Callback when error occurs</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <p>
+          MIT License © {new Date().getFullYear()}{' '}
+          <a href="https://github.com/simonguo" target="_blank" rel="noopener noreferrer">
+            Simon Guo
+          </a>
+        </p>
+      </footer>
+    </div>
+  );
+};
+
+// Mount
+const container = document.getElementById('app');
+if (container) {
+  createRoot(container).render(<App />);
+}

@@ -18,20 +18,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Enable Corepack (PNPM from packageManager)
+        run: |
+          corepack enable
+
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: '18.x'
+          cache: 'pnpm'
 
       - name: Install
-        run: npm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: npm run build:docs
+        run: pnpm docs:build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/assets
+          publish_dir: ./docs/dist
