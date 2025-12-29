@@ -119,7 +119,6 @@
   gap: var(--rcv-spacing-sm);
   padding: var(--rcv-spacing-sm) var(--rcv-spacing-md);
   background-color: var(--rcv-color-bg-toolbar);
-  border-bottom: 1px solid var(--rcv-color-border);
 }
 
 .rcv-code-view__toggle-btn {
@@ -200,18 +199,17 @@
   background-color: var(--rcv-color-bg-code);
 }
 
+.rcv-code-view--code-visible .rcv-code-view__code {
+  border-top: 1px solid var(--rcv-color-border);
+}
+
 /* ============================================
    Code Editor
    ============================================ */
 
-.rcv-code-editor {
-  min-height: 100px;
-}
-
 .rcv-code-editor__textarea {
   display: block;
   width: 100%;
-  min-height: 100px;
   padding: var(--rcv-spacing-md);
   border: none;
   background-color: transparent;
@@ -229,7 +227,6 @@
 /* CodeMirror overrides */
 .rcv-code-editor .CodeMirror {
   height: auto;
-  min-height: 100px;
   font-family: var(--rcv-font-family-mono);
   font-size: var(--rcv-font-size-code);
   line-height: var(--rcv-line-height-code);
