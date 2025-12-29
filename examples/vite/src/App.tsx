@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { CodeView } from '@react-code-view/react';
 import '@react-code-view/react/styles/index.css';
+import nativeDemoMarkdown from './docs/native-demo.md?raw';
+import UnpluginDemo from './docs/unplugin-demo.md';
 
 const examples = {
   counter: `const App = () => {
@@ -188,7 +190,7 @@ function App() {
 
           <select
             value={selectedExample}
-            onChange={(e) => setSelectedExample(e.target.value as keyof typeof examples)}
+            onChange={e => setSelectedExample(e.target.value as keyof typeof examples)}
             style={{
               padding: '8px 12px',
               cursor: 'pointer',
@@ -206,17 +208,52 @@ function App() {
       </header>
 
       <main style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <CodeView
-          key={selectedExample}
-          language="jsx"
-          theme={theme}
-          dependencies={{ React }}
-          editable
-          showCopyButton
-          defaultShowCode
-        >
-          {examples[selectedExample]}
-        </CodeView>
+        <section style={{ marginBottom: '32px' }}>
+          <h2 style={{ marginBottom: '12px' }}>Live Code Example</h2>
+          <CodeView
+            key={selectedExample}
+            language="jsx"
+            theme={theme}
+            dependencies={{ React }}
+            editable
+            showCopyButton
+            defaultShowCode
+          >
+            {examples[selectedExample]}
+          </CodeView>
+        </section>
+
+        <section style={{ marginBottom: '32px' }}>
+          <h2 style={{ marginBottom: '12px' }}>Native Markdown Parsing (Runtime)</h2>
+          <p style={{ 
+            marginBottom: '16px',
+            color: theme === 'rcv-theme-dark' ? '#8b949e' : '#6b7280'
+          }}>
+            Import markdown as raw text using Vite&apos;s <code>?raw</code> suffix. 
+            CodeView parses and renders it at runtime.
+          </p>
+          <CodeView
+            theme={theme}
+            dependencies={{ useState: React.useState }}
+          >
+            {nativeDemoMarkdown}
+          </CodeView>
+        </section>
+
+        <section style={{ marginBottom: '32px' }}>
+          <h2 style={{ marginBottom: '12px' }}>Unplugin with Native Parser (Build-time)</h2>
+          <p style={{ 
+            marginBottom: '16px',
+            color: theme === 'rcv-theme-dark' ? '#8b949e' : '#6b7280'
+          }}>
+            Import markdown processed by <code>@react-code-view/unplugin</code> with <code>useNativeParser: true</code>.
+            Combines build-time processing with runtime parseHTML rendering.
+          </p>
+          <UnpluginDemo 
+            theme={theme}
+            dependencies={{ useState: React.useState }}
+          />
+        </section>
       </main>
 
       <footer style={{ 

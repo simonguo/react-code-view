@@ -44,6 +44,7 @@ export const Sidebar: React.FC = () => {
         { path: '/examples/typescript', label: 'TypeScript' },
         { path: '/examples/theme', label: 'Theme Switcher' },
         { path: '/examples/components', label: 'Custom Components' },
+        { path: '/examples/markdown', label: 'Markdown with Code' },
         { path: '/examples/use-code-execution', label: 'useCodeExecution' },
       ]
     }

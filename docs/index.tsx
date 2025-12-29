@@ -24,6 +24,7 @@ import { TypeScriptExample } from './pages/examples/TypeScriptExample';
 import { ThemeExample } from './pages/examples/ThemeExample';
 import { ComponentsExample } from './pages/examples/ComponentsExample';
 import { UseCodeExecutionExample } from './pages/examples/UseCodeExecutionExample';
+import { MarkdownExample } from './pages/examples/MarkdownExample';
 
 // Pre-initialize Shiki for faster first render
 initHighlighter();
@@ -71,6 +72,7 @@ const App: React.FC = () => {
               <Route path="/examples/theme" element={<ThemeExample theme={theme} />} />
               <Route path="/examples/components" element={<ComponentsExample theme={theme} />} />
               <Route path="/examples/use-code-execution" element={<UseCodeExecutionExample theme={theme} />} />
+              <Route path="/examples/markdown" element={<MarkdownExample theme={theme} />} />
             </Routes>
           </main>
         </div>

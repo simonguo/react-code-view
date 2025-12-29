@@ -4,10 +4,11 @@ import { ErrorBoundary } from './ErrorBoundary';
 import { Preview } from './Preview';
 import { CodeEditor } from './CodeEditor';
 import { Renderer } from './Renderer';
+import { MarkdownRenderer } from './MarkdownRenderer';
 import { CopyCodeButton } from './CopyCodeButton';
 import { CodeIcon } from '../icons';
 import { useCodeExecution } from '../hooks';
-import { canUseDOM } from '../utils';
+import { canUseDOM, parseHTML } from '../utils';
 
 export interface CodeViewProps {
   /** Source code to display and optionally execute */
@@ -74,7 +75,7 @@ export interface CodeViewProps {
  * </CodeView>
  * ```
  */
-export const CodeView = React.memo<CodeViewProps>(
+const CodeViewInternal = React.memo<CodeViewProps>(
   ({
     children = '',
     dependencies = {},
@@ -192,6 +193,36 @@ export const CodeView = React.memo<CodeViewProps>(
     );
   }
 );
+
+CodeViewInternal.displayName = 'CodeViewInternal';
+
+export const CodeView = React.memo<CodeViewProps>(props => {
+  const { children = '', onError, className = '', style } = props;
+
+  // Parse HTML to extract code and HTML fragments
+  const fragments = useMemo(() => parseHTML(children), [children]);
+
+  // If fragments exist, render multiple code/html sections
+  if (fragments && fragments.length > 0) {
+    return (
+      <ErrorBoundary onError={onError}>
+        <div className={className} style={style}>
+          {fragments.map(fragment => {
+            if (fragment.type === 'code') {
+              return <CodeViewInternal key={fragment.key} {...props}>{fragment.content}</CodeViewInternal>;
+            } else if (fragment.type === 'html') {
+              return <MarkdownRenderer key={fragment.key}>{fragment.content}</MarkdownRenderer>;
+            }
+            return null;
+          })}
+        </div>
+      </ErrorBoundary>
+    );
+  }
+
+  // Regular single code view rendering
+  return <CodeViewInternal {...props} />;
+});
 
 CodeView.displayName = 'CodeView';
 
