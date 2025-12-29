@@ -6,7 +6,7 @@
 
 A React component library for rendering code with **live preview** and syntax highlighting.
 
-![React Code View](https://user-images.githubusercontent.com/1203827/178659124-f4a8658f-1087-4c55-b89b-04dcfc5568cb.gif)
+[Docs](https://react-code-view-rsuite.vercel.app/)
 
 ## ✨ Features
 

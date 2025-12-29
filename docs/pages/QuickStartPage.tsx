@@ -79,6 +79,12 @@ export default function Demo() {
             <p>See props for CodeView & friends</p>
           </Link>
         </div>
+
+        <h3>Need bundler setup?</h3>
+        <p>
+          We provide ready-to-copy configs for Vite, Webpack, Rollup, Esbuild, and Rspack in the
+          <Link to="/build-tools/vite"> Build Tools</Link> section.
+        </p>
       </Section>
     </div>
   );

@@ -15,6 +15,7 @@ import { InstallationPage } from './pages/InstallationPage';
 import { QuickStartPage } from './pages/QuickStartPage';
 import { ComponentsPage } from './pages/ComponentsPage';
 import { BuildToolsPage } from './pages/BuildToolsPage';
+import { UseCodeExecutionPage } from './pages/UseCodeExecutionPage';
 
 // Examples
 import { CounterExample } from './pages/examples/CounterExample';
@@ -22,6 +23,7 @@ import { TodoExample } from './pages/examples/TodoExample';
 import { TypeScriptExample } from './pages/examples/TypeScriptExample';
 import { ThemeExample } from './pages/examples/ThemeExample';
 import { ComponentsExample } from './pages/examples/ComponentsExample';
+import { UseCodeExecutionExample } from './pages/examples/UseCodeExecutionExample';
 
 // Pre-initialize Shiki for faster first render
 initHighlighter();
@@ -61,12 +63,14 @@ const App: React.FC = () => {
               <Route path="/installation" element={<InstallationPage theme={theme} />} />
               <Route path="/quick-start" element={<QuickStartPage theme={theme} />} />
               <Route path="/components/:component" element={<ComponentsPage theme={theme} />} />
+              <Route path="/components/use-code-execution" element={<UseCodeExecutionPage theme={theme} />} />
               <Route path="/build-tools/:tool" element={<BuildToolsPage theme={theme} />} />
               <Route path="/examples/counter" element={<CounterExample theme={theme} />} />
               <Route path="/examples/todo" element={<TodoExample theme={theme} />} />
               <Route path="/examples/typescript" element={<TypeScriptExample theme={theme} />} />
               <Route path="/examples/theme" element={<ThemeExample theme={theme} />} />
               <Route path="/examples/components" element={<ComponentsExample theme={theme} />} />
+              <Route path="/examples/use-code-execution" element={<UseCodeExecutionExample theme={theme} />} />
             </Routes>
           </main>
         </div>

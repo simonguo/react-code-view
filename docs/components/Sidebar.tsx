@@ -24,6 +24,7 @@ export const Sidebar: React.FC = () => {
         { path: '/components/code-editor', label: 'CodeEditor' },
         { path: '/components/renderer', label: 'Renderer' },
         { path: '/components/markdown-renderer', label: 'MarkdownRenderer' },
+        { path: '/components/use-code-execution', label: 'useCodeExecution (hook)' },
       ]
     },
     {
@@ -43,6 +44,7 @@ export const Sidebar: React.FC = () => {
         { path: '/examples/typescript', label: 'TypeScript' },
         { path: '/examples/theme', label: 'Theme Switcher' },
         { path: '/examples/components', label: 'Custom Components' },
+        { path: '/examples/use-code-execution', label: 'useCodeExecution' },
       ]
     }
   ];
@@ -50,11 +52,11 @@ export const Sidebar: React.FC = () => {
   return (
     <aside className="docs-sidebar">
       <div className="sidebar-content">
-        {sections.map((section) => (
+        {sections.map(section => (
           <div key={section.title} className="sidebar-section">
             <h3 className="sidebar-title">{section.title}</h3>
             <ul className="sidebar-list">
-              {section.items.map((item) => (
+              {section.items.map(item => (
                 <li key={item.path}>
                   <Link 
                     to={item.path}
