@@ -253,6 +253,28 @@ pnpm lint
 
 - CI runs on Node 18+ and uses PNPM and Turbo to install, type-check, build, and test the monorepo.
 - Docs are built with Vite and deployed to GitHub Pages from `docs/dist`.
+
+## 🔄 Migration Guide (v2 → v3)
+
+Major changes in v3.0.0 modernize the architecture and usage. Here’s how to update:
+
+- New packages: The project is now a PNPM monorepo with `@react-code-view/react`, `@react-code-view/core`, and `@react-code-view/unplugin`. The `react-code-view` package re-exports everything for convenience.
+- Component imports: Prefer `react-code-view` for quick usage, or import directly from `@react-code-view/react` for granular control.
+  - Before (v2): `import { CodeView } from 'react-code-view'`
+  - After (v3): `import CodeView from 'react-code-view'` or `import { CodeView } from '@react-code-view/react'`
+- Styles: Use the new CSS entry points.
+  - Before (v2): Less files (e.g., `react-code-view/less/styles.less`)
+  - After (v3): `import 'react-code-view/styles'` and optional syntax theme `import 'react-code-view/styles/highlight'`
+- Build tool integration: Replace legacy Webpack markdown loader with the unified unplugin across tools.
+  - Before (v2): `webpack-md-loader` and custom loader config
+  - After (v3): `@react-code-view/unplugin` for Vite/Webpack/Rollup/esbuild/Rspack (see examples above)
+- Hook behavior: `useCodeExecution` is stabilized to avoid unintended re-executions.
+  - New: `updateCode` alias for code changes; pass `dependencies` explicitly if runtime scope is needed
+  - If you relied on implicit re-runs via changing options, update to change `code` or manage your own triggers
+- Types & tests: Vitest + jest-dom types included via package `tsconfig.json`.
+  - Add `types: ['vitest/globals', '@testing-library/jest-dom']` if customizing your test config
+
+If you need help migrating specific code paths from v2, open an issue and we’ll guide you through it.
 ```
 
 ## 📝 Changelog
