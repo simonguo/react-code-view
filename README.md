@@ -8,7 +8,7 @@ A React component library for rendering code with **live preview** and syntax hi
 
 **✨ Highlight:** Import `.md` files as React components - write markdown, get interactive demos instantly!
 
-[Docs](https://react-code-view-rsuite.vercel.app/)
+[Docs](https://rcv-rsuite.vercel.app/)
 
 ## ✨ Features
 
