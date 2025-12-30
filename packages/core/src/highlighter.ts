@@ -2,8 +2,10 @@
  * Shiki-based syntax highlighter
  */
 
-import { getHighlighter, bundledLanguages, type Highlighter } from 'shiki';
 import type { HighlightOptions } from './types';
+
+// Use type-only import to avoid CJS/ESM issues
+type Highlighter = any;
 
 let highlighterInstance: Highlighter | null = null;
 let highlighterPromise: Promise<Highlighter> | null = null;
@@ -36,10 +38,14 @@ async function ensureHighlighter(): Promise<Highlighter> {
   }
 
   if (!highlighterPromise) {
-    highlighterPromise = getHighlighter({
-      themes: ['github-light', 'github-dark'],
-      langs: Object.keys(bundledLanguages)
-    });
+    // Dynamic import to support both CJS and ESM
+    highlighterPromise = (async () => {
+      const { getHighlighter, bundledLanguages } = await import('shiki');
+      return getHighlighter({
+        themes: ['github-light', 'github-dark'],
+        langs: Object.keys(bundledLanguages)
+      });
+    })();
   }
 
   highlighterInstance = await highlighterPromise;

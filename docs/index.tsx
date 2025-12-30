@@ -11,7 +11,6 @@ import { Sidebar } from './components/Sidebar';
 
 // Pages
 import { OverviewPage } from './pages/OverviewPage';
-import { InstallationPage } from './pages/InstallationPage';
 import { QuickStartPage } from './pages/QuickStartPage';
 import { ComponentsPage } from './pages/ComponentsPage';
 import { BuildToolsPage } from './pages/BuildToolsPage';
@@ -61,7 +60,6 @@ const App: React.FC = () => {
           <main className="docs-main">
             <Routes>
               <Route path="/" element={<OverviewPage theme={theme} />} />
-              <Route path="/installation" element={<InstallationPage theme={theme} />} />
               <Route path="/quick-start" element={<QuickStartPage theme={theme} />} />
               <Route path="/components/:component" element={<ComponentsPage theme={theme} />} />
               <Route path="/components/use-code-execution" element={<UseCodeExecutionPage theme={theme} />} />

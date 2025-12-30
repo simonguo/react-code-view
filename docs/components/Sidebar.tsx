@@ -13,7 +13,6 @@ export const Sidebar: React.FC = () => {
       title: 'Getting Started',
       items: [
         { path: '/', label: 'Overview' },
-        { path: '/installation', label: 'Installation' },
         { path: '/quick-start', label: 'Quick Start' },
       ]
     },

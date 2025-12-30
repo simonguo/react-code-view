@@ -6,13 +6,15 @@
 
 A React component library for rendering code with **live preview** and syntax highlighting.
 
+**✨ Highlight:** Import `.md` files as React components - write markdown, get interactive demos instantly!
+
 [Docs](https://react-code-view-rsuite.vercel.app/)
 
 ## ✨ Features
 
+- 📝 **Native Markdown Parsing** - Import `.md` files and render embedded code blocks as interactive components
 - 🎨 **Live Preview** - Execute and preview React code in real-time
 - ✏️ **Editable Code** - Built-in code editor with syntax highlighting
-- 📝 **Native Markdown Parsing** - Parse and render markdown with embedded code blocks at runtime
 - 🔌 **Universal Plugin** - Works with Webpack, Vite, Rollup, esbuild, and Rspack
 - 🎯 **TypeScript** - Full TypeScript support out of the box
 - 📦 **Tree-shakeable** - Import only what you need
@@ -38,52 +40,30 @@ yarn add react-code-view
 
 ## 🚀 Quick Start
 
-### Basic Code Preview
+### ⭐ Import Markdown as React Components
 
-```tsx
-import CodeView from 'react-code-view';
-import 'react-code-view/styles';
+The most convenient way - configure once, use everywhere!
 
-function App() {
-  const code = `
-<button onClick={() => alert('Hello!')}>
-  Click me
-</button>
-  `.trim();
+**1. Configure your build tool** (Vite example):
 
-  return (
-    <CodeView 
-      language="jsx"
-      editable
-      renderPreview
-    >
-      {code}
-    </CodeView>
-  );
-}
+```js
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import reactCodeView from '@react-code-view/unplugin/vite';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    reactCodeView() // That's it!
+  ]
+});
 ```
 
-### Markdown with Code Blocks (New!)
-
-CodeView now supports **native markdown parsing** - no build configuration needed!
-
-```tsx
-import CodeView from 'react-code-view';
-import markdown from './example.md?raw'; // Import as raw text
-
-function App() {
-  return (
-    <CodeView dependencies={{ useState: React.useState }}>
-      {markdown}
-    </CodeView>
-  );
-}
-```
-
-Your markdown file (`example.md`):
+**2. Create your markdown file** (`demo.md`):
 
 ```markdown
-# Interactive Example
+# Interactive Counter
 
 Here's a live counter component:
 
@@ -91,16 +71,65 @@ Here's a live counter component:
 \`\`\`jsx
 function Counter() {
   const [count, setCount] = useState(0);
-  return <button onClick={() => setCount(count + 1)}>Count: {count}</button>;
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Clicked {count} times
+    </button>
+  );
 }
 render(<Counter />);
 \`\`\`
 <!--end-code-->
 
-More markdown content here...
+The code above is **fully interactive**!
 ```
 
-The code blocks are automatically extracted and rendered as interactive components!
+**3. Import and use like any React component**:
+
+```tsx
+import Demo from './demo.md';
+
+function App() {
+  return <Demo />;
+}
+```
+
+**That's it!** 🎉 Your markdown is now a React component with:
+- ✅ Live, interactive code blocks
+- ✅ Automatic syntax highlighting
+- ✅ Type-safe imports
+- ✅ Full TypeScript support
+
+### Alternative: Runtime Parsing (No Build Config)
+
+If you prefer not to configure a build tool:
+
+```tsx
+import CodeView from 'react-code-view';
+import markdown from './demo.md?raw';
+
+<CodeView dependencies={{ useState: React.useState }}>
+  {markdown}
+</CodeView>
+```
+
+### Basic Code Preview
+
+For simple code snippets without markdown:
+
+```tsx
+import CodeView from 'react-code-view';
+
+const code = `
+<button onClick={() => alert('Hello!')}>
+  Click me
+</button>
+`;
+
+<CodeView language="jsx" editable renderPreview>
+  {code}
+</CodeView>
+```
 
 ## 📚 Packages
 
@@ -117,35 +146,28 @@ This monorepo contains the following packages:
 
 React Code View supports all major build tools through [unplugin](https://github.com/unjs/unplugin).
 
-The plugin uses **native parseHTML** by default, generating CodeView components that parse markdown at runtime:
+Once configured, you can **import `.md` files as React components** - the most convenient way to create interactive documentation!
 
-```js
-// vite.config.js
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import reactCodeView from '@react-code-view/unplugin/vite';
+**Why this is amazing:**
+- 📝 Write markdown files with code examples
+- 🎯 Import them like regular React components
+- ⚡ Get live, interactive demos automatically
+- 🔒 Full TypeScript support and type safety
+- 🎨 Pass props like `theme`, `dependencies`, etc.
 
-export default defineConfig({
-  plugins: [
-    react(),
-    reactCodeView() // Uses native parseHTML by default
-  ]
-});
-```
-
-Then import markdown files directly:
+**Example:**
 
 ```tsx
 import Demo from './example.md';
 
-<Demo dependencies={{ useState: React.useState }} theme="rcv-theme-default" />
+function App() {
+  return (
+    <div>
+      <Demo theme="rcv-theme-dark" />
+    </div>
+  );
+}
 ```
-
-**Benefits:**
-- ✅ Consistent with runtime `parseHTML` behavior
-- ✅ Interactive code blocks automatically rendered
-- ✅ Smaller bundle size (no pre-rendered HTML)
-- ✅ Type-safe imports from build tools
 
 ### Vite
 

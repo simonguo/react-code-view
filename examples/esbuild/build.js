@@ -1,5 +1,6 @@
 import * as esbuild from 'esbuild';
 import { createServer, request as httpRequest } from 'http';
+import reactCodeView from '@react-code-view/unplugin/esbuild';
 
 const isDev = process.argv.includes('--dev');
 
@@ -12,6 +13,9 @@ const ctx = await esbuild.context({
     '.ts': 'ts',
     '.css': 'css',
   },
+  plugins: [
+    reactCodeView(),
+  ],
   sourcemap: isDev,
   minify: !isDev,
   define: {

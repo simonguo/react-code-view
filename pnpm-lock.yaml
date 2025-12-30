@@ -85,6 +85,9 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@react-code-view/unplugin':
+        specifier: workspace:*
+        version: link:../../packages/unplugin
       '@types/react':
         specifier: ^18.2.0
         version: 18.3.27
@@ -119,6 +122,9 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@react-code-view/unplugin':
+        specifier: workspace:*
+        version: link:../../packages/unplugin
       '@types/node':
         specifier: ^20.0.0
         version: 20.19.27
@@ -150,6 +156,9 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@react-code-view/unplugin':
+        specifier: workspace:*
+        version: link:../../packages/unplugin
       '@rollup/plugin-commonjs':
         specifier: ^25.0.0
         version: 25.0.8(rollup@4.54.0)
@@ -236,6 +245,9 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@react-code-view/unplugin':
+        specifier: workspace:*
+        version: link:../../packages/unplugin
       '@types/react':
         specifier: ^18.2.0
         version: 18.3.27

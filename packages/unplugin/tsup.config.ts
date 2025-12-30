@@ -14,6 +14,8 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   splitting: false,
+  // Ensure proper CJS default export
+  cjsInterop: true,
   external: [
     'webpack',
     'vite',

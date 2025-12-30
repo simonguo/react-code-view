@@ -11,80 +11,149 @@ export const QuickStartPage: React.FC<QuickStartPageProps> = ({ theme }) => {
   const isDark = theme === 'rcv-theme-dark';
   const codeTheme = isDark ? 'github-dark' : 'github-light';
 
-  const liveExample = `import React from 'react';
-import { CodeView } from '@react-code-view/react';
-import '@react-code-view/react/styles/index.css';
+  const viteConfig = `// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import reactCodeView from '@react-code-view/unplugin/vite';
 
-const snippet = \`const App = () => {
+export default defineConfig({
+  plugins: [
+    react(),
+    reactCodeView() // Enable markdown import
+  ]
+});`;
+
+  const markdownExample = `# Interactive Counter
+
+Here's a live counter component:
+
+<!--start-code-->
+\`\`\`jsx
+function Counter() {
   const [count, setCount] = React.useState(0);
   return (
-    <button onClick={() => setCount(c => c + 1)}>
+    <button onClick={() => setCount(count + 1)}>
       Clicked {count} times
     </button>
   );
-};
+}
+render(<Counter />);
+\`\`\`
+<!--end-code-->
 
-render(<App />);\`;
+The code above is fully interactive!`;
 
-export default function Demo() {
+  const importExample = `import Demo from './demo.md';
+
+function App() {
+  return <Demo />;
+}
+
+// Or pass props:
+<Demo theme="rcv-theme-dark" />`;
+
+  const basicExample = `import { CodeView } from '@react-code-view/react';
+import '@react-code-view/react/styles/index.css';
+
+const code = \`
+function App() {
+  const [count, setCount] = React.useState(0);
   return (
-    <CodeView
-      language="tsx"
-      theme="rcv-theme-default"
-      renderPreview
-      showCopyButton
-      dependencies={{ React }}
-    >
-      {snippet}
-    </CodeView>
+    <button onClick={() => setCount(count + 1)}>
+      Clicked {count} times
+    </button>
   );
 }
-`;
+render(<App />);
+\`;
+
+<CodeView
+  language="jsx"
+  renderPreview
+  dependencies={{ React }}
+>
+  {code}
+</CodeView>`;
 
   return (
     <div className="page-content">
       <Section id="quick-start" title="Quick Start">
-        <p className="section-intro">Get up and running with React Code View in a few steps.</p>
+        <p className="section-intro">
+          Get started in 3 simple steps - the most convenient way to create interactive documentation!
+        </p>
+
+        <div style={{
+          padding: '16px',
+          background: isDark ? '#1c2128' : '#f0f6fc',
+          borderRadius: '8px',
+          border: isDark ? '1px solid #30363d' : '1px solid #0969da',
+          marginBottom: '32px'
+        }}>
+          <p style={{ margin: 0, fontWeight: 'bold', color: isDark ? '#58a6ff' : '#0969da' }}>
+            ⭐ Recommended: Import markdown files as React components
+          </p>
+        </div>
 
         <h3>Step 1: Install</h3>
-        <CodeBlock language="bash" theme={codeTheme} code="npm install @react-code-view/react" />
+        <CodeBlock language="bash" theme={codeTheme} code="npm install @react-code-view/react @react-code-view/unplugin" />
 
-        <h3>Step 2: Import Styles</h3>
-        <CodeBlock
-          title="main.tsx"
-          language="tsx"
-          theme={codeTheme}
-          code={`import '@react-code-view/react/styles/index.css';`}
-        />
+        <h3>Step 2: Configure Build Tool</h3>
+        <p>Add the unplugin to your build configuration (Vite example):</p>
+        <CodeBlock title="vite.config.js" language="javascript" theme={codeTheme} code={viteConfig} />
+        <p style={{ marginTop: '8px', fontSize: '14px', color: isDark ? '#8b949e' : '#6b7280' }}>
+          Also works with Webpack, Rollup, esbuild, and Rspack - see <Link to="/build-tools/vite">Build Tools</Link> for other configs.
+        </p>
 
-        <h3>Step 3: Use CodeView (edit + preview)</h3>
-        <p>Create an online editable block that renders React components live:</p>
-        <CodeBlock title="App.tsx" language="tsx" theme={codeTheme} code={liveExample} />
+        <h3>Step 3: Create Markdown with Code Blocks</h3>
+        <p>Create a markdown file with interactive code blocks:</p>
+        <CodeBlock title="demo.md" language="markdown" theme={codeTheme} code={markdownExample} />
 
-        <h3>Step 4: Toggle code / copy</h3>
-        <p>Use the built-in toolbar in CodeView to show/hide source and copy the snippet.</p>
+        <h3>Step 4: Import and Use!</h3>
+        <p>Import the markdown file like any React component:</p>
+        <CodeBlock title="App.tsx" language="tsx" theme={codeTheme} code={importExample} />
 
-        <h3>Step 5: Add more examples</h3>
+        <div style={{
+          padding: '20px',
+          background: isDark ? '#1c2128' : '#f6f8fa',
+          borderRadius: '8px',
+          border: isDark ? '1px solid #30363d' : '1px solid #d0d7de',
+          marginTop: '24px',
+          marginBottom: '32px'
+        }}>
+          <p style={{ margin: 0, fontWeight: 'bold', marginBottom: '12px' }}>
+            🎉 That&apos;s it! Your markdown is now a React component with:
+          </p>
+          <ul style={{ margin: 0, paddingLeft: '20px', lineHeight: '1.8' }}>
+            <li>Live, interactive code blocks</li>
+            <li>Automatic syntax highlighting</li>
+            <li>Type-safe imports</li>
+            <li>Full TypeScript support</li>
+          </ul>
+        </div>
+
+        <h3>Alternative: Basic CodeView Usage</h3>
+        <p>For simple code snippets without markdown files:</p>
+        <CodeBlock title="App.tsx" language="tsx" theme={codeTheme} code={basicExample} />
+
+        <h3>Next Steps</h3>
         <div className="next-steps-grid">
+          <Link to="/examples/markdown" className="next-step-card">
+            <h4>📝 Markdown Example</h4>
+            <p>See a complete markdown demo</p>
+          </Link>
           <Link to="/examples/counter" className="next-step-card">
-            <h4>🎮 Live Examples</h4>
-            <p>Interactive counter and todo list</p>
+            <h4>🎮 More Examples</h4>
+            <p>Counter, todo list, and more</p>
           </Link>
           <Link to="/build-tools/vite" className="next-step-card">
             <h4>🔧 Build Tools</h4>
-            <p>Wire CodeView into your bundler</p>
+            <p>Webpack, Rollup, esbuild configs</p>
           </Link>
           <Link to="/components/code-view" className="next-step-card">
-            <h4>🧩 Components</h4>
-            <p>See props for CodeView & friends</p>
+            <h4>🧩 API Reference</h4>
+            <p>All props and components</p>
           </Link>
         </div>
-
-        <h3>Need bundler setup?</h3>
-        <p>
-          We provide ready-to-copy configs for Vite, Webpack, Rollup, Esbuild, and Rspack in the
-          <Link to="/build-tools/vite"> Build Tools</Link> section.
-        </p>
       </Section>
     </div>
   );

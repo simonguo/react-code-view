@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactCodeViewPlugin = require('@react-code-view/unplugin/webpack');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -22,9 +23,10 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js']
   },
   plugins: [
+    ReactCodeViewPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       title: 'React Code View - Webpack Example'
