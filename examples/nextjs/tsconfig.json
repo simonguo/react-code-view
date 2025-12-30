@@ -18,7 +18,8 @@
     "jsx": "preserve",
     "incremental": true,
     "types": [
-      "node"
+      "node",
+      "@react-code-view/unplugin/markdown"
     ],
     "plugins": [
       {

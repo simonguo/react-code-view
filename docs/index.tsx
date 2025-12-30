@@ -11,7 +11,6 @@ import { Sidebar } from './components/Sidebar';
 
 // Pages
 import { OverviewPage } from './pages/OverviewPage';
-import { InstallationPage } from './pages/InstallationPage';
 import { QuickStartPage } from './pages/QuickStartPage';
 import { ComponentsPage } from './pages/ComponentsPage';
 import { BuildToolsPage } from './pages/BuildToolsPage';
@@ -24,6 +23,7 @@ import { TypeScriptExample } from './pages/examples/TypeScriptExample';
 import { ThemeExample } from './pages/examples/ThemeExample';
 import { ComponentsExample } from './pages/examples/ComponentsExample';
 import { UseCodeExecutionExample } from './pages/examples/UseCodeExecutionExample';
+import { MarkdownExample } from './pages/examples/MarkdownExample';
 
 // Pre-initialize Shiki for faster first render
 initHighlighter();
@@ -60,7 +60,6 @@ const App: React.FC = () => {
           <main className="docs-main">
             <Routes>
               <Route path="/" element={<OverviewPage theme={theme} />} />
-              <Route path="/installation" element={<InstallationPage theme={theme} />} />
               <Route path="/quick-start" element={<QuickStartPage theme={theme} />} />
               <Route path="/components/:component" element={<ComponentsPage theme={theme} />} />
               <Route path="/components/use-code-execution" element={<UseCodeExecutionPage theme={theme} />} />
@@ -71,6 +70,7 @@ const App: React.FC = () => {
               <Route path="/examples/theme" element={<ThemeExample theme={theme} />} />
               <Route path="/examples/components" element={<ComponentsExample theme={theme} />} />
               <Route path="/examples/use-code-execution" element={<UseCodeExecutionExample theme={theme} />} />
+              <Route path="/examples/markdown" element={<MarkdownExample theme={theme} />} />
             </Routes>
           </main>
         </div>

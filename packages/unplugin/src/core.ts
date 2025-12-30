@@ -45,12 +45,10 @@ export const unpluginReactCodeView = createUnplugin<PluginOptions | undefined>(
         }
       },
 
-      // Rollup-specific: resolve .md files
+      // Rollup-specific: Let other plugins handle resolution
       rollup: {
-        resolveId(id) {
-          if (shouldProcess(id, options)) {
-            return id;
-          }
+        resolveId() {
+          // Let @rollup/plugin-node-resolve handle all path resolution
           return null;
         }
       }

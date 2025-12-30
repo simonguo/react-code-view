@@ -12,6 +12,7 @@
     "@react-code-view/react": "workspace:*"
   },
   "devDependencies": {
+    "@react-code-view/unplugin": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "css-loader": "^6.8.0",

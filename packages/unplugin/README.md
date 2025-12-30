@@ -119,7 +119,15 @@ interface PluginOptions {
   componentName?: string;
 
   /**
+   * Use native parseHTML rendering instead of transforming markdown to HTML
+   * When true, generates a CodeView component that uses parseHTML at runtime
+   * @default false
+   */
+  useNativeParser?: boolean;
+
+  /**
    * Transform options for markdown processing
+   * Only used when useNativeParser is false
    */
   transformOptions?: {
     gfm?: boolean;
@@ -129,6 +137,7 @@ interface PluginOptions {
 
   /**
    * Renderer options for code highlighting
+   * Only used when useNativeParser is false
    */
   rendererOptions?: {
     languages?: string[];
@@ -138,6 +147,8 @@ interface PluginOptions {
 ```
 
 ## Importing Markdown Files
+
+### Standard Mode (default)
 
 After setting up the plugin, you can import `.md` files directly:
 
@@ -156,13 +167,55 @@ function App() {
 }
 ```
 
+### Native Parser Mode
+
+When `useNativeParser: true`, the plugin generates a CodeView-based component:
+
+```js
+// vite.config.js
+reactCodeView({
+  useNativeParser: true
+})
+```
+
+```tsx
+import Content from './docs/example.md';
+
+function App() {
+  return (
+    <div>
+      {/* CodeView automatically parses and renders markdown with code blocks */}
+      <Content 
+        dependencies={{ useState: React.useState }}
+        theme="rcv-theme-default"
+      />
+    </div>
+  );
+}
+```
+
+**Benefits of Native Parser Mode:**
+- ✅ Consistent with runtime `parseHTML` behavior
+- ✅ Interactive code blocks automatically rendered
+- ✅ No build-time HTML transformation needed
+- ✅ Smaller bundle size (no pre-rendered HTML)
+
 ## Generated Exports
+
+### Standard Mode
 
 Each markdown file exports:
 
 - `default` / `MarkdownContent` - React component rendering the markdown
 - `content` - Raw HTML string
 - `codeBlocks` - Array of `{ code, language }` objects for all code blocks
+
+### Native Parser Mode
+
+Each markdown file exports:
+
+- `default` / `MarkdownContent` - CodeView component with parseHTML support
+- `content` - Raw markdown string
 
 ## License
 

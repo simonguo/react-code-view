@@ -4,7 +4,7 @@
  * @example
  * ```js
  * // webpack.config.js
- * const { webpack: ReactCodeViewPlugin } = require('@react-code-view/unplugin');
+ * const ReactCodeViewPlugin = require('@react-code-view/unplugin/webpack');
  *
  * module.exports = {
  *   plugins: [
@@ -18,5 +18,15 @@
 
 import { unpluginReactCodeView } from './core';
 
-export default unpluginReactCodeView.webpack;
-export const webpack = unpluginReactCodeView.webpack;
+// Export as default for both ESM and CJS
+const webpackPlugin = unpluginReactCodeView.webpack;
+
+export default webpackPlugin;
+export { webpackPlugin as webpack };
+
+// Ensure CJS compatibility
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = webpackPlugin;
+  module.exports.default = webpackPlugin;
+  module.exports.webpack = webpackPlugin;
+}

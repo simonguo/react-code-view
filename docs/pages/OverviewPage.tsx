@@ -9,7 +9,6 @@ interface OverviewPageProps {
 
 export const OverviewPage: React.FC<OverviewPageProps> = ({ theme }) => {
   const isDark = theme === 'rcv-theme-dark';
-  const codeTheme = isDark ? 'github-dark' : 'github-light';
 
   return (
     <div className="page-content">
@@ -17,8 +16,10 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ theme }) => {
       <div className="hero-section">
         <h1 className="hero-title">React Code View</h1>
         <p className="hero-description">
-          A powerful and flexible code editor and syntax highlighter for React applications.
-          Built with modern tools like CodeMirror 6 and Shiki.
+          Import markdown files as React components - write documentation, get interactive demos instantly.
+          <strong style={{ display: 'block', marginTop: '12px', fontSize: '1.1em', color: isDark ? '#58a6ff' : '#0969da' }}>
+            ✨ import Demo from &apos;./demo.md&apos; → &lt;Demo /&gt; - that&apos;s it!
+          </strong>
         </p>
         <div className="hero-badges">
           <img src="https://img.shields.io/npm/v/@react-code-view/react?style=flat-square" alt="npm version" />
@@ -33,11 +34,21 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ theme }) => {
           <FeatureCard
             icon={
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M8 4l8 8-8 8" stroke="currentColor" strokeWidth="2"/>
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2"/>
               </svg>
             }
-            title="Modern Syntax Highlighting"
-            description="Powered by Shiki, the same engine as VS Code. Supports 100+ languages and themes."
+            title="Native Markdown Parsing"
+            description="Import .md files and render embedded code blocks as interactive React components. Zero build configuration required!"
+          />
+          <FeatureCard
+            icon={
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" strokeWidth="2"/>
+              </svg>
+            }
+            title="Live Preview"
+            description="Execute and preview React code in real-time. See changes instantly as you type."
           />
           <FeatureCard
             icon={
@@ -52,12 +63,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ theme }) => {
           <FeatureCard
             icon={
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2"/>
+                <path d="M12 15l-3-3m0 0l3-3m-3 3h12" stroke="currentColor" strokeWidth="2"/>
               </svg>
             }
-            title="Zero Runtime"
-            description="Syntax highlighting runs at build time. Ship zero JavaScript for static code blocks."
+            title="Universal Plugin"
+            description="Works seamlessly with Vite, Webpack, Rollup, esbuild, and Rspack via unplugin."
           />
           <FeatureCard
             icon={
@@ -71,28 +81,20 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ theme }) => {
           <FeatureCard
             icon={
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2"/>
+                <path d="M8 4l8 8-8 8" stroke="currentColor" strokeWidth="2"/>
               </svg>
             }
-            title="Markdown Rendering"
-            description="Render Markdown with automatic code block syntax highlighting."
-          />
-          <FeatureCard
-            icon={
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12 15l-3-3m0 0l3-3m-3 3h12" stroke="currentColor" strokeWidth="2"/>
-              </svg>
-            }
-            title="Build Tool Integration"
-            description="Works seamlessly with Vite, Webpack, Rollup, and esbuild via unplugin."
+            title="Modern Syntax Highlighting"
+            description="Powered by Shiki, the same engine as VS Code. Supports 100+ languages and themes."
           />
         </div>
       </Section>
 
+
       {/* Quick Example */}
-      <Section id="quick-example" title="Quick Example">
+      <Section id="quick-example" title="Basic Code Preview">
         <p className="section-intro">
-          Try it yourself! Click "Show Code" to view and edit the source code.
+          For simple code snippets without markdown, use CodeView directly:
         </p>
         <div className="example-demo">
           <CodeView

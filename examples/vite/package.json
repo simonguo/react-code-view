@@ -17,6 +17,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "@react-code-view/unplugin": "workspace:*",
     "typescript": "^5.3.0",
     "vite": "^5.0.0"
   }

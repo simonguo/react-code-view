@@ -39,6 +39,13 @@ export interface PluginOptions {
    * @default 'MarkdownContent'
    */
   componentName?: string;
+
+  /**
+   * Use native parseHTML rendering instead of transforming markdown to HTML
+   * When true, generates a CodeView component that uses parseHTML at runtime
+   * @default true
+   */
+  useNativeParser?: boolean;
 }
 
 export const DEFAULT_OPTIONS: Required<PluginOptions> = {
@@ -48,7 +55,8 @@ export const DEFAULT_OPTIONS: Required<PluginOptions> = {
   rendererOptions: {},
   filter: () => true,
   wrapComponent: true,
-  componentName: 'MarkdownContent'
+  componentName: 'MarkdownContent',
+  useNativeParser: true
 };
 
 export interface TransformContext {

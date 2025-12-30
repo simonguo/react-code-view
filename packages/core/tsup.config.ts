@@ -8,5 +8,7 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   treeshake: true,
-  minify: false
+  minify: false,
+  // Mark shiki as external since we use dynamic import
+  external: ['shiki']
 });

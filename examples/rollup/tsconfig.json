@@ -13,7 +13,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "types": ["@react-code-view/unplugin/markdown"]
   },
   "include": ["src"]
 }

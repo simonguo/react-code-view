@@ -6,16 +6,19 @@
 
 A React component library for rendering code with **live preview** and syntax highlighting.
 
+**✨ Highlight:** Import `.md` files as React components - write markdown, get interactive demos instantly!
+
 [Docs](https://react-code-view-rsuite.vercel.app/)
 
 ## ✨ Features
 
+- 📝 **Native Markdown Parsing** - Import `.md` files and render embedded code blocks as interactive components
 - 🎨 **Live Preview** - Execute and preview React code in real-time
 - ✏️ **Editable Code** - Built-in code editor with syntax highlighting
-- 📝 **Markdown Support** - Render markdown content with code blocks
 - 🔌 **Universal Plugin** - Works with Webpack, Vite, Rollup, esbuild, and Rspack
 - 🎯 **TypeScript** - Full TypeScript support out of the box
 - 📦 **Tree-shakeable** - Import only what you need
+- ⚡ **Zero Config** - Works out of the box with sensible defaults
 
 ## ✅ Requirements
 
@@ -37,27 +40,95 @@ yarn add react-code-view
 
 ## 🚀 Quick Start
 
+### ⭐ Import Markdown as React Components
+
+The most convenient way - configure once, use everywhere!
+
+**1. Configure your build tool** (Vite example):
+
+```js
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import reactCodeView from '@react-code-view/unplugin/vite';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    reactCodeView() // That's it!
+  ]
+});
+```
+
+**2. Create your markdown file** (`demo.md`):
+
+```markdown
+# Interactive Counter
+
+Here's a live counter component:
+
+<!--start-code-->
+\`\`\`jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Clicked {count} times
+    </button>
+  );
+}
+render(<Counter />);
+\`\`\`
+<!--end-code-->
+
+The code above is **fully interactive**!
+```
+
+**3. Import and use like any React component**:
+
 ```tsx
-import CodeView from 'react-code-view';
-import 'react-code-view/styles';
+import Demo from './demo.md';
 
 function App() {
-  const code = `
+  return <Demo />;
+}
+```
+
+**That's it!** 🎉 Your markdown is now a React component with:
+- ✅ Live, interactive code blocks
+- ✅ Automatic syntax highlighting
+- ✅ Type-safe imports
+- ✅ Full TypeScript support
+
+### Alternative: Runtime Parsing (No Build Config)
+
+If you prefer not to configure a build tool:
+
+```tsx
+import CodeView from 'react-code-view';
+import markdown from './demo.md?raw';
+
+<CodeView dependencies={{ useState: React.useState }}>
+  {markdown}
+</CodeView>
+```
+
+### Basic Code Preview
+
+For simple code snippets without markdown:
+
+```tsx
+import CodeView from 'react-code-view';
+
+const code = `
 <button onClick={() => alert('Hello!')}>
   Click me
 </button>
-  `.trim();
+`;
 
-  return (
-    <CodeView 
-      language="jsx"
-      editable
-      renderPreview
-    >
-      {code}
-    </CodeView>
-  );
-}
+<CodeView language="jsx" editable renderPreview>
+  {code}
+</CodeView>
 ```
 
 ## 📚 Packages
@@ -73,7 +144,30 @@ This monorepo contains the following packages:
 
 ## 🔧 Build Tool Integration
 
-React Code View supports all major build tools through [unplugin](https://github.com/unjs/unplugin):
+React Code View supports all major build tools through [unplugin](https://github.com/unjs/unplugin).
+
+Once configured, you can **import `.md` files as React components** - the most convenient way to create interactive documentation!
+
+**Why this is amazing:**
+- 📝 Write markdown files with code examples
+- 🎯 Import them like regular React components
+- ⚡ Get live, interactive demos automatically
+- 🔒 Full TypeScript support and type safety
+- 🎨 Pass props like `theme`, `dependencies`, etc.
+
+**Example:**
+
+```tsx
+import Demo from './example.md';
+
+function App() {
+  return (
+    <div>
+      <Demo theme="rcv-theme-dark" />
+    </div>
+  );
+}
+```
 
 ### Vite
 
@@ -149,18 +243,22 @@ module.exports = {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `children` | `string` | - | Source code to display |
-| `dependencies` | `object` | `{}` | Dependencies for code execution |
+| `children` | `string` | - | Source code or markdown content to display |
+| `dependencies` | `object` | `{}` | Dependencies for code execution (e.g., `{ useState: React.useState }`) |
 | `language` | `string` | `'jsx'` | Syntax highlighting language |
 | `editable` | `boolean` | `true` | Enable code editing |
 | `renderPreview` | `boolean` | `true` | Show live preview |
 | `showLineNumbers` | `boolean` | `true` | Show line numbers |
 | `showCopyButton` | `boolean` | `true` | Show copy button |
+| `defaultShowCode` | `boolean` | `false` | Initially show code section |
 | `theme` | `string` | `'rcv-theme-default'` | Theme class name |
 | `beforeCompile` | `function` | - | Transform code before compile |
 | `afterCompile` | `function` | - | Transform code after compile |
 | `onChange` | `function` | - | Callback when code changes |
 | `onError` | `function` | - | Callback when error occurs |
+| `emptyPreviewContent` | `ReactNode` | - | Content to display when preview is empty |
+
+**Note:** When `children` contains markdown with `<!--start-code-->` markers, CodeView automatically parses and renders code blocks as interactive components.
 
 ### Other Components
 

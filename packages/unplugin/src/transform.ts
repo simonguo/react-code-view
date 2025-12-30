@@ -12,6 +12,14 @@ export function transformMarkdown(
 ): TransformResult {
   const options = normalizeOptions(userOptions);
 
+  // If using native parser, generate CodeView-based component
+  if (options.useNativeParser) {
+    return {
+      code: generateNativeParserComponent(code, options),
+      map: null
+    };
+  }
+
   // Create renderer with options
   const renderer = createRenderer(options.rendererOptions);
 
@@ -81,5 +89,35 @@ function generateDataExport(
 export const html = ${JSON.stringify(html)};
 export const codeBlocks = ${JSON.stringify(codeBlocks)};
 export default html;
+`.trim();
+}
+
+/**
+ * Generate a CodeView-based component that uses native parseHTML
+ */
+function generateNativeParserComponent(
+  markdown: string,
+  options: Required<PluginOptions>
+): string {
+  const componentName = options.componentName;
+  const escapedMarkdown = JSON.stringify(markdown);
+
+  return `
+import React from 'react';
+import { CodeView } from '@react-code-view/react';
+
+const markdownContent = ${escapedMarkdown};
+
+export function ${componentName}({ dependencies, theme, ...props }) {
+  return React.createElement(CodeView, {
+    dependencies: dependencies || { useState: React.useState },
+    theme: theme,
+    ...props
+  }, markdownContent);
+}
+
+export const content = markdownContent;
+
+export default ${componentName};
 `.trim();
 }
