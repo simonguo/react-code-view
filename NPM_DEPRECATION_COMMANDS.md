@@ -8,7 +8,7 @@ After merging the PR that removes the `react-code-view` package, run the followi
 
 ```bash
 # Deprecate all versions of react-code-view
-npm deprecate react-code-view "Package deprecated. Please use @react-code-view/react instead. See https://github.com/simonguo/react-code-view/blob/main/DEPRECATION_react-code-view.md for migration guide."
+npm deprecate react-code-view "Package deprecated. Please use @react-code-view/react instead. See https://github.com/simonguo/react-code-view/blob/main/docs/DEPRECATION_react-code-view.md for migration guide."
 ```
 
 ### Deprecate specific version ranges (alternative)
@@ -17,10 +17,10 @@ If you prefer to deprecate specific versions:
 
 ```bash
 # Deprecate v3.x versions
-npm deprecate react-code-view@3.x "Package deprecated. Please use @react-code-view/react instead. See https://github.com/simonguo/react-code-view/blob/main/DEPRECATION_react-code-view.md for migration guide."
+npm deprecate react-code-view@3.x "Package deprecated. Please use @react-code-view/react instead. See https://github.com/simonguo/react-code-view/blob/main/docs/DEPRECATION_react-code-view.md for migration guide."
 
 # Deprecate v2.x versions (if needed)
-npm deprecate react-code-view@2.x "Package deprecated. Please use @react-code-view/react instead. See https://github.com/simonguo/react-code-view/blob/main/DEPRECATION_react-code-view.md for migration guide."
+npm deprecate react-code-view@2.x "Package deprecated. Please use @react-code-view/react instead. See https://github.com/simonguo/react-code-view/blob/main/docs/DEPRECATION_react-code-view.md for migration guide."
 ```
 
 ## 📋 Verification
@@ -44,4 +44,4 @@ You should see a deprecation warning in the output.
 
 - npm deprecate documentation: https://docs.npmjs.com/cli/v10/commands/npm-deprecate
 - npm unpublish policy: https://docs.npmjs.com/policies/unpublish
-- Migration guide: [DEPRECATION_react-code-view.md](./DEPRECATION_react-code-view.md)
+- Migration guide: [docs/DEPRECATION_react-code-view.md](./docs/DEPRECATION_react-code-view.md)

@@ -1,7 +1,8 @@
 # React Code View
 
-[![npm](https://img.shields.io/npm/v/react-code-view.svg)](https://www.npmjs.com/package/react-code-view)
-[![npm](https://img.shields.io/npm/dm/react-code-view.svg)](https://www.npmjs.com/package/react-code-view)
+[![npm](https://img.shields.io/npm/v/@react-code-view/react.svg)](https://www.npmjs.com/package/@react-code-view/react)
+[![npm](https://img.shields.io/npm/dm/@react-code-view/react.svg)](https://www.npmjs.com/package/@react-code-view/react)
+[![codecov](https://codecov.io/gh/simonguo/react-code-view/branch/main/graph/badge.svg)](https://codecov.io/gh/simonguo/react-code-view)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 A React component library for rendering code with **live preview** and syntax highlighting.
