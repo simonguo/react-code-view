@@ -5,9 +5,9 @@ React components for rendering code with live preview and syntax highlighting.
 ## Installation
 
 ```bash
-pnpm add @react-code-view/react @react-code-view/core
+pnpm add @react-code-view/react
 # or
-npm install @react-code-view/react @react-code-view/core
+npm install @react-code-view/react
 ```
 
 ## Quick Start
