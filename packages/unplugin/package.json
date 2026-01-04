@@ -1,6 +1,6 @@
 {
   "name": "@react-code-view/unplugin",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Build tool plugins for react-code-view (Webpack, Vite, Rollup, esbuild, Rspack)",
   "license": "MIT",
   "main": "./dist/index.cjs",
@@ -97,6 +97,8 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "clean": "rm -rf dist"
   },
   "dependencies": {
@@ -106,7 +108,8 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.4.0"
+    "typescript": "^5.4.0",
+    "vitest": "^1.0.0"
   },
   "peerDependencies": {
     "webpack": ">=4.0.0",

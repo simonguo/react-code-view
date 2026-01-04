@@ -413,21 +413,6 @@ importers:
         specifier: ^1.0.0
         version: 1.6.1(@types/node@20.19.27)(jsdom@23.2.0)(less@4.5.1)
 
-  packages/react-code-view:
-    dependencies:
-      '@react-code-view/core':
-        specifier: workspace:*
-        version: link:../core
-      '@react-code-view/react':
-        specifier: workspace:*
-        version: link:../react
-      react:
-        specifier: '>=17.0.0'
-        version: 18.3.1
-      react-dom:
-        specifier: '>=17.0.0'
-        version: 18.3.1(react@18.3.1)
-
   packages/unplugin:
     dependencies:
       '@react-code-view/core':
@@ -461,6 +446,9 @@ importers:
       typescript:
         specifier: ^5.4.0
         version: 5.9.3
+      vitest:
+        specifier: ^1.0.0
+        version: 1.6.1(@types/node@20.19.27)(jsdom@23.2.0)(less@4.5.1)
 
 packages:
 
