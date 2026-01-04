@@ -141,7 +141,7 @@ interface PluginOptions {
    */
   rendererOptions?: {
     languages?: string[];
-    // ... highlight.js options
+    // ... Shiki options
   };
 }
 ```

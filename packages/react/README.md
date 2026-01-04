@@ -16,9 +16,6 @@ npm install @react-code-view/react @react-code-view/core
 import { CodeView } from '@react-code-view/react';
 import '@react-code-view/react/styles/index.css';
 
-// Optional: import highlight theme
-import 'highlight.js/styles/atom-one-dark.css';
-
 function App() {
   const code = `
 <Button color="primary">
