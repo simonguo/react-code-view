@@ -16,7 +16,7 @@
   - `useCodeExecution` effect behavior stabilized; consumers relying on previous implicit re-execution may need to explicitly update `code` or pass `dependencies`
   - Package structure reorganized across `packages/*`; import paths may need updates according to exports
   - Imports: `CodeView` is now also a default export in `@react-code-view/react` and re-exported by `react-code-view`; prefer `import CodeView from 'react-code-view'` or adjust named imports accordingly
-  - Styles: Less entries were removed; switch to `import 'react-code-view/styles'` and optional `import 'react-code-view/styles/highlight'`
+  - Styles: Less entries were removed; switch to `import 'react-code-view/styles'`
   - Build integration: Legacy `webpack-md-loader` is removed; migrate to unified `@react-code-view/unplugin` for Vite/Webpack/Rollup/esbuild/Rspack
   - Tooling: Minimum requirements updated to Node >=18 and PNPM >=8 for the monorepo/dev workflow
 
