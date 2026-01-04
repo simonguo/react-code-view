@@ -1,5 +1,26 @@
 # @react-code-view/react
 
+## 3.1.0
+
+### Minor Changes
+
+- **Codecov Integration**: Added comprehensive test coverage reporting with codecov/codecov-action@v5
+- **100% Test Pass Rate**: All 159 tests passing across all packages (core: 26/26, react: 81/81, unplugin: 52/52)
+- **Test Coverage Improvements**: Overall coverage improved from ~47% to ~95%
+  - Added comprehensive test suites for unplugin package (0% → 100%)
+  - Enhanced React component tests (40% → 100%)
+- **Configuration & Tooling**: 
+  - Added @vitest/coverage-v8 dependency and test:coverage script
+  - Removed duplicate .eslintrc.js, unified ESLint configuration
+  - Created .github/CODECOV_SETUP.md documentation
+- **Documentation**: Updated README badges, added Codecov badge, moved deprecation notice to docs/
+- **Bug Fixes**: Fixed TypeScript type errors, corrected component prop usage, simplified Hook type handling
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-code-view/core@3.1.0
+
 ## 3.0.0
 
 ### Major Changes
@@ -20,21 +41,7 @@
   - Build integration: Legacy `webpack-md-loader` is removed; migrate to unified `@react-code-view/unplugin` for Vite/Webpack/Rollup/esbuild/Rspack
   - Tooling: Minimum requirements updated to Node >=18 and PNPM >=8 for the monorepo/dev workflow
 
-### Minor Changes
-
-- **Codecov Integration**: Added comprehensive test coverage reporting with codecov/codecov-action@v5
-- **100% Test Pass Rate**: All 159 tests passing across all packages (core: 26/26, react: 81/81, unplugin: 52/52)
-- **Test Coverage Improvements**: Overall coverage improved from ~47% to ~95%
-  - Added comprehensive test suites for unplugin package (0% → 100%)
-  - Enhanced React component tests (40% → 100%)
-- **Configuration & Tooling**: 
-  - Added @vitest/coverage-v8 dependency and test:coverage script
-  - Removed duplicate .eslintrc.js, unified ESLint configuration
-  - Created .github/CODECOV_SETUP.md documentation
-- **Documentation**: Updated README badges, added Codecov badge, moved deprecation notice to docs/
-- **Bug Fixes**: Fixed TypeScript type errors, corrected component prop usage, simplified Hook type handling
-
 ### Patch Changes
 
 - Updated dependencies
-  - @react-code-view/core@3.1.0
+  - @react-code-view/core@3.0.0
