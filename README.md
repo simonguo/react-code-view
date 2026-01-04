@@ -362,7 +362,7 @@ Major changes in v3.0.0 modernize the architecture and usage. Here’s how to up
   - After (v3): `import CodeView from 'react-code-view'` or `import { CodeView } from '@react-code-view/react'`
 - Styles: Use the new CSS entry points.
   - Before (v2): Less files (e.g., `react-code-view/less/styles.less`)
-  - After (v3): `import 'react-code-view/styles'` and optional syntax theme `import 'react-code-view/styles/highlight'`
+  - After (v3): `import 'react-code-view/styles'`
 - Build tool integration: Replace legacy Webpack markdown loader with the unified unplugin across tools.
   - Before (v2): `webpack-md-loader` and custom loader config
   - After (v3): `@react-code-view/unplugin` for Vite/Webpack/Rollup/esbuild/Rspack (see examples above)

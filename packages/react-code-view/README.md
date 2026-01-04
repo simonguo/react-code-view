@@ -145,9 +145,8 @@ Import the base styles:
 
 ```tsx
 import 'react-code-view/styles';
-// or specific files
+// or
 import 'react-code-view/styles/index.css';
-import 'react-code-view/styles/highlight.css';
 ```
 
 Use theme classes:

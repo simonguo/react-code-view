@@ -41,11 +41,12 @@ const result = await transformMarkdown(markdown, {
 ### Direct Highlighting
 
 ```js
-import { highlight, registerLanguage } from '@react-code-view/core';
+import { highlight, initHighlighter } from '@react-code-view/core';
 
-await registerLanguage('python');
+// Initialize highlighter (optional, will auto-initialize on first use)
+await initHighlighter();
 
-const highlighted = highlight('print("Hello")', { language: 'python' });
+const highlighted = await highlight('print("Hello")', { language: 'python' });
 ```
 
 ## API
@@ -61,11 +62,15 @@ Transform markdown to an ES module string.
 
 ### `highlight(code, options?)`
 
-Highlight code with syntax highlighting.
+Highlight code with syntax highlighting using Shiki.
 
-### `registerLanguage(name)`
+**Options:**
+- `language` - Programming language (e.g., 'javascript', 'python')
+- `theme` - Shiki theme (default: 'github-light')
 
-Register a language for highlighting.
+### `initHighlighter()`
+
+Initialize the Shiki highlighter. Called automatically on first use.
 
 ## License
 
