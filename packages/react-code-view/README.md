@@ -8,7 +8,7 @@ A React component library for rendering code with live preview and syntax highli
 ## Features
 
 - 🎨 **Live Preview** - Execute and preview React code in real-time
-- ✨ **Syntax Highlighting** - Powered by highlight.js
+- ✨ **Syntax Highlighting** - Powered by Shiki
 - ✏️ **Editable Code** - Built-in code editor with optional CodeMirror support
 - 📝 **Markdown Support** - Render markdown with code blocks
 - 🔌 **Universal Plugin** - Works with Webpack, Vite, Rollup, esbuild, and Rspack
@@ -33,9 +33,6 @@ yarn add react-code-view
 ```tsx
 import CodeView from 'react-code-view';
 import 'react-code-view/styles';
-
-// Optional: import highlight.js theme
-import 'highlight.js/styles/atom-one-dark.css';
 
 function App() {
   const code = `
