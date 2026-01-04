@@ -40,5 +40,16 @@ jobs:
       - name: Build
         run: pnpm -w build
 
-      - name: Test
-        run: pnpm -w test --reporter verbose
+      - name: Test with Coverage
+        run: pnpm -w test:coverage --reporter verbose
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: simonguo/react-code-view
+          files: ./packages/core/coverage/lcov.info,./packages/react/coverage/lcov.info,./packages/unplugin/coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+          verbose: true
