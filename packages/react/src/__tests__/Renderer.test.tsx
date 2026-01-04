@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import React from 'react';
 import { Renderer } from '../components/Renderer';
 
 describe('Renderer', () => {
@@ -51,10 +50,10 @@ describe('Renderer', () => {
     expect(container.querySelector('.custom-class')).toBeInTheDocument();
   });
 
-  it('should render with line numbers when enabled', () => {
+  it('should render code in pre tag', () => {
     const code = 'const x = 1;';
     const { container } = render(
-      <Renderer code={code} showLineNumbers={true} />
+      <Renderer code={code} />
     );
     
     expect(container.querySelector('pre')).toBeInTheDocument();

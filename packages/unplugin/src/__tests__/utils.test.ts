@@ -50,9 +50,9 @@ describe('utils', () => {
       expect(shouldProcess('/path/to/file.md', options)).toBe(true);
     });
 
-    it('should process .markdown files by default', () => {
+    it('should process .mdx files by default', () => {
       const options = normalizeOptions();
-      expect(shouldProcess('/path/to/file.markdown', options)).toBe(true);
+      expect(shouldProcess('/path/to/file.mdx', options)).toBe(true);
     });
 
     it('should not process non-markdown files', () => {

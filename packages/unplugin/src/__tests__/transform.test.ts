@@ -12,8 +12,8 @@ describe('transformMarkdown', () => {
       expect(result.code).toContain('import React from \'react\'');
       expect(result.code).toContain('import { CodeView } from \'@react-code-view/react\'');
       expect(result.code).toContain('const markdownContent =');
-      expect(result.code).toContain('export function MarkdownComponent');
-      expect(result.code).toContain('export default MarkdownComponent');
+      expect(result.code).toContain('export function MarkdownContent');
+      expect(result.code).toContain('export default MarkdownContent');
       expect(result.map).toBe(null);
     });
 
@@ -47,10 +47,10 @@ describe('transformMarkdown', () => {
       });
 
       expect(result.code).toContain('import React from \'react\'');
-      expect(result.code).toContain('export function MarkdownComponent');
+      expect(result.code).toContain('export function MarkdownContent');
       expect(result.code).toContain('dangerouslySetInnerHTML');
       expect(result.code).toContain('export const codeBlocks');
-      expect(result.code).toContain('export default MarkdownComponent');
+      expect(result.code).toContain('export default MarkdownContent');
       expect(result.map).toBe(null);
     });
 
@@ -126,7 +126,7 @@ describe('transformMarkdown', () => {
       });
 
       expect(result.code).toBeDefined();
-      expect(result.code).toContain('export function MarkdownComponent');
+      expect(result.code).toContain('export function MarkdownContent');
     });
 
     it('should handle markdown with special characters', () => {

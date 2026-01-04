@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import React from 'react';
 import { CopyCodeButton } from '../components/CopyCodeButton';
 
 // Mock copy-to-clipboard
