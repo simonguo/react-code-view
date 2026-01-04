@@ -1,5 +1,13 @@
 # @react-code-view/core
 
+## 3.1.0
+
+### Minor Changes
+
+- **Test Coverage**: Achieved 100% test pass rate (26/26 tests)
+- **Codecov Integration**: Added comprehensive coverage reporting infrastructure
+- **Bug Fixes**: Fixed TypeScript type errors and improved test reliability
+
 ## 3.0.0
 
 ### Major Changes

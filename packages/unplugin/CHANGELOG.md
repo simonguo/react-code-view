@@ -1,5 +1,21 @@
 # @react-code-view/unplugin
 
+## 3.1.0
+
+### Minor Changes
+
+- **Comprehensive Test Suite**: Added full test coverage (0% → 100%, 52/52 tests passing)
+  - utils.test.ts: Options normalization and file filtering
+  - transform.test.ts: Markdown transformation (native & HTML modes)
+  - core.test.ts: Plugin creation and build tool integration
+- **Codecov Integration**: Added coverage reporting with lcov format
+- **Bug Fixes**: Fixed TypeScript type errors in test files
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-code-view/core@3.1.0
+
 ## 3.0.0
 
 ### Major Changes
