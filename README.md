@@ -29,13 +29,13 @@ A React component library for rendering code with **live preview** and syntax hi
 
 ```bash
 # npm
-npm install react-code-view
+npm install @react-code-view/react
 
 # pnpm
-pnpm add react-code-view
+pnpm add @react-code-view/react
 
 # yarn
-yarn add react-code-view
+yarn add @react-code-view/react
 ```
 
 ## 🚀 Quick Start
@@ -105,7 +105,7 @@ function App() {
 If you prefer not to configure a build tool:
 
 ```tsx
-import CodeView from 'react-code-view';
+import { CodeView } from '@react-code-view/react';
 import markdown from './demo.md?raw';
 
 <CodeView dependencies={{ useState: React.useState }}>
@@ -118,7 +118,7 @@ import markdown from './demo.md?raw';
 For simple code snippets without markdown:
 
 ```tsx
-import CodeView from 'react-code-view';
+import { CodeView } from '@react-code-view/react';
 
 const code = `
 <button onClick={() => alert('Hello!')}>
@@ -137,7 +137,6 @@ This monorepo contains the following packages:
 
 | Package | Version | Description |
 |---------|---------|-------------|
-| [`react-code-view`](./packages/react-code-view) | [![npm](https://img.shields.io/npm/v/react-code-view.svg)](https://www.npmjs.com/package/react-code-view) | Main package (re-exports all) |
 | [`@react-code-view/react`](./packages/react) | [![npm](https://img.shields.io/npm/v/@react-code-view/react.svg)](https://www.npmjs.com/package/@react-code-view/react) | React components |
 | [`@react-code-view/core`](./packages/core) | [![npm](https://img.shields.io/npm/v/@react-code-view/core.svg)](https://www.npmjs.com/package/@react-code-view/core) | Core transformation utilities |
 | [`@react-code-view/unplugin`](./packages/unplugin) | [![npm](https://img.shields.io/npm/v/@react-code-view/unplugin.svg)](https://www.npmjs.com/package/@react-code-view/unplugin) | Build tool plugins |
@@ -356,13 +355,13 @@ pnpm lint
 
 Major changes in v3.0.0 modernize the architecture and usage. Here’s how to update:
 
-- New packages: The project is now a PNPM monorepo with `@react-code-view/react`, `@react-code-view/core`, and `@react-code-view/unplugin`. The `react-code-view` package re-exports everything for convenience.
-- Component imports: Prefer `react-code-view` for quick usage, or import directly from `@react-code-view/react` for granular control.
+- New packages: The project is now a PNPM monorepo with `@react-code-view/react`, `@react-code-view/core`, and `@react-code-view/unplugin`.
+- Component imports: Use `@react-code-view/react` for all React components.
   - Before (v2): `import { CodeView } from 'react-code-view'`
-  - After (v3): `import CodeView from 'react-code-view'` or `import { CodeView } from '@react-code-view/react'`
+  - After (v3+): `import { CodeView } from '@react-code-view/react'`
 - Styles: Use the new CSS entry points.
   - Before (v2): Less files (e.g., `react-code-view/less/styles.less`)
-  - After (v3): `import 'react-code-view/styles'`
+  - After (v3+): `import '@react-code-view/react/styles'`
 - Build tool integration: Replace legacy Webpack markdown loader with the unified unplugin across tools.
   - Before (v2): `webpack-md-loader` and custom loader config
   - After (v3): `@react-code-view/unplugin` for Vite/Webpack/Rollup/esbuild/Rspack (see examples above)
