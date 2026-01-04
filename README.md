@@ -29,14 +29,16 @@ A React component library for rendering code with **live preview** and syntax hi
 
 ```bash
 # npm
-npm install @react-code-view/react
+npm install @react-code-view/react @react-code-view/unplugin
 
 # pnpm
-pnpm add @react-code-view/react
+pnpm add @react-code-view/react @react-code-view/unplugin
 
 # yarn
-yarn add @react-code-view/react
+yarn add @react-code-view/react @react-code-view/unplugin
 ```
+
+> **Note:** `@react-code-view/unplugin` is needed if you want to import `.md` files directly as React components. For basic CodeView usage without markdown imports, you only need `@react-code-view/react`.
 
 ## 🚀 Quick Start
 

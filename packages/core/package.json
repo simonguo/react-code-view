@@ -1,6 +1,6 @@
 {
   "name": "@react-code-view/core",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Core markdown transformation utilities for react-code-view",
   "type": "module",
   "main": "./dist/index.cjs",

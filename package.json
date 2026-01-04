@@ -1,6 +1,6 @@
 {
   "name": "react-code-view-monorepo",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "private": true,
   "description": "Monorepo for react-code-view - A React component for rendering code with live preview",
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "@react-code-view/unplugin",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Build tool plugins for react-code-view (Webpack, Vite, Rollup, esbuild, Rspack)",
   "license": "MIT",
   "main": "./dist/index.cjs",
